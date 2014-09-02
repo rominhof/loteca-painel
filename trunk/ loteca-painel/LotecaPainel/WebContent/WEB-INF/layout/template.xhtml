@@ -9,8 +9,8 @@
       xmlns:c="http://java.sun.com/jstl/core">
 
 <h:head>
-	<title>Painel Cartoleiro AEquipas Cup</title>
-	<link type="text/css" rel="stylesheet" href="/CartolaPainel/css/default.css"/>
+	<title>Loteca Painel</title>
+	<link type="text/css" rel="stylesheet" href="/LotecaPainel/css/default.css"/>
 	<style type="text/css">
 	#loading{
 		float:right;
@@ -47,15 +47,7 @@
 	
 		<div id="conteudo">
 			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
-			<p:dialog header="Processando requisição..." widgetVar="statusDialog"
-						resizable="false" width="300" height="50">
-				<h:graphicImage value="/img/loading_bar.gif" />
-			</p:dialog>
-			<p:dialog header="Erro ao processar requisição!" widgetVar="errorDialog"
-						resizable="false" width="400" height="100">						
-				<h:graphicImage value="/img/error.png" />
-				<h:outputText value="Possivelmente sua sessão ou conexão com o servidor foi perdida."></h:outputText>
-			</p:dialog>
+
 			<ui:insert name="body"></ui:insert>
 		</div>
 		

@@ -1,11 +1,13 @@
 package loteca.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 public class Cartela implements Serializable{
@@ -17,11 +19,35 @@ public class Cartela implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private Integer c1;
-	private Integer cx;
-	private Integer c3;
-	private Resultado resultado;
-	@ManyToOne
-	private Loteca loteca;
+	
+	private Integer seqCartela;
+	
+	@OneToMany
+	private List<Palpite> palpites;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
+	
+	public List<Palpite> getPalpites() {
+		return palpites;
+	}
+	public void setPalpites(List<Palpite> palpites) {
+		this.palpites = palpites;
+	}
+	public Integer getSeqCartela() {
+		return seqCartela;
+	}
+	public void setSeqCartela(Integer seqCartela) {
+		this.seqCartela = seqCartela;
+	}
+	
+	
+	
 	
 }

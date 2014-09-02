@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                template="/WEB-INF/layout/template.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" >
+
+<ui:define name="body">
+
+
+<h:form id="formMain"> 
+
+<p:messages id="msgs"></p:messages>
+
+	<div style="float:left; padding-right: 5px; padding-top:5px;">
+	
+		<div>
+		<p:dataTable var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:320px; float:top;" >
+		 		<f:facet name="header">
+		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
+		 		</f:facet>
+	
+				<p:column  style="text-align:center; width:10px;">
+					<f:facet name="header" >
+						<h:outputText value="Seq."/>
+					</f:facet>
+					<h:outputText value="#{p.sequencialJogo}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Mandante"/>
+					</f:facet>
+					<h:outputText value="#{p.time1.nome}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column style="text-align:center; width:10px;">
+					<f:facet name="header">
+						<h:outputText value=""/>
+					</f:facet>
+					<h:outputText value="#{p.golTime1} X #{p.golTime2} "/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Visitante"/>
+					</f:facet>
+					<h:outputText value="#{p.time2.nome}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				
+				
+		 	</p:dataTable>
+		 </div>
+		 <div style="padding-top:10px;">
+		 
+		 	<h:panelGrid columns="1">
+				<p:commandButton action="#{bBLoteca.novaCartela}" value="Nova Cartela"
+						 styleClass="botao" />
+				
+				<p:commandButton actionListener="#{bBLoteca.carregaLotecaAtual}" value="Carregar Loteca Atual" ajax="true"
+						 styleClass="botao" update=":formMain:msgs"/>
+						 </h:panelGrid>
+		</div>
+		</div>
+	<div>
+	<h:panelGroup columns="1" id="painelCartelas" style="border:dotted 0px #ffffff;" >
+ 	<p:panelGrid columns="1"  style="width:auto;" rendered="#{not empty bBLoteca.cartelas}" >
+ 		<f:facet name="header">
+ 			<h:outputText value="Parciais"></h:outputText>
+ 		</f:facet>
+ 		
+		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
+		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+		 		<f:facet name="header">
+		 			<h:outputText value="Palpite #{c.seqCartela}"></h:outputText>
+		 		</f:facet>
+		 		
+		 		<p:column style="text-align:center; width:10px;">
+					<f:facet name="header">
+						<h:outputText value="Seq."/>
+					</f:facet>
+					<h:outputText value="#{pt.partida.sequencialJogo}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       			
+		       		</f:facet>
+				</p:column>
+				<p:column style="text-align:right;width:100px;">
+					<f:facet name="header">
+						<h:outputText value="Coluna 1"/>
+					</f:facet>
+					<h:outputText value="#{pt.partida.time1.nome}"/>
+					<p:selectBooleanCheckbox value="#{pt.c1}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       			
+		       		</f:facet>
+				</p:column>
+				<p:column style="text-align:center; width:10px;">
+					<f:facet name="header">
+						<h:outputText value=" X "/>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{pt.cx}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column  style="width:100px;">
+					<f:facet name="header">
+						<h:outputText value="Coluna 2"/>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{pt.c2}"/>
+					<h:outputText value="#{pt.partida.time2.nome}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+		 		
+		 	</p:dataTable>
+		 </ui:repeat>
+	</p:panelGrid>
+	</h:panelGroup>
+
+	
+	</div>
+</h:form>
+
+</ui:define>
+</ui:composition>
