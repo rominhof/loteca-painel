@@ -1,5 +1,6 @@
 package loteca.dominio;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-public class Time {
+public class Time implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +20,25 @@ public class Time {
 	
 	private String nome;
 	
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	@ManyToMany
 	private List<Campeonato> campeonato;
+	
+	public Time(){
+		
+	}
+	
+	public Time(String nome){
+		this.nome=nome;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
 	
 }
