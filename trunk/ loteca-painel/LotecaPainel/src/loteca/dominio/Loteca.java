@@ -1,6 +1,7 @@
 package loteca.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,15 +17,27 @@ public class Loteca implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private Integer numConcurso;
-	private Integer sequencialJogo;
-	private Time time1;
-	private Time time2;
-	private Integer golTime1;
-	private Integer golTime2;
-	//ENUM
-	private Resultado resultado;
-	//ENUM
-	private StatusJogo statusJogo;
+
+	private List<Partida> partidas;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Integer getNumConcurso() {
+		return numConcurso;
+	}
+	public void setNumConcurso(Integer numConcurso) {
+		this.numConcurso = numConcurso;
+	}
+	public List<Partida> getPartidas() {
+		return partidas;
+	}
+	public void setPartidas(List<Partida> partidas) {
+		this.partidas = partidas;
+	}
 
 	
 	

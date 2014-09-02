@@ -1,6 +1,13 @@
 package teste;
 
-import cartolafc.util.ParciaisUtil;
+import java.util.ArrayList;
+import java.util.List;
+
+import loteca.dominio.Loteca;
+import loteca.dominio.Partida;
+import loteca.dominio.Time;
+import loteca.util.LotecaUtil;
+import cartolafc.util.HttpUtil;
 
 
 
@@ -19,12 +26,19 @@ public class MainTeste {
 		
 		//JPAUtil.getEntityManager();
 
-		ParciaisUtil pa = new ParciaisUtil();
+		//ParciaisUtil pa = new ParciaisUtil();
 		
 		//pa.baixarArquivosAtualizados(Times.PICAPAUSFC);
-
-				
-
+		
+		LotecaUtil lu = new LotecaUtil();
+		
+		Loteca loteca = lu.getLotecaAtual();
+		
+		System.out.println("Concurso numero "+loteca.getNumConcurso());
+		System.out.println("JOGOS: ");
+		for(Partida p: loteca.getPartidas()){
+			System.out.println(p.getSequencialJogo()+" - "+p.getTime1().getNome().trim() +" x " +p.getTime2().getNome().trim());
+		}
 
 		
 	}
