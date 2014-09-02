@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+	<title>Painel Cartoleiro AEquipas Cup</title>
+	<link type="text/css" rel="stylesheet" href="/CartolaPainel/css/default.css"/>
+	<style type="text/css">
+	#loading{
+		float:right;
+		font-size: 14px;
+		margin-right: 14px;
+		display:none;
+	}
+		body {
+    color: #616161;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+</style>
+
+<script type="text/javascript">
+<!--
+
+
+
+-->
+</script>
+
+	
+</h:head>
+<h:body>
+
+
+
+<p:layout fullPage="true">
+
+	<p:layoutUnit position="center" scrollable="true" >
+	
+		<div id="conteudo">
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
+			<p:dialog header="Processando requisição..." widgetVar="statusDialog"
+						resizable="false" width="300" height="50">
+				<h:graphicImage value="/img/loading_bar.gif" />
+			</p:dialog>
+			<p:dialog header="Erro ao processar requisição!" widgetVar="errorDialog"
+						resizable="false" width="400" height="100">						
+				<h:graphicImage value="/img/error.png" />
+				<h:outputText value="Possivelmente sua sessão ou conexão com o servidor foi perdida."></h:outputText>
+			</p:dialog>
+			<ui:insert name="body"></ui:insert>
+		</div>
+		
+		
+	</p:layoutUnit>
+	
+</p:layout>				
+
+</h:body></html>
+
+
