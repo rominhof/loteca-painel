@@ -15,16 +15,12 @@ public class LotecaService {
 	TimeService timeService = new TimeService();
 	
 	public Loteca carregaLotecaAtual(){
-		
-		return lotecaUtil.getLotecaAtual();
+		return lotecaDAO.findByStatus(Boolean.FALSE);
 	}
 	
 	public void baixarArquivosJsonFI() throws Exception{
-
-			String path = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getRealPath("/");
-			lotecaUtil.baixarTodosArquivosAtualizados(path);
-			
-		
+		String path = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getRealPath("/");
+		lotecaUtil.baixarTodosArquivosAtualizados(path);
 	}
 	
 	public void cadastrarLoteca(Loteca loteca){
@@ -38,5 +34,9 @@ public class LotecaService {
 			p.setTime2(timeService.consultaTimePorNome(p.getTime2().getNome()));
 		}
 		
+	}
+
+	public Loteca carregaLotecaAtualOficialCaixa() {
+		return lotecaUtil.getLotecaAtualOficialCaixa();
 	}
 }
