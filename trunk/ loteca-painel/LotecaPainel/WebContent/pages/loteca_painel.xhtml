@@ -17,7 +17,7 @@
 	<div style="float:left; padding-right: 5px; padding-top:5px;">
 	
 		<div>
-		<p:dataTable var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:320px; float:top;" >
+		<p:dataTable emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:320px; float:top;">
 		 		<f:facet name="header">
 		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
 		 		</f:facet>

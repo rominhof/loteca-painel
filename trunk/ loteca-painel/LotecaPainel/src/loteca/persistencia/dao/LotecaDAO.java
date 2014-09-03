@@ -3,6 +3,7 @@ package loteca.persistencia.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import loteca.dominio.Loteca;
@@ -44,7 +45,13 @@ public class LotecaDAO {
 	public Loteca findByStatus(Boolean finalizado){
 		Query query = em.createNamedQuery("Loteca.findByStatus");
 		query.setParameter("finalizado", finalizado);
-		return (Loteca)query.getSingleResult();
+		Loteca loteca = null;
+		try{
+		 loteca = (Loteca)query.getSingleResult();
+		}catch (NoResultException e) {
+			return loteca;
+		}
+		return loteca;
 	}
 
 }
