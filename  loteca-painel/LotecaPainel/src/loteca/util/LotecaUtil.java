@@ -6,7 +6,6 @@ import java.util.List;
 import loteca.dominio.Loteca;
 import loteca.dominio.Partida;
 import loteca.dominio.Time;
-import cartolafc.util.HttpUtil;
 
 public class LotecaUtil {
 	

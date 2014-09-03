@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
 	
-	private static final String PERSISTENCE_UNIT = "cartola";
+	private static final String PERSISTENCE_UNIT = "lotecaPU";
 		 
 		private static ThreadLocal<EntityManager> threadEntityManager = 
 		                                      new ThreadLocal<EntityManager>(); 
