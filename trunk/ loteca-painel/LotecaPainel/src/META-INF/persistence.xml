@@ -4,7 +4,7 @@
 	xsi:schemaLocation="
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="cartola" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="lotecaPU" transaction-type="RESOURCE_LOCAL">
 	
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	
@@ -12,12 +12,19 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+			<!--  POSTGRES
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/cartola" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			-->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://www.studiocarquitetura.com.br:3306/studioca_loteca" />
+			<property name="javax.persistence.jdbc.user" value="studioca_mysql" />
+			<property name="javax.persistence.jdbc.password" value="masterkey" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			
 		</properties>
 
 	</persistence-unit>

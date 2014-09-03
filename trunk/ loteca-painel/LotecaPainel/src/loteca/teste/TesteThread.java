@@ -1,4 +1,4 @@
-package teste;
+package loteca.teste;
 
 public class TesteThread extends Thread {
 	
