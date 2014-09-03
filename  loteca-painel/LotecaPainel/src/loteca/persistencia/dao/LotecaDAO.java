@@ -22,7 +22,7 @@ public class LotecaDAO {
 		Loteca lotecaExiste = em.find(Loteca.class, loteca.getNumConcurso());
 		
 		if(lotecaExiste==null){
-			em.persist(lotecaExiste);
+			em.persist(loteca);
 			lotecaExiste = em.find(Loteca.class, loteca.getNumConcurso());
 		}
 		em.getTransaction().commit();
