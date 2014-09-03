@@ -60,6 +60,17 @@ public class BBLoteca extends BBDefault {
 		this.cartelas = cartelas;
 	}
 	
+	public void baixarArquivosJsonsFutebolInterior(){
+		try{
+			lotecaService.baixarArquivosJsonFI();
+			addInfo("Arquivos atualizados com sucesso!");
+	}catch (Exception e) {
+		e.printStackTrace();
+		addError("Falha ao baixar arquivos!");
+	}
+		
+		
+	}
 	
 	
 	
