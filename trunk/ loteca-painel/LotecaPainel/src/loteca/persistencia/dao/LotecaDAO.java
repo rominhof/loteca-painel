@@ -20,9 +20,7 @@ public class LotecaDAO {
 		em.getTransaction().begin();
 		Loteca lotecaExiste = em.find(Loteca.class, loteca.getNumConcurso());
 		
-		if(lotecaExiste!=null){
-			em.merge(lotecaExiste);
-		}else{
+		if(lotecaExiste==null){
 			em.persist(lotecaExiste);
 			lotecaExiste = em.find(Loteca.class, loteca.getNumConcurso());
 		}
