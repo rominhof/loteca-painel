@@ -21,9 +21,9 @@ public class BBLoteca extends BBDefault {
 	private List<Cartela> cartelas;
 	
 	public BBLoteca(){
-		loteca = new Loteca();
 		cartelas = new ArrayList<Cartela>();
 		lotecaService = new LotecaService();
+		carregaLotecaAtual();
 	}
 	
 	public void sincronizaLotecaAtual(){
@@ -34,6 +34,9 @@ public class BBLoteca extends BBDefault {
 	
 	public void carregaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtual();
+		if(loteca == null){
+			loteca = new Loteca();
+		}
 	}
 	
 	public void novaCartela(){
