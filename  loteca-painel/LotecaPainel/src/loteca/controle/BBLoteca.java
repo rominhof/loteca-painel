@@ -26,10 +26,14 @@ public class BBLoteca extends BBDefault {
 		lotecaService = new LotecaService();
 	}
 	
-	public void carregaLotecaAtual(){
+	public void sincronizaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtualOficialCaixa();
 		loteca.setFinalizado(Boolean.FALSE);
 		lotecaService.cadastrarLoteca(loteca);
+	}
+	
+	public void carregaLotecaAtual(){
+		loteca = lotecaService.carregaLotecaAtual();
 	}
 	
 	public void novaCartela(){
