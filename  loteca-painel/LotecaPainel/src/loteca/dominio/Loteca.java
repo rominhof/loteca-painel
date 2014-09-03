@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Loteca.findAll", query="select l from loteca.dominio.Loteca l "),
-	@NamedQuery(name="Loteca.findByNumeroConcurso", query="select l from loteca.dominio.Loteca l where l.numConcurso = :numConcurso"),
+	@NamedQuery(name="Loteca.findByNumConcurso", query="select l from loteca.dominio.Loteca l where l.numConcurso = :numConcurso"),
 	@NamedQuery(name="Loteca.findByStatus", query="select l from loteca.dominio.Loteca l where l.finalizado = :finalizado")})
 public class Loteca implements Serializable{
 	
