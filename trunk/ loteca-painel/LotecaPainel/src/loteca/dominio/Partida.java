@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Partida implements Serializable{
@@ -30,6 +31,9 @@ public class Partida implements Serializable{
 	private Resultado resultado;
 	//ENUM
 	private StatusJogo statusJogo;
+	
+	@OneToOne
+	private Loteca loteca;
 	
 	@OneToMany
 	private List<Palpite> palpites;
@@ -89,6 +93,13 @@ public class Partida implements Serializable{
 	public void setPalpites(List<Palpite> palpites) {
 		this.palpites = palpites;
 	}
+	public Loteca getLoteca() {
+		return loteca;
+	}
+	public void setLoteca(Loteca loteca) {
+		this.loteca = loteca;
+	}
+	
 	
 	
 	
