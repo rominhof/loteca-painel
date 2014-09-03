@@ -1,6 +1,7 @@
 package loteca.persistencia.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import loteca.dominio.Time;
@@ -22,7 +23,13 @@ public class TimeDAO {
 		}else{
 			return null;
 		}
-		return (Time)query.getSingleResult();
+		Time time = null;
+		try{
+			time = (Time)query.getSingleResult();
+		}catch (NoResultException e) {
+			return time;
+		}
+		return time;
 	}
 	
 

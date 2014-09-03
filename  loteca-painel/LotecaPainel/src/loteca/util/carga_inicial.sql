@@ -215,5 +215,5 @@ INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VA
 INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 98);
 INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 99);
 INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 100);
-
+INSERT INTO Campeonato_Time (campeonato_id, times_id) VALUES (4, 101);
 
