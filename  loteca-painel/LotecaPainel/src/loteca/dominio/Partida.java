@@ -23,7 +23,9 @@ public class Partida implements Serializable{
 	private Long id;
 
 	private Integer sequencialJogo;
+	@ManyToOne
 	private Time time1;
+	@ManyToOne
 	private Time time2;
 	private Integer golTime1;
 	private Integer golTime2;
