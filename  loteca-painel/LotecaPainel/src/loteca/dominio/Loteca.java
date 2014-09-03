@@ -24,6 +24,8 @@ public class Loteca implements Serializable{
 	@OneToMany
 	private List<Partida> partidas;
 	
+	private Boolean finalizado;
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,7 +44,14 @@ public class Loteca implements Serializable{
 	public void setPartidas(List<Partida> partidas) {
 		this.partidas = partidas;
 	}
+	public Boolean getFinalizado() {
+		return finalizado;
+	}
+	public void setFinalizado(Boolean finalizado) {
+		this.finalizado = finalizado;
+	}
 
+	
 	
 	
 }

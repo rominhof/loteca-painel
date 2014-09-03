@@ -25,6 +25,7 @@ public class Palpite implements Serializable{
 	private Boolean cx;
 	private Boolean c2;
 	private Resultado resultado;
+	private Boolean acerto;
 	
 	public Long getId() {
 		return id;
@@ -62,6 +63,13 @@ public class Palpite implements Serializable{
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
+	public Boolean getAcerto() {
+		return acerto;
+	}
+	public void setAcerto(Boolean acerto) {
+		this.acerto = acerto;
+	}
+	
 	
 	
 }

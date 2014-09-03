@@ -27,7 +27,7 @@ INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (19, 'Sport/PE');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (20, 'Vitória/BA');
 
 --Times da Serie B
-INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (21, 'ABC');
+INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (21, 'ABC/RN');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (22, 'América/RN');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (23, 'América/MG');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (24, 'Atlético/GO');
@@ -42,7 +42,7 @@ INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (32, 'Naútico/PE');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (33, 'Oeste/SP');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (34, 'Paraná/PR');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (35, 'Ponte Preta/SP');
-INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (36, 'Portuguesa/SP');
+INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (36, 'Portuguesa Desportos/SP');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (37, 'Samapio Corrêa/MA');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (38, 'Santa Cruz/PE');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (39, 'Vasco da Gama/RJ');
@@ -90,7 +90,7 @@ INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (75, 'Globo/RN');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (76, 'Goianésia/GO');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (77, 'Grêmio Barueri/SP');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (78, 'Guarani de Palhoça/SC');
-INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (79, 'Guarany de Sobral/CE');
+INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (79, 'Guarany/CE');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (80, 'Interporto/TO');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (81, 'Itaporâ/MS');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (82, 'Ituano/SP');
