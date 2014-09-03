@@ -40,5 +40,11 @@ public class LotecaDAO {
 		query.setParameter("numConcurso", numConcurso);
 		return (Loteca)query.getSingleResult();
 	}
+	
+	public Loteca findByStatus(Boolean finalizado){
+		Query query = em.createNamedQuery("Loteca.findByStatus");
+		query.setParameter("finalizado", finalizado);
+		return (Loteca)query.getSingleResult();
+	}
 
 }
