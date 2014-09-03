@@ -59,8 +59,8 @@ public class LotecaUtil {
 				String[] times = time.split("<td class=\"times_coluna2\">");
 				Partida partida = new Partida();
 				partida.setSequencialJogo(++seq);
-				partida.setTime1(new Time(times[0].split("</td>")[0]));
-				partida.setTime2(new Time(times[1].split("</td>")[0]));
+				partida.setTime1(new Time(times[0].split("</td>")[0].trim()));
+				partida.setTime2(new Time(times[1].split("</td>")[0].trim()));
 				partidas.add(partida);
 			}
 		}

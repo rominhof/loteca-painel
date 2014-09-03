@@ -18,7 +18,7 @@ INSERT INTO Time (id, nome) VALUES (10, 'Figueirense/SC');
 INSERT INTO Time (id, nome) VALUES (11, 'Flamengo/RJ');
 INSERT INTO Time (id, nome) VALUES (12, 'Fluminense/RJ');
 INSERT INTO Time (id, nome) VALUES (13, 'Goiás/GO');
-INSERT INTO Time (id, nome) VALUES (14, 'Grêmio/RJ');
+INSERT INTO Time (id, nome) VALUES (14, 'Grêmio/RS');
 INSERT INTO Time (id, nome) VALUES (15, 'Internacional/RS');
 INSERT INTO Time (id, nome) VALUES (16, 'Palmeiras/SP');
 INSERT INTO Time (id, nome) VALUES (17, 'Santos/SP');
