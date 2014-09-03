@@ -29,6 +29,7 @@ public class BBLoteca extends BBDefault {
 	public void carregaLotecaAtual(){
 		
 		loteca = lotecaService.carregaLotecaAtual();
+		lotecaService.cadastrarLoteca(loteca);
 	}
 	
 	public void novaCartela(){
