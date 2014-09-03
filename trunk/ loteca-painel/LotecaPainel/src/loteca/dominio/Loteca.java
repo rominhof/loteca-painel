@@ -3,6 +3,7 @@ package loteca.dominio;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -22,7 +23,7 @@ public class Loteca implements Serializable{
 	@Id
 	private Integer numConcurso;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Partida> partidas;
 	
 	private Boolean finalizado;
