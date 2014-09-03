@@ -29,7 +29,13 @@ public class BBLoteca extends BBDefault {
 	public void sincronizaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtualOficialCaixa();
 		loteca.setFinalizado(Boolean.FALSE);
-		lotecaService.cadastrarLoteca(loteca);
+		Loteca lotecaExistenteBase = lotecaService.consultaLotecaPorNumeroConcurso(loteca.getNumConcurso());
+		if(lotecaExistenteBase!=null){
+			addError("Loteca já existe cadastrada na base!");
+		}else{
+			addInfo("Loteca sincronizada com sucesso!");
+			lotecaService.cadastrarLoteca(loteca);
+		}
 	}
 	
 	public void carregaLotecaAtual(){

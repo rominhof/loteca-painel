@@ -37,9 +37,15 @@ public class LotecaDAO {
 	}
 	
 	public Loteca findByNumConcurso(Integer numConcurso){
-		Query query = em.createNamedQuery("Loteca.findByNumConcurso");
-		query.setParameter("numConcurso", numConcurso);
-		return (Loteca)query.getSingleResult();
+		Loteca loteca = null;
+		try{
+			Query query = em.createNamedQuery("Loteca.findByNumConcurso");
+			query.setParameter("numConcurso", numConcurso);
+			loteca = (Loteca)query.getSingleResult();
+		}catch(NoResultException e){
+			return loteca;
+		}
+		return loteca;
 	}
 	
 	public Loteca findByStatus(Boolean finalizado){

@@ -1,18 +1,28 @@
 package loteca.service;
 
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
 
 import loteca.dominio.Loteca;
 import loteca.dominio.Partida;
 import loteca.persistencia.dao.LotecaDAO;
+import loteca.util.JPAUtil;
 import loteca.util.LotecaUtil;
 
 public class LotecaService {
 
-	LotecaUtil lotecaUtil = new LotecaUtil();
-	LotecaDAO lotecaDAO = new LotecaDAO();
-	TimeService timeService = new TimeService();
+	private EntityManager em;
+	LotecaUtil lotecaUtil;
+	LotecaDAO lotecaDAO;
+	TimeService timeService;
+	
+	public LotecaService(){
+		em = JPAUtil.getEntityManager();
+		lotecaUtil = new LotecaUtil();
+		lotecaDAO = new LotecaDAO();
+		timeService = new TimeService();
+	}
 	
 	public Loteca carregaLotecaAtual(){
 		return lotecaDAO.findByStatus(Boolean.FALSE);
@@ -24,8 +34,15 @@ public class LotecaService {
 	}
 	
 	public void cadastrarLoteca(Loteca loteca){
+		em.getTransaction().begin();
 		preencheTimesLoteca(loteca);
 		lotecaDAO.insert(loteca);
+		em.getTransaction().commit();
+		
+	}
+	
+	public Loteca consultaLotecaPorNumeroConcurso(Integer numConcurso){
+		return lotecaDAO.findByNumConcurso(numConcurso);
 	}
 	
 	public void preencheTimesLoteca(Loteca loteca){
