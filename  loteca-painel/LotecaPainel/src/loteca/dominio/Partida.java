@@ -1,11 +1,14 @@
 package loteca.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Partida implements Serializable{
@@ -27,6 +30,9 @@ public class Partida implements Serializable{
 	private Resultado resultado;
 	//ENUM
 	private StatusJogo statusJogo;
+	
+	@OneToMany
+	private List<Palpite> palpites;
 	
 	
 	public Long getId() {
@@ -77,5 +83,13 @@ public class Partida implements Serializable{
 	public void setStatusJogo(StatusJogo statusJogo) {
 		this.statusJogo = statusJogo;
 	}
+	public List<Palpite> getPalpites() {
+		return palpites;
+	}
+	public void setPalpites(List<Palpite> palpites) {
+		this.palpites = palpites;
+	}
+	
+	
 	
 }

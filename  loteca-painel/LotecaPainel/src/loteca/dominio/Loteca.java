@@ -3,10 +3,13 @@ package loteca.dominio;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Loteca implements Serializable{
 	
 	/**
@@ -18,6 +21,7 @@ public class Loteca implements Serializable{
 	private Long id;
 	private Integer numConcurso;
 
+	@OneToMany
 	private List<Partida> partidas;
 	
 	public Long getId() {
