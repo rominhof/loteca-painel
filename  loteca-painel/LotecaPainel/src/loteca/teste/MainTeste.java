@@ -19,7 +19,7 @@ public class MainTeste {
 			
 		System.out.println(jogosDaRodadaHtml);
 		**/
-		
+		 
 		//JPAUtil.getEntityManager();
 
 		//ParciaisUtil pa = new ParciaisUtil();
