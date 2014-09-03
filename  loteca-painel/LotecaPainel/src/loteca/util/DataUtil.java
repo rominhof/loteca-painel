@@ -16,7 +16,7 @@ public class DataUtil {
 	public static String formataData(Date data){
 		return sdf.format(data);
 	}
-	
+	 
 	public static Date addDias(Date date, int a){
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(date);
