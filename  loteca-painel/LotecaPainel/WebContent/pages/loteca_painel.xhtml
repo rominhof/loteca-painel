@@ -68,7 +68,7 @@
 				<p:commandButton action="#{bBLoteca.novaCartela}" value="Nova Cartela"
 						 styleClass="botao" />
 				
-				<p:commandButton actionListener="#{bBLoteca.sincronizaLotecaAtual}" value="Sincroniza Loteca Atual" ajax="true"
+				<p:commandButton actionListener="#{bBLoteca.sincronizaLotecaAtual}" value="Sincroniza Loteca Atual" ajax="true" immediate="true" 
 						 styleClass="botao" update=":formMain:msgs"/>
 						 </h:panelGrid>
 		</div>
@@ -83,10 +83,9 @@
  		<h:outputText value="Grupo de Cartelas: "></h:outputText>
  		<p:selectOneMenu value="#{bBLoteca.grupoCartela}"  id="grupoCartelaID" converter="grupoCartelaConverter">
  			<p:ajax event="change" update="painelCartelas" listener="#{bBLoteca.selecionaGrupoCartela}"></p:ajax>
-            <f:selectItem itemLabel="Selecione um grupo ou digite para criar um novo" itemValue="#{null}" />
             <f:selectItems value="#{bBLoteca.gruposCartelas}" var="gc"  itemLabel="#{gc.nome}" itemValue="#{gc}"/>
         </p:selectOneMenu>
-        <h:message for="grupoCartelaID"></h:message>
+        
  		
 		 <ui:repeat var="c" value="#{bBLoteca.grupoCartela.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
