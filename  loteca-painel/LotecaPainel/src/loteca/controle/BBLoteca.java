@@ -62,7 +62,7 @@ public class BBLoteca extends BBDefault {
 		if(loteca!=null){
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuarioConcurso(getUsuarioLogado(), loteca.getNumConcurso());
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
-				grupoCartela = gruposCartelas.get(1);
+				grupoCartela = gruposCartelas.get(0);
 			}
 			if(loteca!=null && loteca.getPartidas()!=null)
 				Collections.reverse(loteca.getPartidas());
