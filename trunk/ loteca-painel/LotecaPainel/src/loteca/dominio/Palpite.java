@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,6 +22,10 @@ public class Palpite implements Serializable{
 	private Long id;
 	@OneToOne
 	private Partida partida;
+	
+	@ManyToOne
+	@JoinColumn(name="ID")
+	private Cartela cartela;
 	
 	private Boolean c1;
 	private Boolean cx;
@@ -69,6 +75,14 @@ public class Palpite implements Serializable{
 	public void setAcerto(Boolean acerto) {
 		this.acerto = acerto;
 	}
+	public Cartela getCartela() {
+		return cartela;
+	}
+	public void setCartela(Cartela cartela) {
+		this.cartela = cartela;
+	}
+	
+	
 	
 	
 	
