@@ -16,41 +16,42 @@ public class LotecaService {
 	LotecaUtil lotecaUtil;
 	LotecaDAO lotecaDAO;
 	TimeService timeService;
-	
-	public LotecaService(){
+
+	public LotecaService() {
 		em = JPAUtil.getEntityManager();
 		lotecaUtil = new LotecaUtil();
 		lotecaDAO = new LotecaDAO();
 		timeService = new TimeService();
 	}
-	
-	public Loteca carregaLotecaAtual(){
+
+	public Loteca carregaLotecaAtual() {
 		return lotecaDAO.findByStatus(Boolean.FALSE);
 	}
-	
-	public void baixarArquivosJsonFI() throws Exception{
-		String path = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getRealPath("/");
+
+	public void baixarArquivosJsonFI() throws Exception {
+		String path = ((ServletContext) FacesContext.getCurrentInstance()
+				.getExternalContext().getContext()).getRealPath("/");
 		lotecaUtil.baixarTodosArquivosAtualizados(path);
 	}
-	
-	public void cadastrarLoteca(Loteca loteca){
+
+	public void cadastrarLoteca(Loteca loteca) {
 		em.getTransaction().begin();
 		preencheTimesLoteca(loteca);
 		lotecaDAO.insert(loteca);
 		em.getTransaction().commit();
-		
+
 	}
-	
-	public Loteca consultaLotecaPorNumeroConcurso(Integer numConcurso){
+
+	public Loteca consultaLotecaPorNumeroConcurso(Integer numConcurso) {
 		return lotecaDAO.findByNumConcurso(numConcurso);
 	}
-	
-	public void preencheTimesLoteca(Loteca loteca){
-		for(Partida p: loteca.getPartidas()){
+
+	public void preencheTimesLoteca(Loteca loteca) {
+		for (Partida p : loteca.getPartidas()) {
 			p.setTime1(timeService.consultaTimePorNome(p.getTime1().getNome()));
 			p.setTime2(timeService.consultaTimePorNome(p.getTime2().getNome()));
 		}
-		
+
 	}
 
 	public Loteca carregaLotecaAtualOficialCaixa() {
