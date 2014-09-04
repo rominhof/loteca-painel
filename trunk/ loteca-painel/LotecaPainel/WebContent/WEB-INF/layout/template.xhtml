@@ -46,7 +46,12 @@
 	<p:layoutUnit position="center" scrollable="true" >
 	
 		<div id="conteudo">
-			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
+			
+		<!--	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <p:graphicImage name="/img/loadingbar.gif" />
+			</p:dialog>-->
 
 			<ui:insert name="body"></ui:insert>
 		</div>

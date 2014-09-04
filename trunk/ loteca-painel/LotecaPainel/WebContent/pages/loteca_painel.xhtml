@@ -84,7 +84,7 @@
  		<p:selectOneMenu value="#{bBLoteca.grupoCartela}" editable="true" id="grupoCartelaID">
  			<p:ajax event="change" update="painelCartelas" listener="#{bBLoteca.selecionaGrupoCartela}"></p:ajax>
             <f:selectItem itemLabel="Selecione um grupo ou digite para criar um novo" itemValue="" />
-            <f:selectItems value="#{bBLoteca.gruposCartelas}" var="gc" itemLabel="#{gc.nome}" itemValue="#{gc}"/>
+            <f:selectItems value="#{bBLoteca.gruposCartelas}" var="gc" itemValue="#{gc}" itemLabel="#{gc.nome}"/>
         </p:selectOneMenu>
         <h:message for="grupoCartelaID"></h:message>
  		

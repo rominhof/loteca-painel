@@ -28,6 +28,10 @@ public class GrupoCartelaService {
 		return grupoCartelaDAO.findByUsuarioLoteca(u, numConcurso);
 	}
 	
+	public GrupoCartela consultarPorId(Integer id) {
+		return grupoCartelaDAO.findById(id);
+	}
+	
 	public GrupoCartela salvar(GrupoCartela grupoCartela){
 		em.getTransaction().begin();
 		grupoCartelaDAO.insertOrUpdate(grupoCartela);
