@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import loteca.dominio.Cartela;
 import loteca.dominio.GrupoCartela;
@@ -62,7 +62,7 @@ public class BBLoteca extends BBDefault {
 		if(loteca!=null){
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuarioConcurso(getUsuarioLogado(), loteca.getNumConcurso());
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
-				grupoCartela = gruposCartelas.get(0);
+				grupoCartela = gruposCartelas.get(1);
 			}
 			if(loteca!=null && loteca.getPartidas()!=null)
 				Collections.reverse(loteca.getPartidas());
@@ -71,8 +71,8 @@ public class BBLoteca extends BBDefault {
 		}
 	}
 	
-	public void selecionaGrupoCartela(ActionEvent ev){
-		
+	public void selecionaGrupoCartela(){
+		System.out.println("selecionou: "+grupoCartela);
 	}
 	
 	public void novaCartela(){
