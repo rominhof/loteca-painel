@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Time.findByNome", query="select t from Time t where upper(t.nome) = :nome ")})
+	@NamedQuery(name="Time.findByNome", query="select t from Time t where lower(t.nome) = :nome ")})
 public class Time implements Serializable {
 
 	/**
