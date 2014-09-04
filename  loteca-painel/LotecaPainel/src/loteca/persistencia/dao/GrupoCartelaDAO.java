@@ -35,7 +35,6 @@ public class GrupoCartelaDAO {
 	}
 	
 	public GrupoCartela insertOrUpdate(GrupoCartela grupoCartela){
-		em.getTransaction().begin();
 		GrupoCartela grupoCartelaExiste = null;
 		if(grupoCartela.getId()!=null){
 			grupoCartelaExiste = em.find(GrupoCartela.class, grupoCartela.getId());
@@ -46,8 +45,6 @@ public class GrupoCartelaDAO {
 			em.merge(grupoCartela);
 		}
 		grupoCartelaExiste = em.find(GrupoCartela.class, grupoCartela.getId());
-		em.getTransaction().commit();
-		
 		return grupoCartelaExiste;
 	
 	}

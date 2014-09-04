@@ -3,6 +3,7 @@ package loteca.dominio;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Usuario implements Serializable{
 	
 	private String email;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="Usuario_GrupoCartelas")
 	private List<GrupoCartela> gruposCartelas;
 	

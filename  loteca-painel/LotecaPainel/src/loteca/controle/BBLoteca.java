@@ -17,6 +17,7 @@ import loteca.dominio.Usuario;
 import loteca.service.CartelaService;
 import loteca.service.GrupoCartelaService;
 import loteca.service.LotecaService;
+import loteca.service.UsuarioService;
 
 @ManagedBean(name="bBLoteca")
 @SessionScoped
@@ -26,11 +27,12 @@ public class BBLoteca extends BBDefault {
 	private GrupoCartela grupoCartela;
 	private List<GrupoCartela> gruposCartelas;
 	private LotecaService lotecaService;
+	private UsuarioService usuarioService;
 	private GrupoCartelaService grupoCartelaService;
 	
 
 	public BBLoteca(){
-		
+		usuarioService = new UsuarioService();
 		lotecaService = new LotecaService();
 		grupoCartelaService = new GrupoCartelaService();
 		grupoCartela = new GrupoCartela();
@@ -74,11 +76,11 @@ public class BBLoteca extends BBDefault {
 		System.out.println("selecionou: "+grupoCartela);
 	}
 	
+	
 	public void novaCartela(){
 		carregaGruposCartelasUsuario();
-		grupoCartela = new GrupoCartela();
 		List<Cartela>cartelas = new ArrayList<Cartela>();
-		grupoCartela.setCartelas(cartelas);
+	
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios.add(getUsuarioLogado());
 		grupoCartela.setUsuarios(usuarios);
@@ -95,6 +97,19 @@ public class BBLoteca extends BBDefault {
 		cartela.setPalpites(palpites);
 		cartelas.add(cartela);
 		grupoCartela.setCartelas(cartelas);
+	}
+	
+	public void preparaCadastraGrupoCartela(){
+		grupoCartela = new GrupoCartela();
+	}
+	
+	public void salvaGrupoCartela(){
+		Usuario u = getUsuarioLogado();
+		gruposCartelas.add(grupoCartela);
+		u.setGruposCartelas(gruposCartelas);
+		usuarioService.salvar(u);
+		carregaGruposCartelasUsuario();
+		
 	}
 
 	private void carregaGruposCartelasUsuario() {
