@@ -81,11 +81,12 @@
  		</f:facet>
  		
  		<h:outputText value="Grupo de Cartelas: "></h:outputText>
- 		<p:selectOneMenu value="#{bBLoteca.grupoCartela}" effect="fold" editable="true">
- 			<p:ajax event="blur" update="formMain:painelCartelas"/>
+ 		<p:selectOneMenu value="#{bBLoteca.grupoCartela}" editable="true" id="grupoCartelaID">
+ 			<p:ajax event="change" update="painelCartelas" listener="#{bBLoteca.selecionaGrupoCartela}"></p:ajax>
             <f:selectItem itemLabel="Selecione um grupo ou digite para criar um novo" itemValue="" />
             <f:selectItems value="#{bBLoteca.gruposCartelas}" var="gc" itemLabel="#{gc.nome}" itemValue="#{gc}"/>
         </p:selectOneMenu>
+        <h:message for="grupoCartelaID"></h:message>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.grupoCartela.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >

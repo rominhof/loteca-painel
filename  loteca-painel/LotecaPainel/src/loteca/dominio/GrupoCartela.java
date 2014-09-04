@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="GrupoCartela.findByUsuario", query="select gc from GrupoCartela gc join gc.usuarios u where u.id = :id"),
-	@NamedQuery(name="GrupoCartela.findByUsuarioLoteca", query="select distinct gc from GrupoCartela gc join gc.usuarios u join gc.cartelas c where u.id = :id and c.loteca.numConcurso = :numConcurso")
+	@NamedQuery(name="GrupoCartela.findByUsuarioLoteca", query="select distinct gc from GrupoCartela gc join gc.usuarios u left join gc.cartelas c where u.id = :id and (c.loteca.numConcurso = :numConcurso or c.loteca.numConcurso is null)")
 	})
 public class GrupoCartela implements Serializable{
 	
