@@ -19,6 +19,7 @@ public class BBUsuario extends BBDefault {
 	
 	public BBUsuario(){
 		usuarioService = new UsuarioService();
+		usuarioLogin = new Usuario();
 	}
 	
 	public String login(){
@@ -27,6 +28,7 @@ public class BBUsuario extends BBDefault {
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", usuarioLogado);
 			return PAGINA_LOGIN_SUCESSO;
 		}else{
+			addError("Falha na autenticação! Login e/ou Senha inválidos.");
 			return null;
 		}
 	}

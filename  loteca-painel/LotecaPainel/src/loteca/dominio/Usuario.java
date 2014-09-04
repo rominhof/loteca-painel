@@ -1,6 +1,7 @@
 package loteca.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Loteca.findByLoginSenha", query="select u from Usuario u where u.login =:login and u.senha=:senha ")})
+	@NamedQuery(name="Usuario.findByLoginSenha", query="select u from Usuario u where u.login =:login and u.senha=:senha ")})
 public class Usuario implements Serializable{
 	
 
@@ -34,7 +35,7 @@ public class Usuario implements Serializable{
 	
 	@ManyToMany
 	@JoinTable(name="Usuario_GrupoCartelas")
-	private GrupoCartela gruposCartelas;
+	private List<GrupoCartela> gruposCartelas;
 	
 	public Long getId() {
 		return id;
@@ -67,6 +68,16 @@ public class Usuario implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<GrupoCartela> getGruposCartelas() {
+		return gruposCartelas;
+	}
+
+	public void setGruposCartelas(List<GrupoCartela> gruposCartelas) {
+		this.gruposCartelas = gruposCartelas;
+	}
+
+	
 	
 	
 	
