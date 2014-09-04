@@ -2,13 +2,20 @@ package loteca.dominio;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-
 
 public enum CampeonatoEnum implements Serializable {
 
-	BRASILEIRO_SERIE_A, 
-	BRASILEIRO_SERIE_B, 
-	BRASILEIRO_SERIE_C, 
-	BRASILEIRO_SERIE_D;
+	BRASILEIRO_SERIE_A("Brasileiro Serie A"), 
+	BRASILEIRO_SERIE_B("Brasileiro Serie B"), 
+	BRASILEIRO_SERIE_C("Brasileiro Serie C"),
+	BRASILEIRO_SERIE_D("Brasileiro Serie D");
+	
+	private String nome;
+	CampeonatoEnum(String nome){
+		this.nome = nome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
 }

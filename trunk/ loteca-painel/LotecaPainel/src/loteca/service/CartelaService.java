@@ -5,30 +5,35 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import loteca.dominio.Cartela;
+import loteca.dominio.Palpite;
 import loteca.persistencia.dao.CartelaDAO;
+import loteca.persistencia.dao.PalpiteDAO;
 import loteca.util.JPAUtil;
 
 public class CartelaService {
-
+	private CartelaDAO cartelaDAO;
+	private PalpiteDAO palpiteDAO;
 	private EntityManager em;
-	CartelaDAO cartelaDAO;
 
 	public CartelaService() {
 		em = JPAUtil.getEntityManager();
 		cartelaDAO = new CartelaDAO();
+		palpiteDAO = new PalpiteDAO();
 	}
 
-	public List<Cartela> consultarCartelasPorConcurso(Integer numConcurso) {
+	public List<Cartela> carregaCartelasDeConcurso(Integer numConcurso) {
 		return cartelaDAO.findByLoteca(numConcurso);
 	}
-	
-	public List<Cartela> salvarCartelas(List<Cartela> cartelas){
+
+	public void atualizaCartela(Cartela cartela) {
 		em.getTransaction().begin();
-		for(Cartela cartela: cartelas){
-			cartelaDAO.insertOrUpdate(cartela);
-		}
+		cartelaDAO.insertOrUpdate(cartela);
 		em.getTransaction().commit();
-		return cartelas;
 	}
 
+	public void atualizaPalpite(Palpite palpite) {
+		em.getTransaction().begin();
+		palpiteDAO.insertOrUpdate(palpite);
+		em.getTransaction().commit();
+	}
 }

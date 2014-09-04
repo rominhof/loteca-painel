@@ -7,6 +7,7 @@ public enum StatusJogo {
 	   Não sei o status real correspondente ao JSON do Futebol Interior para este caso. */
 	EM_ANDAMENTO,
 	INTERVALO,
-	FINALIZADO;
+	FINALIZADO,
+	OUTRO;
 
 }
