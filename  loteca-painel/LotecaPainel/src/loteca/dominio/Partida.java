@@ -11,10 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Partida implements Serializable{
+public class Partida implements Serializable, Comparable<Partida>{
 
 	/**
 	 * 
@@ -106,6 +105,11 @@ public class Partida implements Serializable{
 		this.loteca = loteca;
 	}
 	
+	@Override
+	public int compareTo(Partida o) {
+		Partida p =(Partida)o; 
+		return sequencialJogo.compareTo(p.getSequencialJogo());
+	}
 	
 	
 	

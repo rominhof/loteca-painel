@@ -3,7 +3,6 @@ package loteca.persistencia.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import loteca.dominio.Cartela;
@@ -20,8 +19,10 @@ public class CartelaDAO {
 	
 	public Cartela insertOrUpdate(Cartela cartela){
 		em.getTransaction().begin();
-		Cartela cartelaExiste = em.find(Cartela.class, cartela.getId());
-		
+		Cartela cartelaExiste = null;
+		if(cartela.getId()!=null){
+			cartelaExiste = em.find(Cartela.class, cartela.getId());
+		}
 		if(cartelaExiste==null){
 			em.persist(cartela);
 		}else{
@@ -32,6 +33,12 @@ public class CartelaDAO {
 		
 		return cartelaExiste;
 	
+	}
+	
+	public List<Cartela> findByLoteca(Integer numConcurso){
+		Query query = em.createNamedQuery("Cartela.findByLoteca");
+		query.setParameter("numConcurso", numConcurso);
+		return (List<Cartela>)query.getResultList();
 	}
 	
 }

@@ -2,7 +2,6 @@ package loteca.teste;
 
 import loteca.dominio.Loteca;
 import loteca.dominio.Partida;
-import loteca.util.JPAUtil;
 import loteca.util.LotecaUtil;
 
 
@@ -26,18 +25,21 @@ public class MainTeste {
 		
 		//pa.baixarArquivosAtualizados(Times.PICAPAUSFC);
 		
-		/**LotecaUtil lu = new LotecaUtil();
+		LotecaUtil lu = new LotecaUtil();
 		
-		Loteca loteca = lu.getLotecaAtual();
+		Loteca loteca = lu.getLotecaAtualOficialCaixa();
 		
 		System.out.println("Concurso numero "+loteca.getNumConcurso());
 		System.out.println("JOGOS: ");
 		for(Partida p: loteca.getPartidas()){
 			System.out.println(p.getSequencialJogo()+" - "+p.getTime1().getNome().trim() +" x " +p.getTime2().getNome().trim());
-		}**/
-		
+		}
+		/**
 		JPAUtil.getEntityManager();
-
+		TimeDAO timeDAO = new TimeDAO();
+		Time time = timeDAO.findByNome("GRÊMIO/RS");
+		System.out.println(time.getNome());
+		*/
 		
 	}
 	

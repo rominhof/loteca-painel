@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.Charset;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -15,6 +16,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import com.google.common.base.Charsets;
 
 public class HttpUtil {
 
@@ -39,12 +42,12 @@ public class HttpUtil {
 
 		try {
 			HttpResponse response = httpclient.execute(httpget);
-
+			
 			HttpEntity entity = response.getEntity();
 
 			if (entity != null) {
 				InputStream instream = entity.getContent();
-
+				
 				String html = toString(instream);
 
 				return html;
@@ -65,7 +68,7 @@ public class HttpUtil {
 		while ((lidos = is.read(bytes)) > 0) {
 			baos.write(bytes, 0, lidos);
 		}
-		return new String(baos.toByteArray());
+		return new String(baos.toByteArray(),Charsets.ISO_8859_1);
 	}
 
 }

@@ -6,14 +6,21 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Cartela implements Serializable{
+@NamedQueries({
+	@NamedQuery(name="Cartela.findByLoteca", query="select c from Cartela c where c.loteca.numConcurso = :numConcurso ")
+	})
+public class Cartela implements Serializable, Comparable<Cartela>{
 	
 	/**
 	 * 
@@ -26,8 +33,12 @@ public class Cartela implements Serializable{
 	
 	private Integer seqCartela;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="cartela")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="cartela")
 	private List<Palpite> palpites;
+	
+	@ManyToOne
+	@JoinColumn(name="NUMCONCURSO")
+	private Loteca loteca;
 	
 	public Long getId() {
 		return id;
@@ -50,6 +61,18 @@ public class Cartela implements Serializable{
 	public void setSeqCartela(Integer seqCartela) {
 		this.seqCartela = seqCartela;
 	}
+	public Loteca getLoteca() {
+		return loteca;
+	}
+	public void setLoteca(Loteca loteca) {
+		this.loteca = loteca;
+	}
+	@Override
+	public int compareTo(Cartela o) {
+		Cartela c =(Cartela)o; 
+		return seqCartela.compareTo(c.getSeqCartela());
+	}
+	
 	
 	
 	

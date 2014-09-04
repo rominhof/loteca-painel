@@ -49,6 +49,7 @@ public class Loteca implements Serializable{
 		this.finalizado = finalizado;
 	}
 
+
 	
 	
 	

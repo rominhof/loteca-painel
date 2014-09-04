@@ -83,7 +83,7 @@
 		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
-		 			<h:outputText value="Palpite #{c.seqCartela}"></h:outputText>
+		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 		 		</f:facet>
 		 		
 		 		<p:column style="text-align:center; width:10px;">
@@ -130,6 +130,10 @@
 		 	</p:dataTable>
 		 </ui:repeat>
 	</p:panelGrid>
+	<h:panelGrid columns="1">
+				<p:commandButton action="#{bBLoteca.salvarCartelas}" value="Salvar Cartelas"
+						 styleClass="botao" />
+	</h:panelGrid>
 	</h:panelGroup>
 
 	
