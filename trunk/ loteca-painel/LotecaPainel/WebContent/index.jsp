@@ -15,9 +15,9 @@ if (ua.indexOf(v_uMobile[i]) != -1)
 boolMovel = true;
 }}if (boolMovel == true)
 { 
-	location.href='pages/loteca_painel.jsf';
+	location.href='pages/login.jsf';
 }else{
-	location.href='pages/loteca_painel.jsf';
+	location.href='pages/login.jsf';
 }
 
 //-->

@@ -32,7 +32,7 @@ public class GrupoCartela implements Serializable{
 	
 	private String nome;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="grupoCartela")
+	@OneToMany(mappedBy="grupoCartela")
 	private List<Cartela> cartelas;
 
 	@ManyToMany(mappedBy="gruposCartelas")

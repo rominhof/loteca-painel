@@ -14,19 +14,21 @@
 
 <p:messages id="msgs"></p:messages>
 
-	<div style="width:500px; height:200px; position:absolute; top:50%; margin-top:-100px; left:50%; margin-left:-250px; background-color:#F00;">
+	<div style="width:500px; height:200px; position:absolute; top:50%; margin-top:-100px; left:50%; margin-left:-250px;">
 	
-		<p:panel>
 			<p:panelGrid columns="2">
-				<h:outputLabel value="Usuário: "/>
-				<p:inputText value="#{bBLogin.usuarioLogin.login}"/>
-				<h:outputLabel value="Usuário: "/>
-				<p:password value="#{bBLogin.usuarioLogin.senha}"/>
+				<f:facet name="header">
+					<h:outputText value="Login"></h:outputText>
+				</f:facet>
+				<h:outputLabel value="Usuario: "/>
+				<p:inputText value="#{bBUsuario.usuarioLogin.login}"/>
+				<h:outputLabel value="Senha "/>
+				<p:password value="#{bBUsuario.usuarioLogin.senha}"/>
 				<h:outputLabel value=""/>
-				<p:commandButton action="#{bBUsuario.login}" value="Salvar Cartelas"
-						 styleClass="botao" />
+				<p:commandButton action="#{bBUsuario.login}" value="Login"
+						 styleClass="botao" update="formMain:msgs"/>
 			</p:panelGrid>
-		</p:panel>
+
 	
 	</div>
 </h:form>
