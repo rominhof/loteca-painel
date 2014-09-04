@@ -32,11 +32,10 @@ public class HttpUtil {
 
 	public static String conteudoPagina(String... params) {
 		String urlString = params[0];
-		HttpHost proxy = new HttpHost("10.70.124.16", 8080);
+		//HttpHost proxy = new HttpHost("10.70.124.16", 8080);
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(urlString);
-		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-				proxy);
+		//httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
 		try {
 			HttpResponse response = httpclient.execute(httpget);
