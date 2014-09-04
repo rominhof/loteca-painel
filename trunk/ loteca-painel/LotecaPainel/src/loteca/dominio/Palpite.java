@@ -20,11 +20,12 @@ public class Palpite implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
 	private Long id;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name="ID_PARTIDA")
 	private Partida partida;
 	
 	@ManyToOne
-	@JoinColumn(name="ID")
+	@JoinColumn(name="ID_CARTELA")
 	private Cartela cartela;
 	
 	private Boolean c1;
