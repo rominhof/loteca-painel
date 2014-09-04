@@ -19,7 +19,7 @@ public class TimeDAO {
 	public Time findByNome(String nome){
 		Query query = em.createNamedQuery("Time.findByNome");
 		if(nome!=null){
-			query.setParameter("nome", nome.toUpperCase());
+			query.setParameter("nome", nome.toLowerCase());
 		}else{
 			return null;
 		}
