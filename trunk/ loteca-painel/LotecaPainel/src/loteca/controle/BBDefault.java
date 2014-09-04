@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletContext;
 
+import loteca.dominio.Usuario;
+
 
 /**
  * Classe que contem operacoes e atributos padrao aos BackingBeans
@@ -19,10 +21,10 @@ import javax.servlet.ServletContext;
 @ManagedBean(name="bBDefault")
 public class BBDefault implements Serializable{
 	
-	protected static final String MSG_PADRAO_OPERACAO_SUCESSO = "OperaÃ§Ã£o realizada com sucesso!";
-	protected static final String MSG_PADRAO_OPERACAO_FALHA = "Falha ao realizado OperaÃ§Ã£o!";
-	protected static final String MSG_PADRAO_OPERACAO_ERRO = "Ocorreu um erro ao realizar operaÃ§Ã£o!";
-	protected static final String MSG_PADRAO_OPERACAO_ALERTA = "Ocorreram falhas durante OperaÃ§Ã£o!";
+	protected static final String MSG_PADRAO_OPERACAO_SUCESSO = "Operação realizada com sucesso!";
+	protected static final String MSG_PADRAO_OPERACAO_FALHA = "Falha ao realizado Operação!";
+	protected static final String MSG_PADRAO_OPERACAO_ERRO = "Ocorreu um erro ao realizar operação!";
+	protected static final String MSG_PADRAO_OPERACAO_ALERTA = "Ocorreram falhas durante Operação!";
 	
 	
 	protected void addInfo(String msg) {
@@ -41,6 +43,10 @@ public class BBDefault implements Serializable{
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Falha: ", msg));
 	}
 	
+	
+	protected Usuario getUsuarioLogado() {
+		return (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+	}
 
 	
 	public void salvar(){

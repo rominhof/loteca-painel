@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import loteca.dominio.Cartela;
+import loteca.dominio.GrupoCartela;
 import loteca.dominio.Loteca;
 import loteca.dominio.Palpite;
 import loteca.dominio.Partida;
@@ -19,6 +20,8 @@ import loteca.service.LotecaService;
 public class BBLoteca extends BBDefault {
 	
 	private Loteca loteca;
+	private GrupoCartela grupoCartela;
+	private List<GrupoCartela> gruposCartelas;
 	private LotecaService lotecaService;
 	private CartelaService cartelaService;
 	private List<Cartela> cartelas;
@@ -50,6 +53,10 @@ public class BBLoteca extends BBDefault {
 		loteca = lotecaService.carregaLotecaAtual();
 		Collections.reverse(loteca.getPartidas());
 		cartelas = cartelaService.consultarCartelasPorConcurso(loteca.getNumConcurso());
+		Collections.reverse(cartelas);
+		for (Cartela c : cartelas) {
+			Collections.reverse(c.getPalpites());
+		}
 		if(loteca == null){
 			loteca = new Loteca();
 		}
@@ -86,6 +93,24 @@ public class BBLoteca extends BBDefault {
 		this.cartelas = cartelas;
 	}
 	
+	
+	
+	public GrupoCartela getGrupoCartela() {
+		return grupoCartela;
+	}
+
+	public void setGrupoCartela(GrupoCartela grupoCartela) {
+		this.grupoCartela = grupoCartela;
+	}
+
+	public List<GrupoCartela> getGruposCartelas() {
+		return gruposCartelas;
+	}
+
+	public void setGruposCartelas(List<GrupoCartela> gruposCartelas) {
+		this.gruposCartelas = gruposCartelas;
+	}
+
 	public void baixarArquivosJsonsFutebolInterior(){
 		try{
 			lotecaService.baixarArquivosJsonFI();

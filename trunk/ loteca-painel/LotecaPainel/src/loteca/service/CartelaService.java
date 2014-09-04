@@ -2,17 +2,11 @@ package loteca.service;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.servlet.ServletContext;
 
 import loteca.dominio.Cartela;
-import loteca.dominio.Loteca;
-import loteca.dominio.Partida;
 import loteca.persistencia.dao.CartelaDAO;
-import loteca.persistencia.dao.LotecaDAO;
 import loteca.util.JPAUtil;
-import loteca.util.LotecaUtil;
 
 public class CartelaService {
 
