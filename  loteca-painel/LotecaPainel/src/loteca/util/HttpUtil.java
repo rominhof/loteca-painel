@@ -35,19 +35,19 @@ public class HttpUtil {
 
 	public static String conteudoPagina(String... params) {
 		String urlString = params[0];
-		//HttpHost proxy = new HttpHost("10.70.124.16", 8080);
+		// HttpHost proxy = new HttpHost("10.70.124.16", 8080);
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(urlString);
-		//httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+		// httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
 		try {
 			HttpResponse response = httpclient.execute(httpget);
-			
+
 			HttpEntity entity = response.getEntity();
 
 			if (entity != null) {
 				InputStream instream = entity.getContent();
-				
+
 				String html = toString(instream);
 
 				return html;
@@ -68,7 +68,18 @@ public class HttpUtil {
 		while ((lidos = is.read(bytes)) > 0) {
 			baos.write(bytes, 0, lidos);
 		}
-		return new String(baos.toByteArray(),Charsets.ISO_8859_1);
+		return new String(baos.toByteArray(), Charsets.ISO_8859_1);
+	}
+
+	public static String lerConteudoStream(InputStream is) throws IOException {
+
+		byte[] bytes = new byte[1024];
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int lidos;
+		while ((lidos = is.read(bytes)) > 0) {
+			baos.write(bytes, 0, lidos);
+		}
+		return new String(baos.toByteArray());
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import loteca.dominio.Loteca;
 import loteca.dominio.Partida;
 import loteca.persistencia.dao.LotecaDAO;
+import loteca.persistencia.dao.PartidaDAO;
 import loteca.util.JPAUtil;
 import loteca.util.LotecaUtil;
 
@@ -15,12 +16,14 @@ public class LotecaService {
 	private EntityManager em;
 	LotecaUtil lotecaUtil;
 	LotecaDAO lotecaDAO;
+	PartidaDAO partidaDAO;
 	TimeService timeService;
 
 	public LotecaService() {
 		em = JPAUtil.getEntityManager();
 		lotecaUtil = new LotecaUtil();
 		lotecaDAO = new LotecaDAO();
+		partidaDAO = new PartidaDAO();
 		timeService = new TimeService();
 	}
 
@@ -57,5 +60,17 @@ public class LotecaService {
 
 	public Loteca carregaLotecaAtualOficialCaixa() {
 		return lotecaUtil.getLotecaAtualOficialCaixa();
+	}
+
+	public void atualizaLoteca(Loteca loteca) {
+		em.getTransaction().begin();
+		lotecaDAO.insertOrUpdate(loteca);
+		em.getTransaction().commit();
+	}
+
+	public void atualizaPartida(Partida partida) {
+		em.getTransaction().begin();
+		partidaDAO.insertOrUpdate(partida);
+		em.getTransaction().commit();
 	}
 }
