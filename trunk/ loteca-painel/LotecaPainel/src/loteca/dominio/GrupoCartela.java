@@ -36,7 +36,7 @@ public class GrupoCartela implements Serializable{
 	@OneToMany(mappedBy="grupoCartela", cascade=CascadeType.ALL)
 	private List<Cartela> cartelas;
 
-	@ManyToMany(mappedBy="gruposCartelas")
+	@ManyToMany(mappedBy="gruposCartelas", cascade=CascadeType.ALL)
 	private List<Usuario> usuarios;
 	
 	public Long getId() {
