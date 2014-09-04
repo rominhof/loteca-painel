@@ -17,7 +17,7 @@ public class GrupoCartelaDAO {
 		em = JPAUtil.getEntityManager();
 	}
 	
-	public GrupoCartela findById(Integer id) {
+	public GrupoCartela findById(Long id) {
 		return em.find(GrupoCartela.class, id);
 	}
 

@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import loteca.dominio.GrupoCartela;
 import loteca.service.GrupoCartelaService;
 
-@FacesConverter(forClass=GrupoCartela.class)
+@FacesConverter(value="grupoCartelaConverter")
 public class GrupoCartelaConverter implements Converter{
 
 	@Override
@@ -18,7 +18,7 @@ public class GrupoCartelaConverter implements Converter{
 		 if (arg2 == null || arg2.length() == 0) {
 	            return new GrupoCartela();
 	     }if(arg2!=null && !arg2.equals("")){
-	        gc = gcService.consultarPorId(Integer.parseInt(arg2));
+	        gc = gcService.consultarPorId(Long.parseLong(arg2));
 	     }
 	     return gc;
 	}
@@ -32,7 +32,7 @@ public class GrupoCartelaConverter implements Converter{
 	        	GrupoCartela gc = (GrupoCartela) arg2;
 	            System.out.println("O objeto veio como " + arg2.toString());
 	            System.out.println("\tConver estou enviando a string" + arg2.getClass());
-	            return ((GrupoCartela) arg2).getId()+"";
+	            return gc.getId()+"";
 	        } else {
 	            throw new IllegalArgumentException("object " + arg2 + " is of type " + arg2.getClass().getName() + "; expected type: " + GrupoCartela.class.getName());
 	        }
