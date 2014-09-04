@@ -40,6 +40,10 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	@JoinColumn(name="NUMCONCURSO")
 	private Loteca loteca;
 	
+	@ManyToOne
+	@JoinColumn(name="ID_GRUPO_CARTELA")
+	private GrupoCartela grupoCartela;
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +70,15 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	}
 	public void setLoteca(Loteca loteca) {
 		this.loteca = loteca;
+	}
+	
+	
+	
+	public GrupoCartela getGrupoCartela() {
+		return grupoCartela;
+	}
+	public void setGrupoCartela(GrupoCartela grupoCartela) {
+		this.grupoCartela = grupoCartela;
 	}
 	@Override
 	public int compareTo(Cartela o) {

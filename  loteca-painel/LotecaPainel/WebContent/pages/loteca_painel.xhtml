@@ -129,11 +129,14 @@
 		 		
 		 	</p:dataTable>
 		 </ui:repeat>
-	</p:panelGrid>
-	<h:panelGrid columns="1">
+		 
+		 	<h:panelGrid columns="1">
 				<p:commandButton action="#{bBLoteca.salvarCartelas}" value="Salvar Cartelas"
-						 styleClass="botao" />
-	</h:panelGrid>
+						 styleClass="botao" update=":formMain:msgs"/>
+			</h:panelGrid>
+		 
+	</p:panelGrid>
+
 	</h:panelGroup>
 
 	
