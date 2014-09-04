@@ -26,13 +26,12 @@ public class BBLoteca extends BBDefault {
 	private GrupoCartela grupoCartela;
 	private List<GrupoCartela> gruposCartelas;
 	private LotecaService lotecaService;
-	private CartelaService cartelaService;
 	private GrupoCartelaService grupoCartelaService;
 	
+
 	public BBLoteca(){
 		
 		lotecaService = new LotecaService();
-		cartelaService = new CartelaService();
 		grupoCartelaService = new GrupoCartelaService();
 		grupoCartela = new GrupoCartela();
 		carregaLotecaAtual();
@@ -140,6 +139,8 @@ public class BBLoteca extends BBDefault {
 		
 		
 	}
+
+
 	
 	
 	

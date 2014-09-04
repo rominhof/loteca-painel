@@ -16,6 +16,10 @@ public class GrupoCartelaDAO {
 	public GrupoCartelaDAO(){
 		em = JPAUtil.getEntityManager();
 	}
+	
+	public GrupoCartela findById(Integer id) {
+		return em.find(GrupoCartela.class, id);
+	}
 
 	public List<GrupoCartela> findByUsuario(Usuario u) {
 		Query query = em.createNamedQuery("GrupoCartela.findByUsuario");
