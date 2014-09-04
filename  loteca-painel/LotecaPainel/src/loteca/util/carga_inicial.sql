@@ -1,10 +1,9 @@
---Campeonatos
+
 INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (1, 'Brasileiro Serie A');
 INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (2, 'Brasileiro Serie B');
 INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (3, 'Brasileiro Serie C');
 INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (4, 'Brasileiro Serie D');
 
---Times da Serie A
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (1, 'Atlético/MG');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (2, 'Atlético/PR');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (3, 'Bahia/BA');
@@ -26,7 +25,7 @@ INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (18, 'São Paulo/SP');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (19, 'Sport/PE');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (20, 'Vitória/BA');
 
---Times da Serie B
+
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (21, 'ABC/RN');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (22, 'América/RN');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (23, 'América/MG');
@@ -48,7 +47,7 @@ INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (38, 'Santa Cruz/PE')
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (39, 'Vasco da Gama/RJ');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (40, 'Vila Nova/GO');
 
---Times da Serie C
+
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (41, 'Águia de Marabá/PA');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (42, 'Asa/AL');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (43, 'Botafogo/PB');
@@ -71,7 +70,6 @@ INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (59, 'Treze/PB');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (60, 'Tupi/MG');
 
 
---Times da Serie D
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (61, 'Anapolina/GO');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (62, 'Atlético/AC');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (63, 'Baraúnas/RN');
@@ -215,5 +213,5 @@ INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VA
 INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 98);
 INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 99);
 INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 100);
-INSERT INTO Campeonato_Time (campeonato_id, times_id) VALUES (4, 101);
+INSERT INTO `studioca_loteca`.`Campeonato_Time` (`campeonato_id`, `times_id`) VALUES (4, 101);
 
