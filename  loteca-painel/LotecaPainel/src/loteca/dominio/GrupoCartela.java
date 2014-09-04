@@ -17,7 +17,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="GrupoCartela.findByLoteca", query="select gc from GrupoCartela gc ")
+	@NamedQuery(name="GrupoCartela.findByUsuario", query="select gc from GrupoCartela gc join gc.usuarios u where u.id = :id"),
+	@NamedQuery(name="GrupoCartela.findByUsuarioLoteca", query="select distinct gc from GrupoCartela gc join gc.usuarios u join gc.cartelas c where u.id = :id and c.loteca.numConcurso = :numConcurso")
 	})
 public class GrupoCartela implements Serializable{
 	
@@ -32,7 +33,7 @@ public class GrupoCartela implements Serializable{
 	
 	private String nome;
 	
-	@OneToMany(mappedBy="grupoCartela")
+	@OneToMany(mappedBy="grupoCartela", cascade=CascadeType.ALL)
 	private List<Cartela> cartelas;
 
 	@ManyToMany(mappedBy="gruposCartelas")
@@ -64,7 +65,11 @@ public class GrupoCartela implements Serializable{
 		this.usuarios = usuarios;
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return nome;
+	}
 	
 	
 	

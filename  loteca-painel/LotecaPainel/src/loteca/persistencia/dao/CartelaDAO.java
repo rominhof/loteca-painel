@@ -32,7 +32,6 @@ public class CartelaDAO {
 		em.getTransaction().commit();
 		
 		return cartelaExiste;
-	
 	}
 	
 	public List<Cartela> findByLoteca(Integer numConcurso){
