@@ -28,7 +28,7 @@ public class GrupoCartelaService {
 		return grupoCartelaDAO.findByUsuarioLoteca(u, numConcurso);
 	}
 	
-	public GrupoCartela consultarPorId(Integer id) {
+	public GrupoCartela consultarPorId(Long id) {
 		return grupoCartelaDAO.findById(id);
 	}
 	
