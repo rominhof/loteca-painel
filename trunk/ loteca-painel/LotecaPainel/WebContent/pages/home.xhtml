@@ -14,10 +14,15 @@
 
 <p:messages id="msgs"></p:messages>
 
-	<div style="width:500px; height:200px; position:absolute; top:50%; margin-top:-100px; left:50%; margin-left:-250px;">
+
 		<h:outputText value="Usuario logado: #{usuarioLogado.login}"></h:outputText>
 		
-	</div>
+		<div style="float:left; padding-right: 5px; padding-top:5px;">
+			<div>
+				<p:commandButton action="#{bBHome.gerenciarMinhaLoteca}" value="Gerenciar Minha Loteca"
+						 styleClass="botao" update=":formMain:msgs"/>
+			</div>
+		</div>
 </h:form>
 
 </ui:define>

@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import loteca.dominio.Cartela;
 import loteca.dominio.GrupoCartela;
 import loteca.dominio.Loteca;
 import loteca.dominio.Palpite;
 import loteca.dominio.Partida;
+import loteca.dominio.Usuario;
 import loteca.service.CartelaService;
+import loteca.service.GrupoCartelaService;
 import loteca.service.LotecaService;
 
 @ManagedBean(name="bBLoteca")
@@ -24,12 +27,14 @@ public class BBLoteca extends BBDefault {
 	private List<GrupoCartela> gruposCartelas;
 	private LotecaService lotecaService;
 	private CartelaService cartelaService;
-	private List<Cartela> cartelas;
+	private GrupoCartelaService grupoCartelaService;
 	
 	public BBLoteca(){
-		cartelas = new ArrayList<Cartela>();
+		
 		lotecaService = new LotecaService();
 		cartelaService = new CartelaService();
+		grupoCartelaService = new GrupoCartelaService();
+		grupoCartela = new GrupoCartela();
 		carregaLotecaAtual();
 	}
 	
@@ -46,25 +51,40 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	public void salvarCartelas(){
-		cartelaService.salvarCartelas(cartelas);
+		for(Cartela cartela: grupoCartela.getCartelas()){
+			cartela.setGrupoCartela(grupoCartela);
+		}
+		grupoCartelaService.salvar(grupoCartela);
 	}
 	
 	public void carregaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtual();
-		Collections.reverse(loteca.getPartidas());
-		cartelas = cartelaService.consultarCartelasPorConcurso(loteca.getNumConcurso());
-		Collections.reverse(cartelas);
-		for (Cartela c : cartelas) {
-			Collections.reverse(c.getPalpites());
-		}
-		if(loteca == null){
+		if(loteca!=null){
+			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuarioConcurso(getUsuarioLogado(), loteca.getNumConcurso());
+			if(gruposCartelas!=null && gruposCartelas.size()>0){
+				grupoCartela = gruposCartelas.get(0);
+			}
+			if(loteca!=null && loteca.getPartidas()!=null)
+				Collections.reverse(loteca.getPartidas());
+		}else{
 			loteca = new Loteca();
 		}
 	}
 	
+	public void selecionaGrupoCartela(ActionEvent ev){
+		
+	}
+	
 	public void novaCartela(){
+		carregaGruposCartelasUsuario();
+		grupoCartela = new GrupoCartela();
+		List<Cartela>cartelas = new ArrayList<Cartela>();
+		grupoCartela.setCartelas(cartelas);
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios.add(getUsuarioLogado());
+		grupoCartela.setUsuarios(usuarios);
 		Cartela cartela = new Cartela();
-		cartela.setSeqCartela(cartelas.size()+1);
+		cartela.setSeqCartela(grupoCartela.getCartelas().size()+1);
 		cartela.setLoteca(loteca);
 		List<Palpite> palpites = new ArrayList<Palpite>();
 		for(Partida p: loteca.getPartidas()){
@@ -75,6 +95,12 @@ public class BBLoteca extends BBDefault {
 		}
 		cartela.setPalpites(palpites);
 		cartelas.add(cartela);
+		grupoCartela.setCartelas(cartelas);
+	}
+
+	private void carregaGruposCartelasUsuario() {
+		gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuario(getUsuarioLogado());
+		
 	}
 
 	public Loteca getLoteca() {
@@ -83,14 +109,6 @@ public class BBLoteca extends BBDefault {
 
 	public void setLoteca(Loteca loteca) {
 		this.loteca = loteca;
-	}
-
-	public List<Cartela> getCartelas() {
-		return cartelas;
-	}
-
-	public void setCartelas(List<Cartela> cartelas) {
-		this.cartelas = cartelas;
 	}
 	
 	

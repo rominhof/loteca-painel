@@ -75,12 +75,19 @@
 		</div>
 	<div>
 	<h:panelGroup columns="1" id="painelCartelas" style="border:dotted 0px #ffffff;" >
- 	<p:panelGrid columns="1"  style="width:auto;" rendered="#{not empty bBLoteca.cartelas}" >
+ 	<p:panelGrid columns="1"  style="width:auto;" rendered="#{not empty bBLoteca.grupoCartela}" >
  		<f:facet name="header">
  			<h:outputText value="Grupo de Cartelas"></h:outputText>
  		</f:facet>
  		
-		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
+ 		<h:outputText value="Grupo de Cartelas: "></h:outputText>
+ 		<p:selectOneMenu value="#{bBLoteca.grupoCartela}" effect="fold" editable="true">
+ 			<p:ajax event="blur" update="formMain:painelCartelas"/>
+            <f:selectItem itemLabel="Selecione um grupo ou digite para criar um novo" itemValue="" />
+            <f:selectItems value="#{bBLoteca.gruposCartelas}" var="gc" itemLabel="#{gc.nome}" itemValue="#{gc}"/>
+        </p:selectOneMenu>
+ 		
+		 <ui:repeat var="c" value="#{bBLoteca.grupoCartela.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
