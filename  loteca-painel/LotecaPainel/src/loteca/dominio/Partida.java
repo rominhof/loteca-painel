@@ -41,7 +41,7 @@ public class Partida implements Serializable{
 	@JoinColumn(name="NUMCONCURSO")
 	private Loteca loteca;
 	
-	@OneToMany
+	@OneToMany(mappedBy="partida")
 	private List<Palpite> palpites;
 	
 	
