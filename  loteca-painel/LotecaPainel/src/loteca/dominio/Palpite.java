@@ -8,10 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Palpite implements Serializable{
+public class Palpite implements Serializable, Comparable<Palpite>{
 
 	/**
 	 * 
@@ -81,6 +80,11 @@ public class Palpite implements Serializable{
 	}
 	public void setCartela(Cartela cartela) {
 		this.cartela = cartela;
+	}
+	@Override
+	public int compareTo(Palpite arg0) {
+		Palpite p =(Palpite)arg0; 
+		return this.getPartida().getSequencialJogo().compareTo(p.getPartida().getSequencialJogo());
 	}
 	
 	
