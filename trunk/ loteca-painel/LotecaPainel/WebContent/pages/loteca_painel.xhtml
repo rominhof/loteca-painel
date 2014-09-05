@@ -103,7 +103,7 @@
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 		 		</f:facet>
 		 		
-		 		<p:column style="text-align:center; width:10px;">
+		 		<p:column style="text-align:center; width:10px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
 					<f:facet name="header">
 						<h:outputText value="Seq."/>
 					</f:facet>
@@ -113,7 +113,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:right;width:100px;">
+				<p:column style="text-align:right;width:100px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
 					<f:facet name="header">
 						<h:outputText value="Coluna 1"/>
 					</f:facet>
@@ -124,7 +124,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:10px;">
+				<p:column style="text-align:center; width:10px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
 					<f:facet name="header">
 						<h:outputText value=" X "/>
 					</f:facet>
@@ -133,7 +133,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:100px;">
+				<p:column  style="width:100px; #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
 					<f:facet name="header">
 						<h:outputText value="Coluna 2"/>
 					</f:facet>
@@ -143,12 +143,15 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:30px;">
+				<p:column  style="width:40px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
 					<f:facet name="header">
 						<h:outputText value="Acerto?"/>
 					</f:facet>
 					<h:graphicImage value="/img/erro.gif" rendered="#{not empty pt.acerto and not pt.acerto}" style="width:20px;"/>
 					<h:graphicImage value="/img/sucess.png" rendered="#{pt.acerto}" style="width:18px;"/>
+					<h:graphicImage value="/img/bola_rolando.gif" rendered="#{pt.partida.statusJogo eq 'EM_ANDAMENTO'}" style="width:20px;"/>
+					<h:graphicImage value="/img/relogio.png" rendered="#{pt.partida.statusJogo eq 'AGENDADO'}" style="width:18px;"/>
+					<h:graphicImage value="/img/apito.png" rendered="#{pt.partida.statusJogo eq 'FINALIZADO'}" style="width:20px;"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
