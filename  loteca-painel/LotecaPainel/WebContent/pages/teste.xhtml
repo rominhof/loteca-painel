@@ -13,11 +13,8 @@
 
 <h:form>
     <h:panelGrid columns="3">
-        <h:outputText value="Keyup: " />
-        <p:inputText id="counter" value="#{listenerView.text}">
-            <p:ajax event="keyup" update="out" listener="#{listenerView.handleKeyEvent}" />
-        </p:inputText>
-        <h:outputText id="out" value="#{listenerView.text}" />
+        <h:outputText value="Real Path: " />
+    	<h:outputText value="#{bBLoteca.realPath} " />
     </h:panelGrid>
 </h:form>
 

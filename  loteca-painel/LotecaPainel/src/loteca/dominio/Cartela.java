@@ -33,7 +33,7 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	
 	private Integer seqCartela;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="cartela")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="cartela")
 	private List<Palpite> palpites;
 	
 	@ManyToOne
