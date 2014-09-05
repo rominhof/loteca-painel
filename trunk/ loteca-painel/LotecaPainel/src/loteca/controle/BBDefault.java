@@ -26,6 +26,8 @@ public class BBDefault implements Serializable{
 	protected static final String MSG_PADRAO_OPERACAO_ERRO = "Ocorreu um erro ao realizar operação!";
 	protected static final String MSG_PADRAO_OPERACAO_ALERTA = "Ocorreram falhas durante Operação!";
 	
+	public String realPath = ((ServletContext)FacesContext.getCurrentInstance()
+			.getExternalContext().getContext()).getRealPath("/");
 	
 	protected void addInfo(String msg) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Info: ", msg));
@@ -83,6 +85,15 @@ public class BBDefault implements Serializable{
 	
 	
 	
+	
+	public String getRealPath() {
+		return realPath;
+	}
+
+	public void setRealPath(String realPath) {
+		this.realPath = realPath;
+	}
+
 	public void updateModel(ActionEvent ev){
 		//System.out.println("atualizou modelo");
 	}

@@ -17,6 +17,7 @@ import loteca.dominio.Usuario;
 import loteca.service.CartelaService;
 import loteca.service.GrupoCartelaService;
 import loteca.service.LotecaService;
+import loteca.service.PalpiteService;
 import loteca.service.UsuarioService;
 
 @ManagedBean(name="bBLoteca")
@@ -30,6 +31,7 @@ public class BBLoteca extends BBDefault {
 	private UsuarioService usuarioService;
 	private GrupoCartelaService grupoCartelaService;
 	private CartelaService cartelaService;
+	private PalpiteService palpiteService;
 	
 
 	public BBLoteca(){
@@ -38,6 +40,7 @@ public class BBLoteca extends BBDefault {
 		grupoCartelaService = new GrupoCartelaService();
 		cartelaService = new CartelaService();
 		grupoCartela = new GrupoCartela();
+		palpiteService = new PalpiteService();
 		carregaLotecaAtual();
 	}
 	
@@ -54,20 +57,29 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	public void salvarCartelas(){
-		for(Cartela c :grupoCartela.getCartelas()){
-			cartelaService.salvar(c);
-		}
+
+			grupoCartelaService.salvar(grupoCartela);
+			
+			/**for(Cartela c: grupoCartela.getCartelas()){
+				for(Palpite p: c.getPalpites()){
+					p.setCartela(c);
+					palpiteService.salvar(p);
+				}
+			}*/
+			addInfo("Cartelas salvas com sucesso!");
+		
 	}
 	
 	public void carregaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtual();
+		
 		if(loteca!=null){
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuarioConcurso(getUsuarioLogado(), loteca.getNumConcurso());
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
 				grupoCartela = gruposCartelas.get(0);
 			}
 			if(loteca!=null && loteca.getPartidas()!=null)
-				Collections.reverse(loteca.getPartidas());
+				Collections.sort(loteca.getPartidas());
 		}else{
 			loteca = new Loteca();
 		}
@@ -75,6 +87,12 @@ public class BBLoteca extends BBDefault {
 	
 	public void selecionaGrupoCartela(){
 		System.out.println("selecionou: "+grupoCartela);
+		/**Collections.sort(grupoCartela.getCartelas());
+		Collections.reverse(grupoCartela.getCartelas());
+		for(Cartela c: grupoCartela.getCartelas()){
+			Collections.sort(c.getPalpites());
+			Collections.reverse(c.getPalpites());
+		}*/
 	}
 	
 	
@@ -104,6 +122,7 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	public void salvaGrupoCartela(){
+		carregaGruposCartelasUsuario();
 		Usuario u = getUsuarioLogado();
 		gruposCartelas.add(grupoCartela);
 		u.setGruposCartelas(gruposCartelas);

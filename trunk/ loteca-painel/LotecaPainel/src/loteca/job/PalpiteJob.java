@@ -58,6 +58,8 @@ public class PalpiteJob implements Job {
 	// private static final String PATH_PASTA_JSON =
 	// "C:\\Romulo\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
 	// private static final String PATH_PASTA_JSON =
+	/// Users/luizsergioviana/norteng/workspace2/LotecaPainel/WebContent/json
+	// private static final String PATH_PASTA_JSON =
 	// "E:\\Projetos\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
 
 	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_A = "serieA.json";

@@ -27,9 +27,9 @@ public class Palpite implements Serializable, Comparable<Palpite>{
 	@JoinColumn(name="ID_CARTELA")
 	private Cartela cartela;
 	
-	private Boolean c1;
-	private Boolean cx;
-	private Boolean c2;
+	private boolean c1;
+	private boolean cx;
+	private boolean c2;
 	private Resultado resultado;
 	private Boolean acerto;
 	
@@ -45,22 +45,22 @@ public class Palpite implements Serializable, Comparable<Palpite>{
 	public void setPartida(Partida partida) {
 		this.partida = partida;
 	}
-	public Boolean getC1() {
+	public boolean getC1() {
 		return c1;
 	}
-	public void setC1(Boolean c1) {
+	public void setC1(boolean c1) {
 		this.c1 = c1;
 	}
-	public Boolean getCx() {
+	public boolean getCx() {
 		return cx;
 	}
-	public void setCx(Boolean cx) {
+	public void setCx(boolean cx) {
 		this.cx = cx;
 	}
-	public Boolean getC2() {
+	public boolean getC2() {
 		return c2;
 	}
-	public void setC2(Boolean c2) {
+	public void setC2(boolean c2) {
 		this.c2 = c2;
 	}
 	public Resultado getResultado() {

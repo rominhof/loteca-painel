@@ -17,7 +17,7 @@
 	<div style="float:left; padding-right: 5px; padding-top:5px;">
 	
 		<div>
-		<p:dataTable emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:320px; float:top;">
+		<p:dataTable emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:360px; float:top;">
 		 		<f:facet name="header">
 		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
 		 		</f:facet>
@@ -40,7 +40,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:10px;">
+				<p:column style="text-align:center; width:30px;">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -58,7 +58,15 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Status"/>
+					</f:facet>
+					<h:outputText value="#{p.statusJogo}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
 				
 		 	</p:dataTable>
 		 </div>
@@ -88,7 +96,7 @@
         </h:panelGrid>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.grupoCartela.cartelas}">
-		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:410px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 		 		</f:facet>
@@ -133,14 +141,23 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
+				<p:column  style="width:30px;">
+					<f:facet name="header">
+						<h:outputText value="Acerto?"/>
+					</f:facet>
+					<h:outputText value="#{pt.acerto}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
 		 		
 		 	</p:dataTable>
 		 </ui:repeat>
 		 
 		 	<h:panelGrid columns="2">
-		 		<p:commandButton action="#{bBLoteca.novaCartela}" value="Nova Cartela"
+		 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova Cartela"
 						 styleClass="botao" update=":formMain:painelCartelas"/>
-				<p:commandButton action="#{bBLoteca.salvarCartelas}" value="Salvar Cartelas"
+				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar Cartelas"
 						 styleClass="botao" update=":formMain:msgs"/>
 			</h:panelGrid>
 		 
