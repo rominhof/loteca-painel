@@ -55,8 +55,6 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	public void salvarCartelas(){
-
-			
 			
 			for(Cartela c: cartelas){
 				cartelaService.salvar(c);
@@ -67,6 +65,14 @@ public class BBLoteca extends BBDefault {
 			}
 			addInfo("Cartelas salvas com sucesso!");
 		
+	}
+	
+	public void concluirCartelas(){
+		for(Cartela c: cartelas){
+			c.setConcluida(Boolean.TRUE);
+			cartelaService.salvar(c);
+		}
+		addInfo("Cartelas salvas com sucesso!");
 	}
 	
 	public void carregaLotecaAtual(){

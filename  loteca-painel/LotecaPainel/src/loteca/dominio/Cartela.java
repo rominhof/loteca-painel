@@ -44,6 +44,8 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	@JoinColumn(name="ID_GRUPO_CARTELA")
 	private GrupoCartela grupoCartela;
 	
+	private Boolean concluida;
+	
 	public Long getId() {
 		return id;
 	}
@@ -72,8 +74,12 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 		this.loteca = loteca;
 	}
 	
-	
-	
+	public Boolean getConcluida() {
+		return concluida;
+	}
+	public void setConcluida(Boolean concluida) {
+		this.concluida = concluida;
+	}
 	public GrupoCartela getGrupoCartela() {
 		return grupoCartela;
 	}
