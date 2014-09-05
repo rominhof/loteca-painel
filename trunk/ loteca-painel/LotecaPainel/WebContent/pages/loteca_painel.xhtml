@@ -98,12 +98,12 @@
         </h:panelGrid>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
-		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:410px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:460px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 		 		</f:facet>
 		 		
-		 		<p:column style="text-align:center; width:10px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
+		 		<p:column style="text-align:center; width:10px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value="Seq."/>
 					</f:facet>
@@ -113,37 +113,57 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:right;width:100px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
+				<p:column style="text-align:right;width:100px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value="Coluna 1"/>
 					</f:facet>
-					<h:outputText value="#{pt.partida.time1.nome}"/>
-					<p:selectBooleanCheckbox value="#{pt.c1}"/>
+					<h:outputText value="#{pt.partida.time1.nome}" />
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:10px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
+				<p:column style="text-align:right;width:20px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+					<f:facet name="header">
+						<h:outputText value=""/>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not c.concluida}"/>
+					<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c1}" style="width:18px;"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       			
+		       		</f:facet>
+				</p:column>
+				<p:column style="text-align:center; width:20px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=" X "/>
 					</f:facet>
-					<p:selectBooleanCheckbox value="#{pt.cx}"/>
+					<p:selectBooleanCheckbox value="#{pt.cx}" rendered="#{not c.concluida}"/>
+					<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.cx}" style="width:18px;"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:100px; #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
+				<p:column  style="width:20px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+					<f:facet name="header">
+						<h:outputText value=""/>
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{pt.c2}" rendered="#{not c.concluida}"/>
+					<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c2}" style="width:18px;"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column  style="width:100px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value="Coluna 2"/>
 					</f:facet>
-					<p:selectBooleanCheckbox value="#{pt.c2}"/>
 					<h:outputText value="#{pt.partida.time2.nome}"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:40px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FF6666;':pt.acerto?'background-color:#99FF99;':''}">
+				<p:column  style="width:40px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value="Acerto?"/>
 					</f:facet>
@@ -160,13 +180,16 @@
 		 	</p:dataTable>
 		 </ui:repeat>
 		 
-		 	<h:panelGrid columns="2">
-		 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova Cartela"
+		 	<div align="right" style="float:right;">
+		 	<h:panelGrid columns="3">
+		 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova"
 						 styleClass="botao" update=":formMain:painelCartelas"/>
-				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar Cartelas"
+				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar"
 						 styleClass="botao" update=":formMain:msgs"/>
+				<p:commandButton actionListener="#{bBLoteca.concluirCartelas}" value="Concluir"
+						 styleClass="botao" update=":formMain:msgs, :formMain:painelCartelas" />
 			</h:panelGrid>
-		 
+		 </div>
 	</p:panelGrid>
 
 	</h:panelGroup>
