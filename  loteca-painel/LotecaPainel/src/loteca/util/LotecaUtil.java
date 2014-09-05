@@ -98,19 +98,19 @@ public class LotecaUtil {
 		return encryptedString;
 	}
 
-	public String lerConteudoJson(String filename) throws Exception {
-		String retorno = "";
-		InputStream conteudoStream;
-		try {
-			File file = new File(filename);
-			if (file.exists()) {
-				conteudoStream = new FileInputStream(file);
-
-				retorno = HttpUtil.lerConteudoStream(conteudoStream);
-			}
-		} catch (IOException e) {
-			throw new Exception("Erro ao ler conteudo");
-		}
-		return retorno;
-	}
+//	public String lerConteudoJson(String filename) throws Exception {
+//		String retorno = "";
+//		InputStream conteudoStream;
+//		try {
+//			File file = new File(filename);
+//			if (file.exists()) {
+//				conteudoStream = new FileInputStream(file);
+//
+//				retorno = HttpUtil.lerConteudoStream(conteudoStream);
+//			}
+//		} catch (IOException e) {
+//			throw new Exception("Erro ao ler conteudo");
+//		}
+//		return retorno;
+//	}
 }
