@@ -299,26 +299,26 @@ public class PalpiteJob implements Job {
 		for (Cartela cartela : cartelas) {
 			for (Palpite palpite : cartela.getPalpites()) {
 				Partida particaPalpite = palpite.getPartida();
-				Partida particaLoteca = getPartidaLoteca(lotecaAtual,
+				Partida particaGabarito = getPartidaLoteca(lotecaAtual,
 						particaPalpite.getTime1(), particaPalpite.getTime2());
 
-				if (particaLoteca != null
-						&& (particaLoteca.getStatusJogo() == StatusJogo.EM_ANDAMENTO
-								|| particaLoteca.getStatusJogo() == StatusJogo.FINALIZADO || particaLoteca
+				if (particaGabarito != null
+						&& (particaGabarito.getStatusJogo() == StatusJogo.EM_ANDAMENTO
+								|| particaGabarito.getStatusJogo() == StatusJogo.FINALIZADO || particaGabarito
 								.getStatusJogo() == StatusJogo.INTERVALO)) {
 					boolean acerto = false;
-					if (particaLoteca.getResultado() == Resultado.COLUNA_1
+					if (particaGabarito.getResultado() == Resultado.COLUNA_1
 							&& palpite.getC1()) {
 						acerto = true;
-					} else if (particaLoteca.getResultado() == Resultado.COLUNA_2
+					} else if (particaGabarito.getResultado() == Resultado.COLUNA_2
 							&& palpite.getC2()) {
 						acerto = true;
-					} else if (particaLoteca.getResultado() == Resultado.COLUNA_X
+					} else if (particaGabarito.getResultado() == Resultado.COLUNA_X
 							&& palpite.getCx()) {
 						acerto = true;
 					}
 					palpite.setAcerto(acerto);
-					palpite.setResultado(particaLoteca.getResultado());
+					palpite.setResultado(particaGabarito.getResultado());
 
 					// Atuaizar dados do palpite
 					getCartelaService().atualizaPalpite(palpite);
