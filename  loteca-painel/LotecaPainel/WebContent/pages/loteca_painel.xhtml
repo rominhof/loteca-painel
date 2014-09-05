@@ -147,7 +147,8 @@
 					<f:facet name="header">
 						<h:outputText value="Acerto?"/>
 					</f:facet>
-					<h:outputText value="#{pt.acerto}"/>
+					<h:graphicImage value="/img/erro.gif" rendered="#{not empty pt.acerto and not pt.acerto}" style="width:20px;"/>
+					<h:graphicImage value="/img/sucess.png" rendered="#{pt.acerto}" style="width:18px;"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
