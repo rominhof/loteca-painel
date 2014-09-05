@@ -32,6 +32,7 @@ public class BBLoteca extends BBDefault {
 	private GrupoCartelaService grupoCartelaService;
 	private CartelaService cartelaService;
 	private PalpiteService palpiteService;
+	private List<Cartela> cartelas;
 	
 
 	public BBLoteca(){
@@ -58,14 +59,15 @@ public class BBLoteca extends BBDefault {
 	
 	public void salvarCartelas(){
 
-			grupoCartelaService.salvar(grupoCartela);
 			
-			/**for(Cartela c: grupoCartela.getCartelas()){
-				for(Palpite p: c.getPalpites()){
+			
+			for(Cartela c: cartelas){
+				cartelaService.salvar(c);
+				/**for(Palpite p: c.getPalpites()){
 					p.setCartela(c);
 					palpiteService.salvar(p);
-				}
-			}*/
+				}*/
+			}
 			addInfo("Cartelas salvas com sucesso!");
 		
 	}
@@ -77,6 +79,7 @@ public class BBLoteca extends BBDefault {
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuarioConcurso(getUsuarioLogado(), loteca.getNumConcurso());
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
 				grupoCartela = gruposCartelas.get(0);
+				cartelas=grupoCartela.getCartelas();
 			}
 			if(loteca!=null && loteca.getPartidas()!=null)
 				Collections.sort(loteca.getPartidas());
@@ -87,6 +90,7 @@ public class BBLoteca extends BBDefault {
 	
 	public void selecionaGrupoCartela(){
 		System.out.println("selecionou: "+grupoCartela);
+		cartelas = grupoCartela.getCartelas();
 		/**Collections.sort(grupoCartela.getCartelas());
 		Collections.reverse(grupoCartela.getCartelas());
 		for(Cartela c: grupoCartela.getCartelas()){
@@ -99,7 +103,7 @@ public class BBLoteca extends BBDefault {
 	public void novaCartela(){
 
 		Cartela cartela = new Cartela();
-		cartela.setSeqCartela(grupoCartela.getCartelas().size()+1);
+		cartela.setSeqCartela(cartelas.size()+1);
 		cartela.setLoteca(loteca);
 		
 		List<Palpite> palpites = new ArrayList<Palpite>();
@@ -110,8 +114,10 @@ public class BBLoteca extends BBDefault {
 			palpites.add(pt);
 		}
 		cartela.setPalpites(palpites);
-		grupoCartela.getCartelas().add(cartela);
+		//grupoCartela.getCartelas().add(cartela);
+		
 		cartela.setGrupoCartela(grupoCartela);
+		cartelas.add(cartela);
 		
 		cartelaService.salvar(cartela);
 
@@ -173,6 +179,16 @@ public class BBLoteca extends BBDefault {
 		
 		
 	}
+
+	public List<Cartela> getCartelas() {
+		return cartelas;
+	}
+
+	public void setCartelas(List<Cartela> cartelas) {
+		this.cartelas = cartelas;
+	}
+	
+	
 
 
 	
