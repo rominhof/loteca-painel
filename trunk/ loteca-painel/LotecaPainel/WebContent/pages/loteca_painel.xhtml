@@ -95,7 +95,7 @@
 	        <p:tooltip value="Cadastrar Novo Grupo de Cartelas" for="novoGC"/>
         </h:panelGrid>
  		
-		 <ui:repeat var="c" value="#{bBLoteca.grupoCartela.cartelas}">
+		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:410px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
