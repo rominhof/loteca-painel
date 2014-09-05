@@ -77,16 +77,15 @@
  		<f:facet name="header">
  			<h:outputText value="Grupo de Cartelas"></h:outputText>
  		</f:facet>
- 		<h:panelGroup>
-	 		<h:outputText value="Grupo de Cartelas: "></h:outputText>
+ 		<h:panelGrid columns="3">
+	 		<h:outputText value="Grupo de Cartelas: "/>
 	 		<p:selectOneMenu value="#{bBLoteca.grupoCartela}" id="grupoCartelaID" converter="grupoCartelaConverter" rendered="#{not empty bBLoteca.gruposCartelas}">
 	 			<p:ajax event="change" update="painelCartelas" listener="#{bBLoteca.selecionaGrupoCartela}"></p:ajax>
 	            <f:selectItems value="#{bBLoteca.gruposCartelas}" var="gc"  itemLabel="#{gc.nome}" itemValue="#{gc}"/>
 	        </p:selectOneMenu>
-	        <p:commandButton value="+" actionListener="#{bBLoteca.preparaCadastraGrupoCartela}" oncomplete="PF('cadGrupoCartelaDialog').show();">
-	       		 <p:tooltip value="Cadastrar Novo Grupo de Cartelas"/>
-	        </p:commandButton>
-        </h:panelGroup>
+	        <p:commandButton value="+" actionListener="#{bBLoteca.preparaCadastraGrupoCartela}" oncomplete="PF('cadGrupoCartelaDialog').show();" id="novoGC"/>
+	        <p:tooltip value="Cadastrar Novo Grupo de Cartelas" for="novoGC"/>
+        </h:panelGrid>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.grupoCartela.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:400px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >

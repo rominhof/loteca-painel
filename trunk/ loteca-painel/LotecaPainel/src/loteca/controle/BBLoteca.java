@@ -29,12 +29,14 @@ public class BBLoteca extends BBDefault {
 	private LotecaService lotecaService;
 	private UsuarioService usuarioService;
 	private GrupoCartelaService grupoCartelaService;
+	private CartelaService cartelaService;
 	
 
 	public BBLoteca(){
 		usuarioService = new UsuarioService();
 		lotecaService = new LotecaService();
 		grupoCartelaService = new GrupoCartelaService();
+		cartelaService = new CartelaService();
 		grupoCartela = new GrupoCartela();
 		carregaLotecaAtual();
 	}
@@ -52,10 +54,9 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	public void salvarCartelas(){
-		for(Cartela cartela: grupoCartela.getCartelas()){
-			cartela.setGrupoCartela(grupoCartela);
+		for(Cartela c :grupoCartela.getCartelas()){
+			cartelaService.salvar(c);
 		}
-		grupoCartelaService.salvar(grupoCartela);
 	}
 	
 	public void carregaLotecaAtual(){
@@ -78,15 +79,11 @@ public class BBLoteca extends BBDefault {
 	
 	
 	public void novaCartela(){
-		carregaGruposCartelasUsuario();
-		List<Cartela>cartelas = new ArrayList<Cartela>();
-	
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(getUsuarioLogado());
-		grupoCartela.setUsuarios(usuarios);
+
 		Cartela cartela = new Cartela();
 		cartela.setSeqCartela(grupoCartela.getCartelas().size()+1);
 		cartela.setLoteca(loteca);
+		
 		List<Palpite> palpites = new ArrayList<Palpite>();
 		for(Partida p: loteca.getPartidas()){
 			Palpite pt = new Palpite();
@@ -95,8 +92,11 @@ public class BBLoteca extends BBDefault {
 			palpites.add(pt);
 		}
 		cartela.setPalpites(palpites);
-		cartelas.add(cartela);
-		grupoCartela.setCartelas(cartelas);
+		grupoCartela.getCartelas().add(cartela);
+		cartela.setGrupoCartela(grupoCartela);
+		
+		cartelaService.salvar(cartela);
+
 	}
 	
 	public void preparaCadastraGrupoCartela(){

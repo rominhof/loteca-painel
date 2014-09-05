@@ -25,7 +25,7 @@ public class CartelaService {
 		return cartelaDAO.findByLoteca(numConcurso);
 	}
 
-	public void atualizaCartela(Cartela cartela) {
+	public void salvar(Cartela cartela) {
 		em.getTransaction().begin();
 		cartelaDAO.insertOrUpdate(cartela);
 		em.getTransaction().commit();
