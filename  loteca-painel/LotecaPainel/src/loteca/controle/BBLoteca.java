@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.bean.ViewScoped;
 
 import loteca.dominio.Cartela;
 import loteca.dominio.GrupoCartela;
@@ -21,7 +20,7 @@ import loteca.service.PalpiteService;
 import loteca.service.UsuarioService;
 
 @ManagedBean(name="bBLoteca")
-@SessionScoped
+@ViewScoped
 public class BBLoteca extends BBDefault {
 	
 	private Loteca loteca;
@@ -91,12 +90,12 @@ public class BBLoteca extends BBDefault {
 	public void selecionaGrupoCartela(){
 		System.out.println("selecionou: "+grupoCartela);
 		cartelas = grupoCartela.getCartelas();
-		/**Collections.sort(grupoCartela.getCartelas());
-		Collections.reverse(grupoCartela.getCartelas());
-		for(Cartela c: grupoCartela.getCartelas()){
+		Collections.sort(cartelas);
+		Collections.reverse(cartelas);
+		for(Cartela c: cartelas){
 			Collections.sort(c.getPalpites());
 			Collections.reverse(c.getPalpites());
-		}*/
+		}
 	}
 	
 	
