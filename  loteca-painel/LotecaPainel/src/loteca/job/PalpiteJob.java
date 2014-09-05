@@ -33,9 +33,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class PalpiteJob implements Job {
+	private static final String SYSTEM_PREFIX = "LOTECA::";
+
 	private static final String STATUS_JOGO_FINALIZADO = "Finalizado";
 	private static final String STATUS_JOGO_AGENDADO = "Agendado";
 	private static final String STATUS_JOGO_ANDAMENTO = "Em Andamento";
+	private static final String STATUS_JOGO_ANDAMENTO_1_TEMPO = "1º Tempo";
+	private static final String STATUS_JOGO_ANDAMENTO_2_TEMPO = "2º Tempo";
+
 	private static final String STATUS_JOGO_INTERVALO = "Intervalo";
 
 	private LotecaUtil lotecaUtil;
@@ -45,10 +50,14 @@ public class PalpiteJob implements Job {
 	private static Map<CampeonatoEnum, String> arquivosJson = new HashMap<CampeonatoEnum, String>();
 
 	// TODO - externalizar
-	private static final String JSON_URL_BASILEIRO_SERIE_A = "http://www.futebolinterior.com.br/gerados/placar_441.json";
+	// private static final String JSON_URL_BASILEIRO_SERIE_A =
+	// "http://www.futebolinterior.com.br/gerados/placar_441.json";
 	private static final String JSON_URL_BASILEIRO_SERIE_B = "http://www.futebolinterior.com.br/gerados/placar_442.json";
 	private static final String JSON_URL_BASILEIRO_SERIE_C = "http://www.futebolinterior.com.br/gerados/placar_443.json";
 	private static final String JSON_URL_BASILEIRO_SERIE_D = "http://www.futebolinterior.com.br/gerados/placar_447.json";
+
+	private static final String JSON_URL_COPA_DO_BRASIL = "http://www.futebolinterior.com.br/gerados/placar_445.json";
+	private static final String JSON_URL_BASILEIRO_SERIE_A = JSON_URL_COPA_DO_BRASIL;
 
 	// private static final String PATH_PASTA_JSON =
 	// "C:\\Romulo\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
@@ -85,9 +94,11 @@ public class PalpiteJob implements Job {
 	@Override
 	public void execute(final JobExecutionContext ctx)
 			throws JobExecutionException {
-		System.out.println("Iniciando execução do Job PalpiteJob::"
+		System.out.println(SYSTEM_PREFIX
+				+ "Iniciando execução do Job PalpiteJob::"
 				+ System.currentTimeMillis());
 
+		System.out.println(SYSTEM_PREFIX + "Recuperando a Loteca atual");
 		Loteca lotecaAtual = getLotecaService().carregaLotecaAtual();
 		if (lotecaAtual == null) {
 			System.out
@@ -99,21 +110,29 @@ public class PalpiteJob implements Job {
 			// Atualizar arquivos Json
 			// Realizar verificar apenas se os arquivos Json forem diferentes da
 			// ultima versão baixada
+			System.out.println(SYSTEM_PREFIX + "Atualizando arquivos Json");
 			if (atualizarJson()) {
 				// Popular a loteca de acordo com os resultados de momento
+				System.out.println(SYSTEM_PREFIX
+						+ "Populando loteria com resultado dos jogos");
 				popularLoteria(lotecaAtual);
 
 				// Comparar a loteca atualizada com as cartelas jogadas
+				System.out
+						.println("Atualizando as cartelas de jogos de acordo com o resultado de momento");
 				compararCartelas(lotecaAtual);
 
 				// Verificar se loteria foi encerrada
+				System.out.println(SYSTEM_PREFIX
+						+ "Checar se todos os jogos foram encerados");
 				verificarLotecaEncerrada(lotecaAtual);
 			}
 		} catch (Exception e) {
 			System.err.println("Ocorreu erro na execução do Job PalpiteJob");
 		}
 
-		System.out.println("Fim da execução do Job PalpiteJob::"
+		System.out.println(SYSTEM_PREFIX
+				+ "Fim da execução do Job PalpiteJob::"
 				+ System.currentTimeMillis());
 	}
 
@@ -230,8 +249,10 @@ public class PalpiteJob implements Job {
 			ConfrontoNovo confronto) {
 		Jogo retorno = null;
 		for (Tabela tabela : confronto.getTabela()) {
-			if (tabela.getMandante().equals(time1.getNome())
-					&& tabela.getVisitante().equals(time2.getNome())) {
+			String timeMandante = tabela.getMandante().replace('-', '/');
+			String timeVisitante = tabela.getVisitante().replace('-', '/');
+			if (timeMandante.equals(time1.getNome())
+					&& timeVisitante.equals(time2.getNome())) {
 				retorno = new Jogo();
 				retorno.setTime1(time1);
 				retorno.setTime2(time2);
@@ -245,7 +266,11 @@ public class PalpiteJob implements Job {
 						&& tabela.getStatus().equals(STATUS_JOGO_AGENDADO)) {
 					retorno.setStatusJogo(StatusJogo.AGENDADO);
 				} else if (tabela.getStatus() != null
-						&& tabela.getStatus().equals(STATUS_JOGO_ANDAMENTO)) {
+						&& (tabela.getStatus().equals(STATUS_JOGO_ANDAMENTO)
+								|| tabela.getStatus().equals(
+										STATUS_JOGO_ANDAMENTO_1_TEMPO) || tabela
+								.getStatus().equals(
+										STATUS_JOGO_ANDAMENTO_2_TEMPO))) {
 					retorno.setStatusJogo(StatusJogo.EM_ANDAMENTO);
 				} else if (tabela.getStatus() != null
 						&& tabela.getStatus().equals(STATUS_JOGO_INTERVALO)) {
@@ -270,7 +295,10 @@ public class PalpiteJob implements Job {
 				Partida particaLoteca = getPartidaLoteca(lotecaAtual,
 						particaPalpite.getTime1(), particaPalpite.getTime2());
 
-				if (particaLoteca != null) {
+				if (particaLoteca != null
+						&& (particaLoteca.getStatusJogo() == StatusJogo.EM_ANDAMENTO
+								|| particaLoteca.getStatusJogo() == StatusJogo.FINALIZADO || particaLoteca
+								.getStatusJogo() == StatusJogo.INTERVALO)) {
 					boolean acerto = false;
 					if (particaLoteca.getResultado() == Resultado.COLUNA_1
 							&& palpite.getC1()) {
@@ -295,8 +323,8 @@ public class PalpiteJob implements Job {
 	private Partida getPartidaLoteca(Loteca lotecaAtual, Time time1, Time time2) {
 		Partida partidaLoteca = null;
 		for (Partida partida : lotecaAtual.getPartidas()) {
-			if (partida.getTime1().equals(time1)
-					&& partida.getTime2().equals(time2)) {
+			if (partida.getTime1().getNome().equals(time1.getNome())
+					&& partida.getTime2().getNome().equals(time2.getNome())) {
 				partidaLoteca = partida;
 				break;
 			}
@@ -307,6 +335,9 @@ public class PalpiteJob implements Job {
 	private boolean atualizarJson() throws Exception {
 		boolean retorno = false;
 		for (CampeonatoEnum campeonato : dadosJogos.keySet()) {
+			System.out
+					.println(SYSTEM_PREFIX + "Verificando Json do campeonato: "
+							+ campeonato.getNome());
 			String pathArquivo = PATH_PASTA_JSON + arquivosJson.get(campeonato);
 
 			String conteudoLocal = getLotecaUtil().lerConteudoJson(pathArquivo);
@@ -314,6 +345,8 @@ public class PalpiteJob implements Job {
 					.get(campeonato));
 
 			if (conteudoLocal == null || conteudoLocal.isEmpty()) {
+				System.out.println(SYSTEM_PREFIX
+						+ "Não existe arquivo local, baixando");
 				// Copiar o conteudo do Json para pasta local
 
 				getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
@@ -321,6 +354,7 @@ public class PalpiteJob implements Job {
 				atualizarConfronto(campeonato, conteudoSite, pathArquivo);
 				retorno = true;
 			} else {
+				System.out.println(SYSTEM_PREFIX + "Arquivo local localizado");
 				String hashConteudoSite = getLotecaUtil().getHashFromString(
 						conteudoSite);
 				String hashConteudoLocal = getLotecaUtil().getHashFromString(
@@ -330,7 +364,11 @@ public class PalpiteJob implements Job {
 				// diferente, baixar Json e atualizar confronto
 				if (!hashConteudoSite.equals(hashConteudoLocal)
 						|| confrontos.get(campeonato) == null) {
+					System.out.println(SYSTEM_PREFIX
+							+ "Hash diferentes, atualizando arquivos");
 					// Hash diferentes, tem que atualizar o arquivo
+					getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
+							pathArquivo);
 					atualizarConfronto(campeonato, conteudoSite, pathArquivo);
 					retorno = true;
 				}
