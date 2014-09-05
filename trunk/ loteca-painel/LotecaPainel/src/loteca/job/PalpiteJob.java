@@ -1,5 +1,9 @@
 package loteca.job;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.google.common.base.Charsets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,24 +48,27 @@ public class PalpiteJob implements Job {
 	private static Map<CampeonatoEnum, ConfrontoNovo> confrontos = new HashMap<CampeonatoEnum, ConfrontoNovo>();
 	private static Map<CampeonatoEnum, String> dadosJogos = new HashMap<CampeonatoEnum, String>();
 	private static Map<CampeonatoEnum, String> arquivosJson = new HashMap<CampeonatoEnum, String>();
-	private static Map<CampeonatoEnum, String> conteudoJson = new HashMap<CampeonatoEnum, String>();
+//	private static Map<CampeonatoEnum, String> conteudoJson = new HashMap<CampeonatoEnum, String>();
 
 	// TODO - externalizar
-	// private static final String JSON_URL_BASILEIRO_SERIE_A =
-	// "http://www.futebolinterior.com.br/gerados/placar_441.json";
+	private static final String JSON_URL_BASILEIRO_SERIE_A = "http://www.futebolinterior.com.br/gerados/placar_441.json";
 	private static final String JSON_URL_BASILEIRO_SERIE_B = "http://www.futebolinterior.com.br/gerados/placar_442.json";
 	private static final String JSON_URL_BASILEIRO_SERIE_C = "http://www.futebolinterior.com.br/gerados/placar_443.json";
 	private static final String JSON_URL_BASILEIRO_SERIE_D = "http://www.futebolinterior.com.br/gerados/placar_447.json";
 
-	private static final String JSON_URL_COPA_DO_BRASIL = "http://www.futebolinterior.com.br/gerados/placar_445.json";
-	private static final String JSON_URL_BASILEIRO_SERIE_A = JSON_URL_COPA_DO_BRASIL;
+	// private static final String JSON_URL_COPA_DO_BRASIL =
+	// "http://www.futebolinterior.com.br/gerados/placar_445.json";
+	// private static final String JSON_URL_BASILEIRO_SERIE_A =
+	// JSON_URL_COPA_DO_BRASIL;
 
 	// private static final String PATH_PASTA_JSON =
 	// "C:\\Romulo\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
 	// private static final String PATH_PASTA_JSON =
-	/// Users/luizsergioviana/norteng/workspace2/LotecaPainel/WebContent/json
+	// Users/luizsergioviana/norteng/workspace2/LotecaPainel/WebContent/json
 	// private static final String PATH_PASTA_JSON =
 	// "E:\\Projetos\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
+
+	private static final String PATH_PASTA_JSON = "/home/studioca/appservers/apache-tomcat-6x/webapps/LotecaPainel/json/";
 
 	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_A = "serieA.json";
 	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_B = "serieB.json";
@@ -337,12 +345,10 @@ public class PalpiteJob implements Job {
 			System.out
 					.println(SYSTEM_PREFIX + "Verificando Json do campeonato: "
 							+ campeonato.getNome());
-			// String pathArquivo = PATH_PASTA_JSON +
-			// arquivosJson.get(campeonato);
+			String pathArquivo = PATH_PASTA_JSON + arquivosJson.get(campeonato);
 
-			// String conteudoLocal =
-			// getLotecaUtil().lerConteudoJson(pathArquivo);
-			String conteudoLocal = conteudoJson.get(campeonato);
+			String conteudoLocal = getLotecaUtil().lerConteudoJson(pathArquivo);
+			// String conteudoLocal = conteudoJson.get(campeonato);
 			String conteudoSite = HttpUtil.conteudoPagina(dadosJogos
 					.get(campeonato));
 
@@ -350,10 +356,9 @@ public class PalpiteJob implements Job {
 				System.out.println(SYSTEM_PREFIX
 						+ "Não existe arquivo local, baixando");
 				// Copiar o conteudo do Json para pasta local
-
-				conteudoJson.put(campeonato, conteudoSite);
-				// getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
-				// pathArquivo);
+//				conteudoJson.put(campeonato, conteudoSite);
+				getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
+						pathArquivo);
 				atualizarConfronto(campeonato, conteudoSite, conteudoSite);
 				retorno = true;
 			} else {
@@ -370,9 +375,9 @@ public class PalpiteJob implements Job {
 					System.out.println(SYSTEM_PREFIX
 							+ "Hash diferentes, atualizando arquivos");
 					// Hash diferentes, tem que atualizar o arquivo
-					// getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
-					// pathArquivo);
-					conteudoJson.put(campeonato, conteudoSite);
+					getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
+							pathArquivo);
+//					conteudoJson.put(campeonato, conteudoSite);
 					atualizarConfronto(campeonato, conteudoSite, conteudoSite);
 					retorno = true;
 				}
@@ -401,25 +406,23 @@ public class PalpiteJob implements Job {
 		return confronto;
 	}
 
-	// public static ConfrontoNovo parserJson(String jsonFilePath) {
-	// Reader reader;
-	// ConfrontoNovo confronto = null;
-	// try {
-	// reader = new InputStreamReader(new FileInputStream(jsonFilePath),
-	// "UTF-8");
-	//
-	// Gson gson = new GsonBuilder().create();
-	// ConfrontoNovo[] listConfrontos = gson.fromJson(reader,
-	// ConfrontoNovo[].class);
-	// confronto = listConfrontos[0];
-	// } catch (UnsupportedEncodingException e) {
-	// e.printStackTrace();
-	// } catch (FileNotFoundException e) {
-	// System.err.println("Arquivo não encontrado " + jsonFilePath);
-	// }
-	//
-	// return confronto;
-	// }
+	public static ConfrontoNovo parserJson(String jsonFilePath) {
+		Reader reader;
+		ConfrontoNovo confronto = null;
+		try {
+			reader = new InputStreamReader(new FileInputStream(jsonFilePath),
+					Charsets.ISO_8859_1);
+
+			Gson gson = new GsonBuilder().create();
+			ConfrontoNovo[] listConfrontos = gson.fromJson(reader,
+					ConfrontoNovo[].class);
+			confronto = listConfrontos[0];
+		} catch (FileNotFoundException e) {
+			System.err.println("Arquivo não encontrado " + jsonFilePath);
+		}
+
+		return confronto;
+	}
 
 	class Jogo {
 
