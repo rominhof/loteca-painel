@@ -77,29 +77,37 @@ public class BBLoteca extends BBDefault {
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
 				grupoCartela = gruposCartelas.get(0);
 				cartelas=grupoCartela.getCartelas();
+				ordenaCartelaEpalpites();
 			}
 			if(loteca!=null && loteca.getPartidas()!=null)
 				Collections.sort(loteca.getPartidas());
+			
 		}else{
 			loteca = new Loteca();
+		}
+	}
+	
+	private void ordenaCartelaEpalpites(){
+		Collections.sort(cartelas);
+		for(Cartela c: cartelas){
+			if(c.getPalpites()!=null)
+				Collections.sort(c.getPalpites());
 		}
 	}
 	
 	public void selecionaGrupoCartela(){
 		System.out.println("selecionou: "+grupoCartela);
 		cartelas = grupoCartela.getCartelas();
-		Collections.sort(cartelas);
-		Collections.reverse(cartelas);
-		for(Cartela c: cartelas){
-			Collections.sort(c.getPalpites());
-			Collections.reverse(c.getPalpites());
-		}
+		ordenaCartelaEpalpites();
 	}
 	
 	
 	public void novaCartela(){
 
 		Cartela cartela = new Cartela();
+		if(cartelas==null){
+			cartelas = new ArrayList<Cartela>();
+		}
 		cartela.setSeqCartela(cartelas.size()+1);
 		cartela.setLoteca(loteca);
 		
@@ -111,7 +119,6 @@ public class BBLoteca extends BBDefault {
 			palpites.add(pt);
 		}
 		cartela.setPalpites(palpites);
-		//grupoCartela.getCartelas().add(cartela);
 		
 		cartela.setGrupoCartela(grupoCartela);
 		cartelas.add(cartela);
