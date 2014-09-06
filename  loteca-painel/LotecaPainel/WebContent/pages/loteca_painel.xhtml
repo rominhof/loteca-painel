@@ -11,7 +11,7 @@
 
 
 <h:form id="formMain"> 
-
+<p:poll interval="5" update="formMain" />
 <p:messages id="msgs"></p:messages>
 
 	<div style="float:left; padding-right: 5px; padding-top:5px;">
@@ -22,9 +22,9 @@
 		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
 		 		</f:facet>
 	
-				<p:column  style="text-align:center; width:10px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+				<p:column  style="text-align:center; width:5px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
 					<f:facet name="header" >
-						<h:outputText value="Seq."/>
+						<h:outputText value=""/>
 					</f:facet>
 					<h:outputText value="#{p.sequencialJogo}"/>
 					<f:facet name="footer">
@@ -58,7 +58,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:10px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+				<p:column style="text-align:center; width:15px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -98,14 +98,14 @@
         </h:panelGrid>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
-		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:460px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:435px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 		 		</f:facet>
 		 		
-		 		<p:column style="text-align:center; width:10px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+		 		<p:column style="text-align:center; width:5px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
-						<h:outputText value="Seq."/>
+						<h:outputText value=""/>
 					</f:facet>
 					<h:outputText value="#{pt.partida.sequencialJogo}"/>
 					<f:facet name="footer">
@@ -123,7 +123,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:right;width:20px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column style="text-align:right;width:13px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -134,7 +134,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:20px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column style="text-align:center; width:13px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=" X "/>
 					</f:facet>
@@ -144,7 +144,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:20px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column  style="width:13px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -163,9 +163,9 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:40px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column  style="text-align:center; width:43px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
-						<h:outputText value="Acerto?"/>
+						<h:outputText value=""/>
 					</f:facet>
 					<h:graphicImage value="/img/erro.gif" rendered="#{not empty pt.acerto and not pt.acerto}" style="width:20px;"/>
 					<h:graphicImage value="/img/sucess.png" rendered="#{pt.acerto}" style="width:18px;"/>
