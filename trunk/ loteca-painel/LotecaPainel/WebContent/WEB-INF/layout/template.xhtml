@@ -47,11 +47,11 @@
 	
 		<div id="conteudo">
 			
-			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
- 
-			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-			    <p:graphicImage name="/img/loadingbar.gif" />
-			</p:dialog>
+			<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+			    <f:facet name="start">
+			        <p:graphicImage value="/img/loading_bar.gif" />
+			    </f:facet>
+			</p:ajaxStatus>
 
 			<ui:insert name="body"></ui:insert>
 		</div>
