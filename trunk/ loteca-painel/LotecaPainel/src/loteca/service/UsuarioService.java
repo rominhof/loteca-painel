@@ -19,18 +19,17 @@ public class UsuarioService {
 	public Usuario login(Usuario usuario) {
 		return usuarioDAO.findUsuarioByLoginSenha(usuario);
 	}
-	
+
 	public Usuario salvar(Usuario usuario) {
 		em.getTransaction().begin();
 		Usuario u = usuarioDAO.insertOrUpdate(usuario);
 		em.getTransaction().commit();
 		return u;
 	}
-	
-	public Usuario finById(Long id){
+
+	public Usuario finById(Long id) {
 		Usuario u = usuarioDAO.findById(id);
 		return u;
 	}
-
 
 }
