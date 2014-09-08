@@ -1,5 +1,7 @@
 package loteca.service;
 
+import java.util.List;
+
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
@@ -33,6 +35,10 @@ public class LotecaService {
 
 	public Loteca carregaLotecaAtual() {
 		return lotecaDAO.findByStatus(Boolean.FALSE);
+	}
+	
+	public List<Loteca> consultaTodasLotecas() {
+		return lotecaDAO.findAll();
 	}
 
 	public void baixarArquivosJsonFI() throws Exception {

@@ -30,6 +30,7 @@ public class BBLoteca extends BBDefault {
 	private GrupoCartelaService grupoCartelaService;
 	private CartelaService cartelaService;
 	private List<Cartela> cartelas;
+	private List<Loteca> lotecas;
 	
 
 	public BBLoteca(){
@@ -39,8 +40,13 @@ public class BBLoteca extends BBDefault {
 		cartelaService = new CartelaService();
 		grupoCartela = new GrupoCartela();
 		carregaLotecaAtual();
+		carregaListaDeLotecas();
 	}
 	
+	private void carregaListaDeLotecas() {
+		lotecas = lotecaService.consultaTodasLotecas();
+	}
+
 	public void sincronizaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtualOficialCaixa();
 		loteca.setFinalizado(Boolean.FALSE);
@@ -85,15 +91,22 @@ public class BBLoteca extends BBDefault {
 		addInfo("Cartelas salvas com sucesso!");
 	}
 	
+	
 	public void carregaLotecaAtual(){
 		loteca = lotecaService.carregaLotecaAtual();
-		
+		carregaGrupoCartelasEPalpites();
+
+	}
+	
+	private void carregaGrupoCartelasEPalpites(){
 		if(loteca!=null){
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuarioConcurso(getUsuarioLogado(), loteca.getNumConcurso());
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
 				grupoCartela = gruposCartelas.get(0);
 				cartelas=grupoCartela.getCartelas();
 				ordenaCartelaEpalpites();
+			}else{
+				cartelas = new ArrayList<Cartela>();
 			}
 			if(loteca!=null && loteca.getPartidas()!=null)
 				Collections.sort(loteca.getPartidas());
@@ -115,6 +128,11 @@ public class BBLoteca extends BBDefault {
 		System.out.println("selecionou: "+grupoCartela);
 		cartelas = grupoCartela.getCartelas();
 		ordenaCartelaEpalpites();
+	}
+	
+	public void selecionaLoteca(){
+		loteca = lotecaService.consultaLotecaPorNumeroConcurso(loteca.getNumConcurso());
+		carregaGrupoCartelasEPalpites();
 	}
 	
 	
@@ -188,18 +206,6 @@ public class BBLoteca extends BBDefault {
 		this.gruposCartelas = gruposCartelas;
 	}
 
-	public void baixarArquivosJsonsFutebolInterior(){
-		try{
-			lotecaService.baixarArquivosJsonFI();
-			addInfo("Arquivos atualizados com sucesso!");
-	}catch (Exception e) {
-		e.printStackTrace();
-		addError("Falha ao baixar arquivos!");
-	}
-		
-		
-	}
-
 	public List<Cartela> getCartelas() {
 		return cartelas;
 	}
@@ -207,10 +213,32 @@ public class BBLoteca extends BBDefault {
 	public void setCartelas(List<Cartela> cartelas) {
 		this.cartelas = cartelas;
 	}
+
+	public List<Loteca> getLotecas() {
+		return lotecas;
+	}
+
+	public void setLotecas(List<Loteca> lotecas) {
+		this.lotecas = lotecas;
+	}
+	
+	public void baixarArquivosJsonsFutebolInterior(){
+		try{
+			lotecaService.baixarArquivosJsonFI();
+			addInfo("Arquivos atualizados com sucesso!");
+		}catch (Exception e) {
+			e.printStackTrace();
+			addError("Falha ao baixar arquivos!");
+		}
+		
+		
+	}
+
+
 	
 	
 
-
+	
 	
 	
 	
