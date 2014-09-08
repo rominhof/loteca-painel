@@ -16,7 +16,6 @@ import loteca.dominio.Usuario;
 import loteca.service.CartelaService;
 import loteca.service.GrupoCartelaService;
 import loteca.service.LotecaService;
-import loteca.service.PalpiteService;
 import loteca.service.UsuarioService;
 
 @ManagedBean(name="bBLoteca")
@@ -52,6 +51,17 @@ public class BBLoteca extends BBDefault {
 			addInfo("Loteca sincronizada com sucesso!");
 			lotecaService.cadastrarLoteca(loteca);
 		}
+	}
+	
+	public void atualizaEntidadesBanco(){
+		/*
+		lotecaService.refresh(loteca);
+		grupoCartelaService.refresh(grupoCartela);
+		for(Cartela cartela: cartelas){
+			cartelaService.refresh(cartela);
+		}*/
+		carregaLotecaAtual();
+		System.out.println("atualizando tela");
 	}
 	
 	public void salvarCartelas(){

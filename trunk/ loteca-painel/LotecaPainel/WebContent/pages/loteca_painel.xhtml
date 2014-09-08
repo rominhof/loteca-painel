@@ -11,13 +11,13 @@
 
 
 <h:form id="formMain"> 
-<p:poll interval="10" update="formMain" />
+<p:poll interval="10" update="tabelaLoteca" listener="#{bBLoteca.atualizaEntidadesBanco}"/>
 <p:messages id="msgs"></p:messages>
 
 	<div style="float:left; padding-right: 5px; padding-top:5px;">
 	
 		<div>
-		<p:dataTable emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:360px; float:top;">
+		<p:dataTable id="tabelaLoteca" emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:360px; float:top;">
 		 		<f:facet name="header">
 		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
 		 		</f:facet>

@@ -26,6 +26,10 @@ public class LotecaService {
 		partidaDAO = new PartidaDAO();
 		timeService = new TimeService();
 	}
+	
+	public void refresh(Loteca loteca){
+		lotecaDAO.refresh(loteca);
+	}
 
 	public Loteca carregaLotecaAtual() {
 		return lotecaDAO.findByStatus(Boolean.FALSE);

@@ -30,6 +30,10 @@ public class LotecaDAO {
 		return lotecaExiste;
 
 	}
+	
+	public void refresh(Loteca loteca){
+		em.refresh(loteca);
+	}
 
 	public Loteca insertOrUpdate(Loteca loteca) {
 		em.getTransaction().begin();

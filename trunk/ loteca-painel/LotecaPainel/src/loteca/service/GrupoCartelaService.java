@@ -32,6 +32,10 @@ public class GrupoCartelaService {
 		return grupoCartelaDAO.findById(id);
 	}
 	
+	public void refresh(GrupoCartela gc){
+		grupoCartelaDAO.refresh(gc);
+	}
+	
 	public GrupoCartela salvar(GrupoCartela grupoCartela){
 		em.getTransaction().begin();
 		grupoCartelaDAO.insertOrUpdate(grupoCartela);
