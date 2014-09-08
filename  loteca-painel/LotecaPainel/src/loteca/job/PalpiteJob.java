@@ -356,8 +356,7 @@ public class PalpiteJob implements Job {
 				System.out.println(SYSTEM_PREFIX
 						+ "Não existe arquivo local, baixando");
 				// Copiar o conteudo do Json para pasta local
-//				conteudoJson.put(campeonato, conteudoSite);
-				getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
+				getLotecaUtil().salvarJsonParaPastaLocal(conteudoSite,
 						pathArquivo);
 				atualizarConfronto(campeonato, conteudoSite, conteudoSite);
 				retorno = true;
@@ -375,9 +374,8 @@ public class PalpiteJob implements Job {
 					System.out.println(SYSTEM_PREFIX
 							+ "Hash diferentes, atualizando arquivos");
 					// Hash diferentes, tem que atualizar o arquivo
-					getLotecaUtil().baixarJsonParaPastaLocal(conteudoSite,
+					getLotecaUtil().salvarJsonParaPastaLocal(conteudoSite,
 							pathArquivo);
-//					conteudoJson.put(campeonato, conteudoSite);
 					atualizarConfronto(campeonato, conteudoSite, conteudoSite);
 					retorno = true;
 				}

@@ -77,7 +77,7 @@ public class LotecaUtil {
 
 	}
 
-	public void baixarJsonParaPastaLocal(String conteudo, String filename) {
+	public void salvarJsonParaPastaLocal(String conteudo, String filename) {
 		FileWriter writer;
 		try {
 			writer = new FileWriter(filename, false);
