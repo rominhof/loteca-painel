@@ -24,6 +24,10 @@ public class CartelaService {
 	public List<Cartela> carregaCartelasDeConcurso(Integer numConcurso) {
 		return cartelaDAO.findByLoteca(numConcurso);
 	}
+	
+	public void refresh(Cartela cartela){
+		cartelaDAO.refresh(cartela);
+	}
 
 	public void salvar(Cartela cartela) {
 		em.getTransaction().begin();

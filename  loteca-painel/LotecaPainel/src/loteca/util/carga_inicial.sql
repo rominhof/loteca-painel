@@ -1,8 +1,8 @@
 
-INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (1, 'Brasileiro Serie A');
-INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (2, 'Brasileiro Serie B');
-INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (3, 'Brasileiro Serie C');
-INSERT INTO `studioca_loteca`.`Campeonato` (`id`, `nome`) VALUES (4, 'Brasileiro Serie D');
+INSERT INTO `studioca_loteca`.`Campeonato` (`id`,`id_ano`,`id_fase`, `nome`) VALUES (1,0,0, 'Brasileiro Serie A');
+INSERT INTO `studioca_loteca`.`Campeonato` (`id`,`id_ano`,`id_fase`, `nome`) VALUES (2,0,0, 'Brasileiro Serie B');
+INSERT INTO `studioca_loteca`.`Campeonato` (`id`,`id_ano`,`id_fase`, `nome`) VALUES (3,0,0, 'Brasileiro Serie C');
+INSERT INTO `studioca_loteca`.`Campeonato` (`id`,`id_ano`,`id_fase`, `nome`) VALUES (4,0,0, 'Brasileiro Serie D');
 
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (1, 'Atlético/MG');
 INSERT INTO `studioca_loteca`.`Time` (`id`, `nome`) VALUES (2, 'Atlético/PR');

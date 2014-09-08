@@ -27,6 +27,10 @@ public class GrupoCartelaDAO {
 		return (List<GrupoCartela>)query.getResultList();
 	}
 	
+	public void refresh(GrupoCartela gc){
+		em.refresh(gc);
+	}
+	
 	public List<GrupoCartela> findByUsuarioLoteca(Usuario u, Integer numConcurso) {
 		Query query = em.createNamedQuery("GrupoCartela.findByUsuarioLoteca");
 		query.setParameter("id", u.getId());

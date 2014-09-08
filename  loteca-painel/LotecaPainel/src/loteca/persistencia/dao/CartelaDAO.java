@@ -17,6 +17,10 @@ public class CartelaDAO {
 		em = JPAUtil.getEntityManager();
 	}
 	
+	public void refresh(Cartela cartela){
+		em.refresh(cartela);
+	}
+	
 	public Cartela insertOrUpdate(Cartela cartela){
 		em.getTransaction().begin();
 		Cartela cartelaExiste = null;
