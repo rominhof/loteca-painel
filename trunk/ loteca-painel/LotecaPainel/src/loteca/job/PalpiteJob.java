@@ -21,8 +21,10 @@ import loteca.dominio.Tabela;
 import loteca.dominio.Time;
 import loteca.service.CartelaService;
 import loteca.service.LotecaService;
+import loteca.service.TimeService;
 import loteca.util.HttpUtil;
 import loteca.util.LotecaUtil;
+import loteca.util.MessageUtil;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -48,35 +50,31 @@ public class PalpiteJob implements Job {
 	private static Map<CampeonatoEnum, ConfrontoNovo> confrontos = new HashMap<CampeonatoEnum, ConfrontoNovo>();
 	private static Map<CampeonatoEnum, String> dadosJogos = new HashMap<CampeonatoEnum, String>();
 	private static Map<CampeonatoEnum, String> arquivosJson = new HashMap<CampeonatoEnum, String>();
-//	private static Map<CampeonatoEnum, String> conteudoJson = new HashMap<CampeonatoEnum, String>();
 
-	// TODO - externalizar
-	private static final String JSON_URL_BASILEIRO_SERIE_A = "http://www.futebolinterior.com.br/gerados/placar_441.json";
-	private static final String JSON_URL_BASILEIRO_SERIE_B = "http://www.futebolinterior.com.br/gerados/placar_442.json";
-	private static final String JSON_URL_BASILEIRO_SERIE_C = "http://www.futebolinterior.com.br/gerados/placar_443.json";
-	private static final String JSON_URL_BASILEIRO_SERIE_D = "http://www.futebolinterior.com.br/gerados/placar_447.json";
+	private static final String JSON_URL_BASILEIRO_SERIE_A = MessageUtil
+			.getInstance().getValue("url.json.serie.a");
+	private static final String JSON_URL_BASILEIRO_SERIE_B = MessageUtil
+			.getInstance().getValue("url.json.serie.b");
+	private static final String JSON_URL_BASILEIRO_SERIE_C = MessageUtil
+			.getInstance().getValue("url.json.serie.c");
+	private static final String JSON_URL_BASILEIRO_SERIE_D = MessageUtil
+			.getInstance().getValue("url.json.serie.d");
 
-	// private static final String JSON_URL_COPA_DO_BRASIL =
-	// "http://www.futebolinterior.com.br/gerados/placar_445.json";
-	// private static final String JSON_URL_BASILEIRO_SERIE_A =
-	// JSON_URL_COPA_DO_BRASIL;
+	private static final String PATH_PASTA_JSON = MessageUtil.getInstance()
+			.getValue("pasta.json");
 
-	// private static final String PATH_PASTA_JSON =
-	// "C:\\Romulo\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
-	// private static final String PATH_PASTA_JSON =
-	// Users/luizsergioviana/norteng/workspace2/LotecaPainel/WebContent/json
-	// private static final String PATH_PASTA_JSON =
-	// "E:\\Projetos\\Loteca\\ loteca-painel\\LotecaPainel\\WebContent\\json\\";
-
-	private static final String PATH_PASTA_JSON = "/home/studioca/appservers/apache-tomcat-6x/webapps/LotecaPainel/json/";
-
-	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_A = "serieA.json";
-	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_B = "serieB.json";
-	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_C = "serieC.json";
-	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_D = "serieD.json";
+	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_A = MessageUtil
+			.getInstance().getValue("arquivo.serie.a");
+	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_B = MessageUtil
+			.getInstance().getValue("arquivo.serie.b");
+	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_C = MessageUtil
+			.getInstance().getValue("arquivo.serie.c");
+	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_D = MessageUtil
+			.getInstance().getValue("arquivo.serie.d");
 
 	private LotecaService lotecaService = null;
 	private CartelaService cartelaService = null;
+	private static TimeService timeService = new TimeService();
 
 	static {
 		dadosJogos.put(CampeonatoEnum.BRASILEIRO_SERIE_A,
@@ -256,10 +254,13 @@ public class PalpiteJob implements Job {
 			ConfrontoNovo confronto) {
 		Jogo retorno = null;
 		for (Tabela tabela : confronto.getTabela()) {
-			String timeMandante = tabela.getMandante().replace('-', '/');
-			String timeVisitante = tabela.getVisitante().replace('-', '/');
-			if (timeMandante.equals(time1.getNome())
-					&& timeVisitante.equals(time2.getNome())) {
+			Time timeMandante = timeService.consultaTimePorNome(tabela
+					.getMandante().replace('-', '/'));
+			Time timeVisitante = timeService.consultaTimePorNome(tabela
+					.getVisitante().replace('-', '/'));
+
+			if (timeMandante.getNome().equals(time1.getNome())
+					&& timeVisitante.getNome().equals(time2.getNome())) {
 				retorno = new Jogo();
 				retorno.setTime1(time1);
 				retorno.setTime2(time2);
@@ -345,10 +346,16 @@ public class PalpiteJob implements Job {
 			System.out
 					.println(SYSTEM_PREFIX + "Verificando Json do campeonato: "
 							+ campeonato.getNome());
-			String pathArquivo = PATH_PASTA_JSON + arquivosJson.get(campeonato);
+			String pathArquivo = PATH_PASTA_JSON;
+			if (pathArquivo.endsWith("/")) {
+				pathArquivo += arquivosJson.get(campeonato);
+			} else {
+				pathArquivo += "/" + arquivosJson.get(campeonato);
+			}
+			System.out.println(SYSTEM_PREFIX
+					+ "Salvando arquivos Json na pasta: " + pathArquivo);
 
 			String conteudoLocal = getLotecaUtil().lerConteudoJson(pathArquivo);
-			// String conteudoLocal = conteudoJson.get(campeonato);
 			String conteudoSite = HttpUtil.conteudoPagina(dadosJogos
 					.get(campeonato));
 
