@@ -115,8 +115,11 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:425px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
+		 			<div style="float:left; position:absolute; margin-top:0px;">
+		 				<p:selectBooleanCheckbox value="#{c.selecionado}" />
+		 			</div>
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
-		 			<p:selectBooleanCheckbox value="#{c.selecionado}"/>
+		 			
 		 		</f:facet>
 		 		
 		 		<p:column style="text-align:center; width:5px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
@@ -192,7 +195,11 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-		 		
+		 		<f:facet name="footer">
+		 			<p:commandButton value="Remover Cartela" actionListener="#{bBLoteca.removerCartela}" update=":formMain:painelCartelas">
+		 				<f:attribute name="cartela" value="#{c}"/>
+		 			</p:commandButton>
+		 		</f:facet>
 		 	</p:dataTable>
 		 </ui:repeat>
 		 
@@ -203,7 +210,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 				<p:commandButton actionListener="#{bBLoteca.removerCartelasSelecionadas}" value="Remover Selecionadas"
 						 styleClass="botao" update=":formMain:painelCartelas"/>
 				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar"
-						 styleClass="botao" update=":formMain:msgs" oncomplete="PF('bar').show()"/>
+						 styleClass="botao" update=":formMain:msgs"/>
 				<p:commandButton actionListener="#{bBLoteca.concluirCartelas}" value="Concluir"
 						 styleClass="botao" update=":formMain:msgs, :formMain:painelCartelas" />
 			</h:panelGrid>

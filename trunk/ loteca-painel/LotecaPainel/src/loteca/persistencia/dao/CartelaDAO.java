@@ -43,5 +43,11 @@ public class CartelaDAO {
 		query.setParameter("numConcurso", numConcurso);
 		return (List<Cartela>)query.getResultList();
 	}
+
+	public void remove(Cartela cartela) {
+		cartela = em.merge(cartela);
+		em.remove(cartela);
+		
+	}
 	
 }

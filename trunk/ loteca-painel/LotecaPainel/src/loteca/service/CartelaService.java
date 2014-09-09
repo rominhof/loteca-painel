@@ -40,4 +40,11 @@ public class CartelaService {
 		palpiteDAO.insertOrUpdate(palpite);
 		em.getTransaction().commit();
 	}
+
+	public void remove(Cartela cartela) {
+		em.getTransaction().begin();
+		cartelaDAO.remove(cartela);
+		em.getTransaction().commit();
+		
+	}
 }
