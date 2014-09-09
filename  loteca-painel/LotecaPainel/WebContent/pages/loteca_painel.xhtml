@@ -116,6 +116,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:425px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
+		 			<p:selectBooleanCheckbox value="#{c.selecionado}"/>
 		 		</f:facet>
 		 		
 		 		<p:column style="text-align:center; width:5px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
@@ -196,8 +197,10 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		 </ui:repeat>
 		 
 	
-		 	<h:panelGrid columns="3">
+		 	<h:panelGrid columns="4">
 		 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova"
+						 styleClass="botao" update=":formMain:painelCartelas"/>
+				<p:commandButton actionListener="#{bBLoteca.removerCartelasSelecionadas}" value="Remover Selecionadas"
 						 styleClass="botao" update=":formMain:painelCartelas"/>
 				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar"
 						 styleClass="botao" update=":formMain:msgs" oncomplete="PF('bar').show()"/>

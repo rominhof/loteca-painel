@@ -83,6 +83,17 @@ public class BBLoteca extends BBDefault {
 		
 	}
 	
+	public void removerCartelasSelecionadas(){
+		for(Cartela cartela: cartelas){
+			if(cartela.getSelecionado()){
+				grupoCartela.getCartelas().remove(cartela);
+			}
+		}
+		
+		grupoCartelaService.salvar(grupoCartela);
+		addInfo("Cartelas removidas com sucesso!");
+	}
+	
 	public void concluirCartelas(){
 		for(Cartela c: cartelas){
 			c.setConcluida(Boolean.TRUE);
