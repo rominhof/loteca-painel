@@ -67,7 +67,7 @@ public class BBLoteca extends BBDefault {
 		for(Cartela cartela: cartelas){
 			cartelaService.refresh(cartela);
 		}*/
-		carregaLotecaAtual();
+		selecionaLoteca();
 		System.out.println("atualizando tela");
 	}
 	
@@ -150,7 +150,6 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	public void selecionaLoteca(){
-		loteca = lotecaService.consultaLotecaPorNumeroConcurso(loteca.getNumConcurso());
 		carregaGrupoCartelasEPalpites();
 	}
 	

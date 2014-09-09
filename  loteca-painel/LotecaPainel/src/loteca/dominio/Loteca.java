@@ -24,7 +24,7 @@ public class Loteca implements Serializable{
 	@Id
 	private Integer numConcurso;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="loteca")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="loteca", orphanRemoval=true)
 	private List<Partida> partidas;
 	
 	private Boolean finalizado;
