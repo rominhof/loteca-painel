@@ -56,7 +56,8 @@ public class LotecaService {
 	}
 
 	public Loteca consultaLotecaPorNumeroConcurso(Integer numConcurso) {
-		return lotecaDAO.findByNumConcurso(numConcurso);
+		Loteca loteca = lotecaDAO.findByNumConcurso(numConcurso);
+		return loteca;
 	}
 
 	public void preencheTimesLoteca(Loteca loteca) {

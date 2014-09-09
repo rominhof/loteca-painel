@@ -3,6 +3,7 @@ package loteca.persistencia.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -62,6 +63,7 @@ public class LotecaDAO {
 		try {
 			Query query = em.createNamedQuery("Loteca.findByNumConcurso");
 			query.setParameter("numConcurso", numConcurso);
+			query.setFlushMode(FlushModeType.AUTO);
 			loteca = (Loteca) query.getSingleResult();
 		} catch (NoResultException e) {
 			return loteca;
