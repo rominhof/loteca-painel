@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
@@ -45,6 +46,9 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	private GrupoCartela grupoCartela;
 	
 	private Boolean concluida;
+	
+	@Transient
+	private Boolean selecionado;
 	
 	public Long getId() {
 		return id;
@@ -85,6 +89,15 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	}
 	public void setGrupoCartela(GrupoCartela grupoCartela) {
 		this.grupoCartela = grupoCartela;
+	}
+	
+	
+	
+	public Boolean getSelecionado() {
+		return selecionado;
+	}
+	public void setSelecionado(Boolean selecionado) {
+		this.selecionado = selecionado;
 	}
 	@Override
 	public int compareTo(Cartela o) {
