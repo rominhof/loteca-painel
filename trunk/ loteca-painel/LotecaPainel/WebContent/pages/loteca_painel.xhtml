@@ -11,19 +11,25 @@
 
 
 <h:form id="formMain"> 
-<p:poll interval="10" update="tabelaLoteca" listener="#{bBLoteca.atualizaEntidadesBanco}"/>
-<p:messages id="msgs"></p:messages>
+<p:poll interval="10" update="tabelaLoteca" 
+listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 
-	<div style="float:left; padding-right: 5px; padding-top:5px;">
-	
-		<div>
-		<h:panelGrid columns="3">
-	 		<h:outputText value="Concurso: "/>
-	 		<p:selectOneMenu value="#{bBLoteca.loteca}" id="lotecasID" converter="lotecaConverter">
-	 			<p:ajax event="change" update="formMain" listener="#{bBLoteca.selecionaLoteca}"></p:ajax>
-	            <f:selectItems value="#{bBLoteca.lotecas}" var="l"  itemLabel="#{l.numConcurso}" itemValue="#{l}"/>
-	        </p:selectOneMenu>
-        </h:panelGrid>
+ <p:messages id="msgs"  showDetail="true" autoUpdate="true"/>
+
+	<div style="float:left; padding-right: 5px; padding-top:0px;">
+	<p:panelGrid columns="1"  style="width:auto; border:0px;" >
+	 		<f:facet name="header">
+	 			<h:outputText value="Concurso"></h:outputText>
+	 		</f:facet>
+		
+		<h:panelGrid columns="2">
+		 	<h:outputText value="Concurso: "/>
+		 	<p:selectOneMenu value="#{bBLoteca.loteca}" id="lotecasID" converter="lotecaConverter">
+		 		<p:ajax event="change" update="formMain" listener="#{bBLoteca.selecionaLoteca}"></p:ajax>
+		        <f:selectItems value="#{bBLoteca.lotecas}" var="l"  itemLabel="#{l.numConcurso}" itemValue="#{l}"/>
+            </p:selectOneMenu>
+       </h:panelGrid>
+	    
 		<p:dataTable id="tabelaLoteca" emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:360px; float:top;">
 		 		<f:facet name="header">
 		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
@@ -78,23 +84,25 @@
 				</p:column>
 				
 		 	</p:dataTable>
-		 </div>
-		 <div style="padding-top:10px;">
 		 
+		
 		 	<h:panelGrid columns="1">
 				
 				<p:commandButton actionListener="#{bBLoteca.sincronizaLotecaAtual}" value="Sincroniza Loteca Atual" ajax="true" 
 						 styleClass="botao" update=":formMain:msgs"/>
 						 </h:panelGrid>
+		
+		
+		</p:panelGrid>
 		</div>
-		</div>
+		
 	<div>
 	<h:panelGroup columns="1" id="painelCartelas" style="border:dotted 0px #ffffff;" >
  	<p:panelGrid columns="1"  style="width:auto;" rendered="#{not empty bBLoteca.grupoCartela}" >
  		<f:facet name="header">
  			<h:outputText value="Grupo de Cartelas"></h:outputText>
  		</f:facet>
- 		<h:panelGrid columns="3">
+ 		<h:panelGrid columns="4" style="border:0px;">
 	 		<h:outputText value="Grupo de Cartelas: "/>
 	 		<p:selectOneMenu value="#{bBLoteca.grupoCartela}" id="grupoCartelaID" converter="grupoCartelaConverter" rendered="#{not empty bBLoteca.gruposCartelas}">
 	 			<p:ajax event="change" update="painelCartelas" listener="#{bBLoteca.selecionaGrupoCartela}"></p:ajax>
@@ -105,7 +113,7 @@
         </h:panelGrid>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
-		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:435px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:425px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 		 		</f:facet>
@@ -120,7 +128,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:right;width:100px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column style="text-align:right;width:97px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value="Coluna 1"/>
 					</f:facet>
@@ -130,7 +138,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:right;width:13px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column style="text-align:right;width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -141,7 +149,7 @@
 		       			
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:13px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column style="text-align:center; width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=" X "/>
 					</f:facet>
@@ -151,7 +159,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:13px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column  style="width:12px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -161,7 +169,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="width:100px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column  style="width:97px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value="Coluna 2"/>
 					</f:facet>
@@ -170,7 +178,7 @@
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column  style="text-align:center; width:43px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+				<p:column  style="text-align:center; width:42px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -187,16 +195,16 @@
 		 	</p:dataTable>
 		 </ui:repeat>
 		 
-		 	<div align="right" style="float:right;">
+	
 		 	<h:panelGrid columns="3">
 		 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova"
 						 styleClass="botao" update=":formMain:painelCartelas"/>
 				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar"
-						 styleClass="botao" update=":formMain:msgs"/>
+						 styleClass="botao" update=":formMain:msgs" oncomplete="PF('bar').show()"/>
 				<p:commandButton actionListener="#{bBLoteca.concluirCartelas}" value="Concluir"
 						 styleClass="botao" update=":formMain:msgs, :formMain:painelCartelas" />
 			</h:panelGrid>
-		 </div>
+		 
 	</p:panelGrid>
 
 	</h:panelGroup>

@@ -47,11 +47,16 @@
 	
 		<div id="conteudo">
 			
-			<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-			    <f:facet name="start">
-			        <p:graphicImage value="/img/loading_bar.gif" />
-			    </f:facet>
-			</p:ajaxStatus>
+			<p:ajaxStatus
+			onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+			
+			<p:dialog  widgetVar="statusDialog"
+						resizable="false" width="300" height="20">
+						<f:facet name="header">
+							<h:outputText value="Processando requisição..." style="font-size:12px;"/>
+						</f:facet>
+				<h:graphicImage value="/img/loading_bar.gif" />
+			</p:dialog>
 
 			<ui:insert name="body"></ui:insert>
 		</div>
