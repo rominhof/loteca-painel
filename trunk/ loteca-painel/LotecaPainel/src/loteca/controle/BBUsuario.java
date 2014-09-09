@@ -14,6 +14,7 @@ public class BBUsuario extends BBDefault {
 	private Usuario usuarioLogin;
 	private Usuario usuarioLogado;
 	private static final String PAGINA_LOGIN_SUCESSO = "home";
+	private static final String PAGINA_LOGIN_SUCESSO_MOBILE = "pm:home";
 	private UsuarioService usuarioService;
 
 	
@@ -27,6 +28,17 @@ public class BBUsuario extends BBDefault {
 		if(usuarioLogado!=null){
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", usuarioLogado);
 			return PAGINA_LOGIN_SUCESSO;
+		}else{
+			addError("Falha na autenticação! Login e/ou Senha inválidos.");
+			return null;
+		}
+	}
+	
+	public String loginMobile(){
+		usuarioLogado = usuarioService.login(usuarioLogin);
+		if(usuarioLogado!=null){
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", usuarioLogado);
+			return PAGINA_LOGIN_SUCESSO_MOBILE;
 		}else{
 			addError("Falha na autenticação! Login e/ou Senha inválidos.");
 			return null;
