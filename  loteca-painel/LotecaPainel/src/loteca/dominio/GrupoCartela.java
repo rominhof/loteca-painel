@@ -33,7 +33,7 @@ public class GrupoCartela implements Serializable{
 	
 	private String nome;
 	
-	@OneToMany(mappedBy="grupoCartela", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="grupoCartela", orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<Cartela> cartelas;
 
 	@ManyToMany(mappedBy="gruposCartelas", cascade=CascadeType.ALL)

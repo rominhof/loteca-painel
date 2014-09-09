@@ -34,7 +34,7 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	
 	private Integer seqCartela;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="cartela")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="cartela")
 	private List<Palpite> palpites;
 	
 	@ManyToOne
@@ -104,6 +104,31 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 		Cartela c =(Cartela)o; 
 		return seqCartela.compareTo(c.getSeqCartela());
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cartela other = (Cartela) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 	

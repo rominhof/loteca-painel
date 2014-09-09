@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import loteca.dominio.Cartela;
 import loteca.dominio.GrupoCartela;
@@ -92,6 +93,13 @@ public class BBLoteca extends BBDefault {
 		
 		grupoCartelaService.salvar(grupoCartela);
 		addInfo("Cartelas removidas com sucesso!");
+	}
+	
+	public void removerCartela(ActionEvent ev){
+		Cartela cartela = (Cartela)ev.getComponent().getAttributes().get("cartela");
+		cartelaService.remove(cartela);
+		addInfo("Cartela removida com sucesso!");
+		cartelas.remove(cartela);
 	}
 	
 	public void concluirCartelas(){
