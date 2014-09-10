@@ -20,6 +20,7 @@
     <pm:page id="login">
 	    <pm:header title="Loteca Painel" swatch="b"></pm:header>
 	    
+	    
 	     
 	    <pm:content>
 		    <h:form id="formMain"> 
@@ -34,7 +35,7 @@
 					    <p:outputLabel for="password" value="Senha:" />
 					    <p:password id="password" value="#{bBUsuario.usuarioLogin.senha}"/>
 					</pm:field>
-					<p:commandButton action="#{bBUsuario.loginMobile}" value="Login"/>
+					<p:commandButton action="#{bBUsuario.loginMobile}" value="Login" update="msgs"/>
 				    <p:button outcome="pm:home" value="Home" />
 				</p:panel>
 			</h:form>
@@ -57,7 +58,9 @@
 	</pm:page>
 	
 	<pm:page id="loteca">
-	    <pm:header title="Loteca" swatch="b"></pm:header>
+	    <pm:header title="Loteca" swatch="b">
+            <p:button outcome="pm:home" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+        </pm:header>
 	     
 	    <pm:content>
 			<p:panel header="">
