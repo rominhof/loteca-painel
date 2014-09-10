@@ -1,19 +1,27 @@
 package loteca.service;
 
 import loteca.dominio.Time;
-import loteca.persistencia.dao.TimeDAO;
-import loteca.util.LotecaUtil;
+import loteca.persistencia.DAOFactory;
+import loteca.persistencia.api.TimeDAO;
 
 public class TimeService {
 
-	LotecaUtil lotecaUtil = new LotecaUtil();
-	TimeDAO timeDAO = new TimeDAO();
-	
-	
-	public Time consultaTimePorNome(String nome){
+	private TimeDAO timeDAO;
 
-		return timeDAO.findByNome(nome);
+	public TimeService() {
+		// Vazio
 	}
-	
+
+	private TimeDAO getTimeDAO() {
+		if (this.timeDAO == null) {
+			this.timeDAO = DAOFactory.getRepository(TimeDAO.class);
+		}
+		return this.timeDAO;
+	}
+
+	public Time consultaTimePorNome(String nome) {
+
+		return getTimeDAO().findByNome(nome);
+	}
 
 }
