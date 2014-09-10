@@ -2,60 +2,65 @@ package loteca.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import loteca.dominio.GrupoCartela;
 import loteca.dominio.Usuario;
-import loteca.persistencia.dao.GrupoCartelaDAO;
-import loteca.persistencia.dao.UsuarioDAO;
-import loteca.util.JPAUtil;
+import loteca.persistencia.DAOFactory;
+import loteca.persistencia.api.GrupoCartelaDAO;
+import loteca.persistencia.api.UsuarioDAO;
 
 public class GrupoCartelaService {
 
-	private EntityManager em;
-	GrupoCartelaDAO grupoCartelaDAO;
-	UsuarioDAO usuarioDAO;
+	private GrupoCartelaDAO grupoCartelaDAO;
+	private UsuarioDAO usuarioDAO;
 
 	public GrupoCartelaService() {
-		em = JPAUtil.getEntityManager();
-		grupoCartelaDAO = new GrupoCartelaDAO();
-		usuarioDAO = new UsuarioDAO();
+		// Vazio
+	}
+
+	private GrupoCartelaDAO getGrupoCartelaDAO() {
+		if (this.grupoCartelaDAO == null) {
+			this.grupoCartelaDAO = DAOFactory
+					.getRepository(GrupoCartelaDAO.class);
+		}
+		return this.grupoCartelaDAO;
+	}
+
+	private UsuarioDAO getUsuarioDAO() {
+		if (this.usuarioDAO == null) {
+			this.usuarioDAO = DAOFactory.getRepository(UsuarioDAO.class);
+		}
+		return this.usuarioDAO;
 	}
 
 	public List<GrupoCartela> consultarGruposCartelasPorUsuario(Usuario u) {
-		return grupoCartelaDAO.findByUsuario(u);
+		return getGrupoCartelaDAO().findByUsuario(u);
 	}
 
 	public List<GrupoCartela> consultarGruposCartelasPorUsuarioConcurso(
 			Usuario u, Integer numConcurso) {
-		return grupoCartelaDAO.findByUsuarioLoteca(u, numConcurso);
+		return getGrupoCartelaDAO().findByUsuarioLoteca(u, numConcurso);
 	}
 
 	public GrupoCartela consultarPorId(Long id) {
-		return grupoCartelaDAO.findById(id);
+		return getGrupoCartelaDAO().findById(id);
 	}
 
 	public void refresh(GrupoCartela gc) {
-		grupoCartelaDAO.refresh(gc);
+		getGrupoCartelaDAO().refresh(gc);
 	}
 
 	public GrupoCartela salvar(GrupoCartela grupoCartela) {
-		em.getTransaction().begin();
-		grupoCartelaDAO.insertOrUpdate(grupoCartela);
+		getGrupoCartelaDAO().insertOrUpdate(grupoCartela);
 
-		em.getTransaction().commit();
 		return grupoCartela;
 	}
 
 	public void associarUsuarios(GrupoCartela grupoCartela,
 			List<Usuario> usuarios) {
-		em.getTransaction().begin();
 		for (Usuario usuario : usuarios) {
 			usuario.getGruposCartelas().add(grupoCartela);
-			usuarioDAO.insertOrUpdate(usuario);
+			getUsuarioDAO().insertOrUpdate(usuario);
 		}
-
-		em.getTransaction().commit();
 	}
 
 }

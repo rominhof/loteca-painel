@@ -3,42 +3,51 @@ package loteca.service;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
 
 import loteca.dominio.Loteca;
 import loteca.dominio.Partida;
-import loteca.persistencia.dao.LotecaDAO;
-import loteca.persistencia.dao.PartidaDAO;
-import loteca.util.JPAUtil;
+import loteca.persistencia.DAOFactory;
+import loteca.persistencia.api.LotecaDAO;
+import loteca.persistencia.api.PartidaDAO;
 import loteca.util.LotecaUtil;
 
 public class LotecaService {
 
-	private EntityManager em;
-	LotecaUtil lotecaUtil;
-	LotecaDAO lotecaDAO;
-	PartidaDAO partidaDAO;
-	TimeService timeService;
+	private LotecaUtil lotecaUtil;
+	private LotecaDAO lotecaDAO;
+	private PartidaDAO partidaDAO;
+	private TimeService timeService;
 
 	public LotecaService() {
-		em = JPAUtil.getEntityManager();
 		lotecaUtil = new LotecaUtil();
-		lotecaDAO = new LotecaDAO();
-		partidaDAO = new PartidaDAO();
 		timeService = new TimeService();
 	}
-	
-	public void refresh(Loteca loteca){
-		lotecaDAO.refresh(loteca);
+
+	private LotecaDAO getLotecaDAO() {
+		if (this.lotecaDAO == null) {
+			this.lotecaDAO = DAOFactory.getRepository(LotecaDAO.class);
+		}
+		return this.lotecaDAO;
+	}
+
+	private PartidaDAO getPartidaDAO() {
+		if (this.partidaDAO == null) {
+			this.partidaDAO = DAOFactory.getRepository(PartidaDAO.class);
+		}
+		return this.partidaDAO;
+	}
+
+	public void refresh(Loteca loteca) {
+		getLotecaDAO().refresh(loteca);
 	}
 
 	public Loteca carregaLotecaAtual() {
-		return lotecaDAO.findByStatus(Boolean.FALSE);
+		return getLotecaDAO().findByStatus(Boolean.FALSE);
 	}
-	
+
 	public List<Loteca> consultaTodasLotecas() {
-		return lotecaDAO.findAll();
+		return getLotecaDAO().findAll();
 	}
 
 	public void baixarArquivosJsonFI() throws Exception {
@@ -48,15 +57,13 @@ public class LotecaService {
 	}
 
 	public void cadastrarLoteca(Loteca loteca) {
-		em.getTransaction().begin();
 		preencheTimesLoteca(loteca);
-		lotecaDAO.insert(loteca);
-		em.getTransaction().commit();
+		getLotecaDAO().insert(loteca);
 
 	}
 
 	public Loteca consultaLotecaPorNumeroConcurso(Integer numConcurso) {
-		Loteca loteca = lotecaDAO.findByNumConcurso(numConcurso);
+		Loteca loteca = getLotecaDAO().findByNumConcurso(numConcurso);
 		return loteca;
 	}
 
@@ -66,7 +73,6 @@ public class LotecaService {
 			p.setTime2(timeService.consultaTimePorNome(p.getTime2().getNome()));
 			p.setLoteca(loteca);
 		}
-
 	}
 
 	public Loteca carregaLotecaAtualOficialCaixa() {
@@ -74,14 +80,10 @@ public class LotecaService {
 	}
 
 	public void atualizaLoteca(Loteca loteca) {
-		em.getTransaction().begin();
-		lotecaDAO.insertOrUpdate(loteca);
-		em.getTransaction().commit();
+		getLotecaDAO().insertOrUpdate(loteca);
 	}
 
 	public void atualizaPartida(Partida partida) {
-		em.getTransaction().begin();
-		partidaDAO.insertOrUpdate(partida);
-		em.getTransaction().commit();
+		getPartidaDAO().insertOrUpdate(partida);
 	}
 }

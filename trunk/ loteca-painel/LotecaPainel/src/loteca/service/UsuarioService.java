@@ -1,34 +1,35 @@
 package loteca.service;
 
-import javax.persistence.EntityManager;
-
 import loteca.dominio.Usuario;
-import loteca.persistencia.dao.UsuarioDAO;
-import loteca.util.JPAUtil;
+import loteca.persistencia.DAOFactory;
+import loteca.persistencia.api.UsuarioDAO;
 
 public class UsuarioService {
 
-	private EntityManager em;
-	UsuarioDAO usuarioDAO;
+	private UsuarioDAO usuarioDAO;
 
 	public UsuarioService() {
-		em = JPAUtil.getEntityManager();
-		usuarioDAO = new UsuarioDAO();
+		// Vazio
+	}
+
+	private UsuarioDAO getUsuarioDAO() {
+		if (this.usuarioDAO == null) {
+			this.usuarioDAO = DAOFactory.getRepository(UsuarioDAO.class);
+		}
+		return this.usuarioDAO;
 	}
 
 	public Usuario login(Usuario usuario) {
-		return usuarioDAO.findUsuarioByLoginSenha(usuario);
+		return getUsuarioDAO().findUsuarioByLoginSenha(usuario);
 	}
 
 	public Usuario salvar(Usuario usuario) {
-		em.getTransaction().begin();
-		Usuario u = usuarioDAO.insertOrUpdate(usuario);
-		em.getTransaction().commit();
+		Usuario u = getUsuarioDAO().insertOrUpdate(usuario);
 		return u;
 	}
 
 	public Usuario finById(Long id) {
-		Usuario u = usuarioDAO.findById(id);
+		Usuario u = getUsuarioDAO().findById(id);
 		return u;
 	}
 

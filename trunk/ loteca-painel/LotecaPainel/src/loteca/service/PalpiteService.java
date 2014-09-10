@@ -1,22 +1,25 @@
 package loteca.service;
 
-import javax.persistence.EntityManager;
-
 import loteca.dominio.Palpite;
-import loteca.persistencia.dao.PalpiteDAO;
-import loteca.util.JPAUtil;
+import loteca.persistencia.DAOFactory;
+import loteca.persistencia.api.PalpiteDAO;
 
 public class PalpiteService {
 
-	private EntityManager em;
 	PalpiteDAO palpiteDAO;
 
 	public PalpiteService() {
-		em = JPAUtil.getEntityManager();
-		palpiteDAO = new PalpiteDAO();
+		// Vazio
 	}
 
-	public void salvar(Palpite p){
-		palpiteDAO.insertOrUpdate(p);
+	private PalpiteDAO getPalpiteDAO() {
+		if (this.palpiteDAO == null) {
+			this.palpiteDAO = DAOFactory.getRepository(PalpiteDAO.class);
+		}
+		return this.palpiteDAO;
+	}
+
+	public void salvar(Palpite p) {
+		getPalpiteDAO().insertOrUpdate(p);
 	}
 }
