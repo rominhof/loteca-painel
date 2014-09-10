@@ -34,7 +34,7 @@
 					    <p:outputLabel for="password" value="Senha:" />
 					    <p:password id="password" value="#{bBUsuario.usuarioLogin.senha}"/>
 					</pm:field>
-					<p:commandButton action="#{bBUsuario.loginMobile}" value="Login" ajax="true" onsuccess="PrimeFaces.Mobile.navigate('#home',{});"/>
+					<p:commandButton action="#{bBUsuario.loginMobile}" value="Login"/>
 				    <p:button outcome="pm:home" value="Home" />
 				</p:panel>
 			</h:form>
