@@ -11,7 +11,7 @@
         <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
         <navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
         <locale-config>
-            <default-locale>en</default-locale>
+            <default-locale>pt-BR</default-locale>
         </locale-config>
         <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
         <resource-bundle>
