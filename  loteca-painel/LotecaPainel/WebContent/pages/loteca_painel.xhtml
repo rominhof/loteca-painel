@@ -227,7 +227,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
     <h:form id="cadGrupoCartelas">
     <h:panelGrid columns="2">
    	 	<h:outputText value="Nome:" />
-    	<p:inputText value="#{bBLoteca.grupoCartela.nome}"/>
+    	<p:inputText value="#{bBLoteca.novoGrupoCartela.nome}"/>
     	<p:commandButton value="Salvar" update=":formMain:painelCartelas" actionListener="#{bBLoteca.salvaGrupoCartela}" oncomplete="PF('cadGrupoCartelaDialog').hide();"/>
     </h:panelGrid>
     </h:form>
