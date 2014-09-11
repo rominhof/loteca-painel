@@ -133,6 +133,7 @@ public class PalpiteJob implements Job {
 				verificarLotecaEncerrada(lotecaAtual);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.err.println("Ocorreu erro na execução do Job PalpiteJob");
 		}
 
@@ -249,15 +250,28 @@ public class PalpiteJob implements Job {
 	 * @param confronto
 	 *            todos os confrontos disponiveis
 	 * @return O jogo atual de acordo com os times desejados
+	 * @throws Exception
 	 */
 	private Jogo getJogoFromConfronto(Time time1, Time time2,
-			ConfrontoNovo confronto) {
+			ConfrontoNovo confronto) throws Exception {
 		Jogo retorno = null;
 		for (Tabela tabela : confronto.getTabela()) {
 			Time timeMandante = timeService.consultaTimePorNome(tabela
 					.getMandante().replace('-', '/'));
 			Time timeVisitante = timeService.consultaTimePorNome(tabela
 					.getVisitante().replace('-', '/'));
+
+			if (timeMandante == null) {
+				throw new Exception(
+						"Não foi localizado na base o time mandante: "
+								+ tabela.getMandante());
+			}
+
+			if (timeVisitante == null) {
+				throw new Exception(
+						"Não foi localizado na base o time visitante: "
+								+ tabela.getVisitante());
+			}
 
 			if (timeMandante.getNome().equals(time1.getNome())
 					&& timeVisitante.getNome().equals(time2.getNome())) {

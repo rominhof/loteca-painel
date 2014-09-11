@@ -71,7 +71,8 @@ public class LotecaService {
 		for (Partida p : loteca.getPartidas()) {
 			p.setTime1(timeService.consultaTimePorNome(p.getTime1().getNome()));
 			p.setTime2(timeService.consultaTimePorNome(p.getTime2().getNome()));
-			p.setLoteca(loteca);
+			// TODO Refactoring - remover codigo se funcionar
+			//p.setLoteca(loteca);
 		}
 	}
 
