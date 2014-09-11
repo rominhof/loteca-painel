@@ -11,6 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "Time.findByNome", query = "select t from Time t where lower(t.nome) = :nome or lower(t.nomeAlternativo) = :nome ") })
 public class Time implements Serializable {
@@ -32,6 +35,7 @@ public class Time implements Serializable {
 	}
 
 	@ManyToMany(mappedBy = "times")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Campeonato> campeonato;
 
 	public Time() {

@@ -10,13 +10,16 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Loteca.findAll", query="select l from loteca.dominio.Loteca l "),
-	@NamedQuery(name="Loteca.findByNumConcurso", query="select l from loteca.dominio.Loteca l where l.numConcurso = :numConcurso"),
-	@NamedQuery(name="Loteca.findByStatus", query="select l from loteca.dominio.Loteca l where l.finalizado = :finalizado")})
-public class Loteca implements Serializable{
-	
+		@NamedQuery(name = "Loteca.findAll", query = "select l from loteca.dominio.Loteca l "),
+		@NamedQuery(name = "Loteca.findByNumConcurso", query = "select l from loteca.dominio.Loteca l where l.numConcurso = :numConcurso"),
+		@NamedQuery(name = "Loteca.findByStatus", query = "select l from loteca.dominio.Loteca l where l.finalizado = :finalizado") })
+public class Loteca implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -24,30 +27,36 @@ public class Loteca implements Serializable{
 	@Id
 	private Integer numConcurso;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="loteca", orphanRemoval=true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "loteca", orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Partida> partidas;
-	
+
 	private Boolean finalizado;
-	
 
 	public Integer getNumConcurso() {
 		return numConcurso;
 	}
+
 	public void setNumConcurso(Integer numConcurso) {
 		this.numConcurso = numConcurso;
 	}
+
 	public List<Partida> getPartidas() {
 		return partidas;
 	}
+
 	public void setPartidas(List<Partida> partidas) {
 		this.partidas = partidas;
 	}
+
 	public Boolean getFinalizado() {
 		return finalizado;
 	}
+
 	public void setFinalizado(Boolean finalizado) {
 		this.finalizado = finalizado;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +67,7 @@ public class Loteca implements Serializable{
 				+ ((numConcurso == null) ? 0 : numConcurso.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -80,9 +90,4 @@ public class Loteca implements Serializable{
 		return true;
 	}
 
-
-	
-	
-	
-	
 }
