@@ -142,7 +142,7 @@ public class BBLoteca extends BBDefault {
 		for (Cartela c : cartelas) {
 			if (c.getPalpites() != null)
 				Collections.sort(c.getPalpites());
-		}
+		} 
 	}
 	
 	public void selecionaGrupoCartela(){
