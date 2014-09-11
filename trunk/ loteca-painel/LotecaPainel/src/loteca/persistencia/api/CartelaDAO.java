@@ -15,4 +15,5 @@ public interface CartelaDAO {
 	List<Cartela> findByLoteca(Integer numConcurso);
 	
 	void remove(Cartela cartela);
+	
 }
