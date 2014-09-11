@@ -10,7 +10,9 @@ public interface CartelaDAO {
 
 	Cartela insertOrUpdate(Cartela cartela);
 
-	List<Cartela> findByLoteca(Integer numConcurso);
+	List<Cartela> findByLotecaGrupoCartela(Integer numConcurso, Long idgc);
 
+	List<Cartela> findByLoteca(Integer numConcurso);
+	
 	void remove(Cartela cartela);
 }

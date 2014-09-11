@@ -38,6 +38,13 @@ public class CartelaDAOImpl implements CartelaDAO {
 
 		return cartelaExiste;
 	}
+	
+	public List<Cartela> findByLotecaGrupoCartela(Integer numConcurso, Long idgc){
+		Query query = jpaHelper.getEntityManager().createNamedQuery("Cartela.findByLotecaGrupoCartela");
+		query.setParameter("numConcurso", numConcurso);
+		query.setParameter("grupoCartela", idgc);
+		return (List<Cartela>)query.getResultList();
+	}
 
 	public List<Cartela> findByLoteca(Integer numConcurso) {
 		Query query = jpaHelper.getEntityManager().createNamedQuery(

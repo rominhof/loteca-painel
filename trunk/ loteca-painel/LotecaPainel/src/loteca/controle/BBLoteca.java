@@ -25,6 +25,7 @@ public class BBLoteca extends BBDefault {
 
 	private Loteca loteca;
 	private GrupoCartela grupoCartela;
+	private GrupoCartela novoGrupoCartela;
 	private List<GrupoCartela> gruposCartelas;
 	private LotecaService lotecaService;
 	private UsuarioService usuarioService;
@@ -38,7 +39,7 @@ public class BBLoteca extends BBDefault {
 		lotecaService = new LotecaService();
 		grupoCartelaService = new GrupoCartelaService();
 		cartelaService = new CartelaService();
-		grupoCartela = new GrupoCartela();
+		novoGrupoCartela = new GrupoCartela();
 		carregaLotecaAtual();
 		carregaListaDeLotecas();
 	}
@@ -115,23 +116,23 @@ public class BBLoteca extends BBDefault {
 		carregaGrupoCartelasEPalpites();
 
 	}
-
-	private void carregaGrupoCartelasEPalpites() {
-		if (loteca != null) {
-			gruposCartelas = grupoCartelaService
-					.consultarGruposCartelasPorUsuarioConcurso(
-							getUsuarioLogado(), loteca.getNumConcurso());
-			if (gruposCartelas != null && gruposCartelas.size() > 0) {
-				grupoCartela = gruposCartelas.get(0);
-				cartelas = grupoCartela.getCartelas();
+	
+	private void carregaGrupoCartelasEPalpites(){
+		if(loteca!=null){
+			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuario(getUsuarioLogado());
+			if(gruposCartelas!=null && gruposCartelas.size()>0){
+				if(grupoCartela==null){
+					grupoCartela = gruposCartelas.get(0);
+				}
+				cartelas=cartelaService.carregaCartelasDeConcursoGrupoCartela(loteca.getNumConcurso(),grupoCartela.getId());
 				ordenaCartelaEpalpites();
-			} else {
+			}else{
 				cartelas = new ArrayList<Cartela>();
 			}
-			if (loteca != null && loteca.getPartidas() != null)
+			if(loteca!=null && loteca.getPartidas()!=null)
 				Collections.sort(loteca.getPartidas());
-
-		} else {
+			
+		}else{
 			loteca = new Loteca();
 		}
 	}
@@ -143,59 +144,60 @@ public class BBLoteca extends BBDefault {
 				Collections.sort(c.getPalpites());
 		}
 	}
-
-	public void selecionaGrupoCartela() {
-		System.out.println("selecionou: " + grupoCartela);
-		cartelas = grupoCartela.getCartelas();
+	
+	public void selecionaGrupoCartela(){
+		System.out.println("selecionou: "+grupoCartela);
+		carregaGrupoCartelasEPalpites();
 		ordenaCartelaEpalpites();
 	}
-
-	public void selecionaLoteca() {
+	
+	public void selecionaLoteca(){
 		carregaGrupoCartelasEPalpites();
 	}
-
-	public void novaCartela() {
+	
+	
+	public void novaCartela(){
 
 		Cartela cartela = new Cartela();
-		if (cartelas == null) {
+		if(cartelas==null){
 			cartelas = new ArrayList<Cartela>();
 		}
-		cartela.setSeqCartela(cartelas.size() + 1);
+		cartela.setSeqCartela(cartelas.size()+1);
 		cartela.setLoteca(loteca);
-
+		
 		List<Palpite> palpites = new ArrayList<Palpite>();
-		for (Partida p : loteca.getPartidas()) {
+		for(Partida p: loteca.getPartidas()){
 			Palpite pt = new Palpite();
 			pt.setPartida(p);
+			pt.setCartela(cartela);
 			palpites.add(pt);
 		}
 		cartela.setPalpites(palpites);
-
+		
 		cartela.setGrupoCartela(grupoCartela);
 		cartelas.add(cartela);
-
+		
 		cartelaService.salvar(cartela);
 
 	}
-
-	public void preparaCadastraGrupoCartela() {
-		grupoCartela = new GrupoCartela();
+	
+	public void preparaCadastraGrupoCartela(){
+		novoGrupoCartela = new GrupoCartela();
 	}
-
-	public void salvaGrupoCartela() {
+	
+	public void salvaGrupoCartela(){
 		carregaGruposCartelasUsuario();
 		Usuario u = getUsuarioLogado();
-		gruposCartelas.add(grupoCartela);
+		gruposCartelas.add(novoGrupoCartela);
 		u.setGruposCartelas(gruposCartelas);
 		usuarioService.salvar(u);
 		carregaGruposCartelasUsuario();
-
+		
 	}
 
 	private void carregaGruposCartelasUsuario() {
-		gruposCartelas = grupoCartelaService
-				.consultarGruposCartelasPorUsuario(getUsuarioLogado());
-
+		gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuario(getUsuarioLogado());
+		
 	}
 
 	public Loteca getLoteca() {
@@ -205,7 +207,9 @@ public class BBLoteca extends BBDefault {
 	public void setLoteca(Loteca loteca) {
 		this.loteca = loteca;
 	}
-
+	
+	
+	
 	public GrupoCartela getGrupoCartela() {
 		return grupoCartela;
 	}
@@ -237,16 +241,35 @@ public class BBLoteca extends BBDefault {
 	public void setLotecas(List<Loteca> lotecas) {
 		this.lotecas = lotecas;
 	}
-
-	public void baixarArquivosJsonsFutebolInterior() {
-		try {
+	
+	public void baixarArquivosJsonsFutebolInterior(){
+		try{
 			lotecaService.baixarArquivosJsonFI();
 			addInfo("Arquivos atualizados com sucesso!");
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			addError("Falha ao baixar arquivos!");
 		}
-
+		
+		
 	}
 
+	public GrupoCartela getNovoGrupoCartela() {
+		return novoGrupoCartela;
+	}
+
+	public void setNovoGrupoCartela(GrupoCartela novoGrupoCartela) {
+		this.novoGrupoCartela = novoGrupoCartela;
+	}
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
 }
