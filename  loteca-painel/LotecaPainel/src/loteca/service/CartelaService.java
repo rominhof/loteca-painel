@@ -30,6 +30,7 @@ public class CartelaService {
 		return this.palpiteDAO;
 	}
 	
+	
 	public List<Cartela> carregaCartelasDeConcursoGrupoCartela(Integer numConcurso, Long idgc) {
 		return getCartelaDAO().findByLotecaGrupoCartela(numConcurso, idgc);
 	}
