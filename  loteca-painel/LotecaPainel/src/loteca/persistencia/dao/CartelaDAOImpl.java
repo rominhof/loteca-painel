@@ -46,6 +46,7 @@ public class CartelaDAOImpl implements CartelaDAO {
 		return (List<Cartela>)query.getResultList();
 	}
 
+	
 	public List<Cartela> findByLoteca(Integer numConcurso) {
 		Query query = jpaHelper.getEntityManager().createNamedQuery(
 				"Cartela.findByLoteca");
