@@ -118,7 +118,7 @@ public class BBLoteca extends BBDefault {
 	}
 	
 	private void carregaGrupoCartelasEPalpites(){
-		if(loteca!=null){
+		if(loteca!=null && getUsuarioLogado()!=null){
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuario(getUsuarioLogado());
 			if(gruposCartelas!=null && gruposCartelas.size()>0){
 				if(grupoCartela==null){

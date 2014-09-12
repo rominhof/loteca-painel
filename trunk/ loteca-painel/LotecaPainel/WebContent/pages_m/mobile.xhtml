@@ -13,6 +13,17 @@
           .ui-grid-a div {
               padding: 0em 0.5em;
           }
+          
+          .ui-bar, .ui-body {
+			    clear: both;
+			    display: block;
+			    overflow: hidden;
+			    padding: 0em 0.5em;
+			    position: relative;
+			}
+		
+	
+
       </style>
     </h:head>
      
@@ -25,8 +36,12 @@
 	     
 	    <pm:content>
 		    <h:form id="formMain"> 
+		    	<center>
+		    		<p:graphicImage value="/img/loteca_painel.png"/>
+		    	</center>
 			    <p:messages id="msgs" showDetail="true" showIcon="true"/>
 				<p:panel header="Login">
+					
 					<pm:field>
 					    <p:outputLabel for="usuario" value="Usuario:" />
 					    <p:inputText id="usuario" value="#{bBUsuario.usuarioLogin.login}"/>
@@ -37,7 +52,7 @@
 					    <p:password id="password" value="#{bBUsuario.usuarioLogin.senha}"/>
 					</pm:field>
 					<p:commandButton action="#{bBUsuario.loginMobile}" value="Login" update="msgs"/>
-				    <p:button outcome="pm:home" value="Home" />
+				
 				</p:panel>
 			</h:form>
 		</pm:content>
@@ -50,6 +65,7 @@
                 <p:outputPanel id="editFormPanel">
 					<p:panel header="Menu">
 						<p:commandButton action="#{bBHome.gerenciarMinhaLoteca2}" value="Minha Loteca"/>
+						<p:button outcome="pm:login" value="Logout" />
 					</p:panel>
 			    </p:outputPanel>
 			 </h:form>
@@ -59,12 +75,13 @@
 	<pm:page id="loteca">
 	    <pm:header title="Loteca" swatch="b">
             <p:button outcome="pm:home" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
-            <p:button outcome="pm:cartelas" value="Minhas Cartelas" icon="ui-icon-arrow-r" styleClass="ui-btn-right ui-btn-inline"/>
+            <p:button outcome="pm:cartelas" value="Cartelas" icon="ui-icon-arrow-r" styleClass="ui-btn-right ui-btn-inline"/>
         </pm:header>
 	     
 	    <pm:content>
 	    	<h:form id="concursoForm">
-			<p:panel header="Concursos">
+	    	
+			<p:panel header="Concursos" style="padding-bottom:none;">
 				<pm:field>
 				 	<h:outputText value="Concurso: "/>
 				 	<p:selectOneMenu value="#{bBLoteca.loteca}" id="lotecasID" converter="lotecaConverter">
@@ -73,7 +90,7 @@
 		            </p:selectOneMenu>
 		       </pm:field>
 			
-				<h:dataTable id="tabelaLoteca"  var="p" value="#{bBLoteca.loteca.partidas}" width="100%" style="border:1px solid #f0f0f0;">
+				<h:dataTable id="tabelaLoteca"  var="p" value="#{bBLoteca.loteca.partidas}" width="100%" style="border:1px solid #f0f0f0; font-size:0.7em;">
 	
 				<p:column  style="text-align:center; width:5px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
 					<f:facet name="header" >
