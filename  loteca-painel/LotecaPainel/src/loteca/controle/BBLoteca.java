@@ -67,7 +67,7 @@ public class BBLoteca extends BBDefault {
 		 * grupoCartelaService.refresh(grupoCartela); for(Cartela cartela:
 		 * cartelas){ cartelaService.refresh(cartela); }
 		 */
-		selecionaLoteca();
+		selecionaGrupoCartela();
 		System.out.println("atualizando tela");
 	}
 
@@ -150,11 +150,6 @@ public class BBLoteca extends BBDefault {
 		carregaGrupoCartelasEPalpites();
 		ordenaCartelaEpalpites();
 	}
-	
-	public void selecionaLoteca(){
-		carregaGrupoCartelasEPalpites();
-	}
-	
 	
 	public void novaCartela(){
 
