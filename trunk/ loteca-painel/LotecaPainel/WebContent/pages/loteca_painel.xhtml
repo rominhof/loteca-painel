@@ -71,16 +71,17 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:15px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+				<p:column style="text-align:center; width:15px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}" >
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
-					<h:graphicImage value="/img/bola_rolando.gif" rendered="#{p.statusJogo eq 'EM_ANDAMENTO'}" style="width:20px;"/>
+					<h:graphicImage value="/img/bola_rolando.gif" rendered="#{p.statusJogo eq 'EM_ANDAMENTO'}" style="width:20px;" id="bola"/>
 					<h:graphicImage value="/img/relogio.png" rendered="#{p.statusJogo eq 'AGENDADO'}" style="width:18px;"/>
 					<h:graphicImage value="/img/apito.png" rendered="#{p.statusJogo eq 'FINALIZADO'}" style="width:20px;"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
+		       		
 				</p:column>
 				
 		 	</p:dataTable>
