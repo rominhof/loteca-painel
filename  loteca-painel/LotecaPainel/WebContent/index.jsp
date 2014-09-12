@@ -17,7 +17,7 @@ if (ua.indexOf(v_uMobile[i]) != -1)
 boolMovel = true;
 }}if (boolMovel == true)
 { 
-	location.href='pages_m/mobile.jsf';
+	location.href='pages/login.jsf';
 }else{
 	location.href='pages/login.jsf';
 }
