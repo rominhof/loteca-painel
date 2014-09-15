@@ -11,7 +11,7 @@
 
 
 <h:form id="formMain"> 
-<p:poll interval="10" update="tabelaLoteca, painelCartelas" 
+<p:poll interval="10" update="tabelaLoteca, painelCartelas" stop="#{not bBLoteca.atualizacaoAutomatica}"
 listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 
  <p:messages id="msgs"  showDetail="true" autoUpdate="true"/>
@@ -21,11 +21,17 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 	 		<f:facet name="header">
 	 			<h:outputText value="Concurso"></h:outputText>
 	 		</f:facet>
+ 		<h:panelGrid columns="2">
+	 		<h:outputText value="Auto Refresh: "/>
+	 		<p:selectBooleanCheckbox value="#{bBLoteca.atualizacaoAutomatica}">
+	 			<p:ajax event="change" update="formMain"/>
+	 		</p:selectBooleanCheckbox>
+       </h:panelGrid>
 		
 		<h:panelGrid columns="2">
 		 	<h:outputText value="Concurso: "/>
 		 	<p:selectOneMenu value="#{bBLoteca.loteca}" id="lotecasID" converter="lotecaConverter">
-		 		<p:ajax event="change" update="formMain" listener="#{bBLoteca.selecionaLoteca}"></p:ajax>
+		 		<p:ajax event="change" update="formMain" listener="#{bBLoteca.selecionaGrupoCartela}"></p:ajax>
 		        <f:selectItems value="#{bBLoteca.lotecas}" var="l"  itemLabel="#{l.numConcurso}" itemValue="#{l}"/>
             </p:selectOneMenu>
        </h:panelGrid>
