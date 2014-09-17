@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+     xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+    
+    <h:head>
+      <style type="text/css">
+          .ui-grid-a div {
+              padding: 0em 0.5em;
+          }
+          
+          .ui-bar, .ui-body {
+			    clear: both;
+			    display: block;
+			    overflow: hidden;
+			    padding: 0em 0.5em;
+			    position: relative;
+			}
+		
+	
+
+      </style>
+    </h:head>
+     
+    <h:body>
+	
+	<pm:page id="home">
+	    <pm:header title="Home" swatch="b"></pm:header>
+	     <pm:content>
+             <h:form id="homeForm">
+                <p:outputPanel id="editFormPanel">
+					<p:panel header="Menu">
+						<p:commandButton action="#{bBHome.gerenciarMinhaLoteca2}" value="Minha Loteca"/>
+						<p:button outcome="login" value="Logout" />
+					</p:panel>
+			    </p:outputPanel>
+			 </h:form>
+		</pm:content>
+	</pm:page>
+	
+	
+	</h:body>
+
+
+</html>

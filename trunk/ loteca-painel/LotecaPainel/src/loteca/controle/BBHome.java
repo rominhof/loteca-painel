@@ -8,7 +8,7 @@ import javax.faces.bean.RequestScoped;
 public class BBHome extends BBDefault {
 	
 	private static final String PAGINA_LOTECA = "loteca_painel";
-	private static final String PAGINA_LOTECA_M = "pm:loteca";
+	private static final String PAGINA_LOTECA_M = "loteca";
 	
 	public BBHome(){
 
