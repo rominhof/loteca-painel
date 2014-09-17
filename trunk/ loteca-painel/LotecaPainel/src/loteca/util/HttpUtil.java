@@ -16,6 +16,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
 
 import com.google.common.base.Charsets;
 
@@ -38,10 +39,13 @@ public class HttpUtil {
 		// HttpHost proxy = new HttpHost("10.70.124.16", 8080);
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(urlString);
+		//Adicionando parametro de timeout para requisicao , 30 segundos.
+		httpclient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, 30000);
 		// httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
 		try {
 			HttpResponse response = httpclient.execute(httpget);
+
 
 			HttpEntity entity = response.getEntity();
 
