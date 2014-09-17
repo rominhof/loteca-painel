@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+     xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" />
+    
+    <h:head>
+      <style type="text/css">
+          .ui-grid-a div {
+              padding: 0em 0.5em;
+          }
+          
+          .ui-bar, .ui-body {
+			    clear: both;
+			    display: block;
+			    overflow: hidden;
+			    padding: 0em 0.5em;
+			    position: relative;
+			}
+		
+	
+
+      </style>
+    </h:head>
+     
+    <h:body>
+	
+	<pm:page id="loteca">
+	    <pm:header title="Loteca" swatch="b">
+            <p:button outcome="home" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            <p:button outcome="cartelas" value="Cartelas" icon="ui-icon-arrow-r" styleClass="ui-btn-right ui-btn-inline"/>
+        </pm:header>
+	     
+	    <pm:content>
+	    	<h:form id="concursoForm">
+	    	
+			<p:panel header="Concursos" style="padding-bottom:none;">
+				<pm:field>
+				 	<h:outputText value="Concurso: "/>
+				 	<p:selectOneMenu value="#{bBLoteca.loteca}" id="lotecasID" converter="lotecaConverter">
+				 		<p:ajax event="change" update="concursoForm" listener="#{bBLoteca.selecionaLoteca}"></p:ajax>
+				        <f:selectItems value="#{bBLoteca.lotecas}" var="l"  itemLabel="#{l.numConcurso}" itemValue="#{l}"/>
+		            </p:selectOneMenu>
+		       </pm:field>
+			
+				<h:dataTable id="tabelaLoteca"  var="p" value="#{bBLoteca.loteca.partidas}" width="100%" style="border:1px solid #f0f0f0; font-size:0.7em;">
+	
+				<p:column  style="text-align:center; width:5px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+					<f:facet name="header" >
+						<h:outputText value=""/>
+					</f:facet>
+					<h:outputText value="#{p.sequencialJogo}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column style="#{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}}">
+					<f:facet name="header">
+						<h:outputText value="Mandante"/>
+					</f:facet>
+					<h:outputText value="#{p.time1.nome}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column style="text-align:center; width:30px;#{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+					<f:facet name="header">
+						<h:outputText value=""/>
+					</f:facet>
+					<h:outputText value="#{p.golTime1} X #{p.golTime2} "/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column style="#{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+					<f:facet name="header">
+						<h:outputText value="Visitante"/>
+					</f:facet>
+					<h:outputText value="#{p.time2.nome}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column style="text-align:center; width:15px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+					<f:facet name="header">
+						<h:outputText value=""/>
+					</f:facet>
+					<h:graphicImage value="/img/bola_rolando.gif" rendered="#{p.statusJogo eq 'EM_ANDAMENTO'}" style="width:20px;"/>
+					<h:graphicImage value="/img/relogio.png" rendered="#{p.statusJogo eq 'AGENDADO'}" style="width:18px;"/>
+					<h:graphicImage value="/img/apito.png" rendered="#{p.statusJogo eq 'FINALIZADO'}" style="width:20px;"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				
+		 	</h:dataTable>
+				
+			</p:panel>
+			</h:form>
+		</pm:content>
+	</pm:page>
+	
+	
+	</h:body>
+
+
+</html>
