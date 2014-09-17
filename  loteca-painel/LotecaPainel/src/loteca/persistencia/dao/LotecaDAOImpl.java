@@ -56,6 +56,11 @@ public class LotecaDAOImpl implements LotecaDAO {
 		return lotecaExiste;
 	}
 
+	@Transactional
+	public Loteca atualizarLoteca(Loteca loteca) {
+		return jpaHelper.getEntityManager().merge(loteca);
+	}
+
 	public List<Loteca> findAll() {
 		Query query = jpaHelper.getEntityManager().createNamedQuery(
 				"Loteca.findAll");

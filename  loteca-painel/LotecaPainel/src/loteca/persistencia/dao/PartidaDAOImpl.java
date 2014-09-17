@@ -31,4 +31,9 @@ public class PartidaDAOImpl implements PartidaDAO {
 		return partidaExiste;
 	}
 
+	@Transactional
+	public Partida atualizarPartida(Partida partida) {
+		return jpaHelper.getEntityManager().merge(partida);
+	}
+
 }

@@ -11,6 +11,8 @@ public interface LotecaDAO {
 	void refresh(Loteca loteca);
 
 	Loteca insertOrUpdate(Loteca loteca);
+	
+	Loteca atualizarLoteca(Loteca loteca);
 
 	List<Loteca> findAll();
 
