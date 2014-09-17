@@ -174,7 +174,7 @@ public class PalpiteJob implements Job {
 
 		if (encerrado) {
 			loteca.setFinalizado(true);
-			getLotecaService().atualizaLoteca(loteca);
+			getLotecaService().atualizarLoteca(loteca);
 		}
 
 	}
@@ -208,7 +208,7 @@ public class PalpiteJob implements Job {
 					partida.setStatusJogo(jogo.getStatusJogo());
 
 					// Atualizar valor da partida
-					getLotecaService().atualizaPartida(partida);
+					getLotecaService().atualizarPartida(partida);
 				}
 			}
 		}
@@ -336,7 +336,7 @@ public class PalpiteJob implements Job {
 					palpite.setResultado(particaGabarito.getResultado());
 
 					// Atuaizar dados do palpite
-					getCartelaService().atualizaPalpite(palpite);
+					getCartelaService().atualizarPalpite(palpite);
 				}
 			}
 		}
@@ -379,7 +379,7 @@ public class PalpiteJob implements Job {
 				// Copiar o conteudo do Json para pasta local
 				getLotecaUtil().salvarJsonParaPastaLocal(conteudoSite,
 						pathArquivo);
-				atualizarConfronto(campeonato, conteudoSite, conteudoSite);
+				atualizarConfronto(campeonato, conteudoSite);
 				retorno = true;
 			} else {
 				System.out.println(SYSTEM_PREFIX + "Arquivo local localizado");
@@ -397,18 +397,17 @@ public class PalpiteJob implements Job {
 					// Hash diferentes, tem que atualizar o arquivo
 					getLotecaUtil().salvarJsonParaPastaLocal(conteudoSite,
 							pathArquivo);
-					atualizarConfronto(campeonato, conteudoSite, conteudoSite);
+					atualizarConfronto(campeonato, conteudoSite);
 					retorno = true;
 				}
 			}
 
 		}
-
 		return retorno;
 	}
 
 	private void atualizarConfronto(CampeonatoEnum campeonato,
-			String conteudoSite, String jsonContent) {
+			String jsonContent) {
 		ConfrontoNovo confronto = parserJsonFromStrong(jsonContent);
 
 		confrontos.put(campeonato, confronto);

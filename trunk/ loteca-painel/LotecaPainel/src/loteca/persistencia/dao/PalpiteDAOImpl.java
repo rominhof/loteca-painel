@@ -5,7 +5,7 @@ import loteca.persistencia.JpaHelper;
 import loteca.persistencia.Transactional;
 import loteca.persistencia.api.PalpiteDAO;
 
-public class PalpiteDAOImpl implements PalpiteDAO{
+public class PalpiteDAOImpl implements PalpiteDAO {
 
 	private JpaHelper jpaHelper;
 
@@ -29,6 +29,11 @@ public class PalpiteDAOImpl implements PalpiteDAO{
 				palpite.getId());
 
 		return palpiteExiste;
+	}
+
+	@Transactional
+	public Palpite atualizarPalpite(Palpite palpite) {
+		return jpaHelper.getEntityManager().merge(palpite);
 	}
 
 }

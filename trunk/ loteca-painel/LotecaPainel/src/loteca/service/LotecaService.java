@@ -72,7 +72,7 @@ public class LotecaService {
 			p.setTime1(timeService.consultaTimePorNome(p.getTime1().getNome()));
 			p.setTime2(timeService.consultaTimePorNome(p.getTime2().getNome()));
 			// TODO Refactoring - remover codigo se funcionar
-			//p.setLoteca(loteca);
+			// p.setLoteca(loteca);
 		}
 	}
 
@@ -84,7 +84,11 @@ public class LotecaService {
 		getLotecaDAO().insertOrUpdate(loteca);
 	}
 
-	public void atualizaPartida(Partida partida) {
-		getPartidaDAO().insertOrUpdate(partida);
+	public Loteca atualizarLoteca(Loteca loteca) {
+		return getLotecaDAO().atualizarLoteca(loteca);
+	}
+
+	public Partida atualizarPartida(Partida partida) {
+		return getPartidaDAO().atualizarPartida(partida);
 	}
 }

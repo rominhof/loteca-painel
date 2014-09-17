@@ -5,5 +5,7 @@ import loteca.dominio.Palpite;
 public interface PalpiteDAO {
 
 	 Palpite insertOrUpdate(Palpite palpite);
+	 
+	 Palpite atualizarPalpite(Palpite palpite);
 
 }

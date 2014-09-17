@@ -50,6 +50,11 @@ public class CartelaService {
 	public void atualizaPalpite(Palpite palpite) {
 		getPalpiteDAO().insertOrUpdate(palpite);
 	}
+	
+	public Palpite atualizarPalpite(Palpite palpite) {
+		return getPalpiteDAO().atualizarPalpite(palpite);
+	}
+	
 
 	public void remove(Cartela cartela) {
 		getCartelaDAO().remove(cartela);
