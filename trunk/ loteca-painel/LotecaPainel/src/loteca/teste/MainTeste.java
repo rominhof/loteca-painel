@@ -25,7 +25,7 @@ public class MainTeste {
 		
 		//pa.baixarArquivosAtualizados(Times.PICAPAUSFC);
 		
-		LotecaUtil lu = new LotecaUtil();
+	/**	LotecaUtil lu = new LotecaUtil();
 		
 		Loteca loteca = lu.getLotecaAtualOficialCaixa();
 		
@@ -33,13 +33,17 @@ public class MainTeste {
 		System.out.println("JOGOS: ");
 		for(Partida p: loteca.getPartidas()){
 			System.out.println(p.getSequencialJogo()+" - "+p.getTime1().getNome().trim() +" x " +p.getTime2().getNome().trim());
-		}
+		}*/
 		/**
 		JPAUtil.getEntityManager();
 		TimeDAO timeDAO = new TimeDAO();
 		Time time = timeDAO.findByNome("GRÊMIO/RS");
 		System.out.println(time.getNome());
 		*/
+		
+		String s = "NTA_12345678901234_2015_1150.xml";
+		
+		System.out.println(s.substring(4, 18));
 		
 	}
 	
