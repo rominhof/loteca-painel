@@ -16,7 +16,7 @@ public class LotecaListener implements javax.servlet.ServletContextListener {
 
 	// TODO - Externalizar
 	private static final String CRON_LOTECA = "0 0/2 * 1/1 * ? *";
-	private static final String CRON_PALPITE = "0 0/1 * 1/1 * ? *";
+	private static final String CRON_PALPITE = "0 0/2 * 1/1 * ? *";
 
 	private static final String TRIGGER_PALPITE = "dummyTriggerName2";
 	private static final String TRIGGER_LOTECA = "dummyTriggerName1";
