@@ -9,13 +9,26 @@
 
 <ui:define name="body">
 
+    <h:head>
+      <style type="text/css">
+          .ui-widget-content{
+              padding: 0em 0.5em;
+              font-size: 1.2em;
+          }
+          
+          
+		
+	
+
+      </style>
+    </h:head>
 
 <h:form id="formMain"> 
 <p:poll interval="10" update="tabelaLoteca" 
 listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 
  <p:messages id="msgs"  showDetail="true" autoUpdate="true"/>
-	<h:panelGrid columns="1" style="width:320; border:0px;">
+	<h:panelGrid columns="1" style="width:100%; border:0px;">
 		<p:panelGrid columns="1"   >
 		 		<f:facet name="header">
 		 			<h:outputText value="Concurso"></h:outputText>
@@ -29,12 +42,12 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 	            </p:selectOneMenu>
 	       </h:panelGrid>
 		    
-			<p:dataTable id="tabelaLoteca" emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:435px; float:top;">
+			<p:dataTable id="tabelaLoteca" emptyMessage="Nenhum concurso vigente encontrado. " var="p" value="#{bBLoteca.loteca.partidas}" rowIndexVar="index2" paginator="false" style="width:100%; float:top;">
 		 		<f:facet name="header">
 		 			<h:outputText value="Concurso N #{bBLoteca.loteca.numConcurso} - Confrontos"/>
 		 		</f:facet>
 	
-				<p:column  style="text-align:center; width:5px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+				<p:column  style="text-align:center; width:5%; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
 					<f:facet name="header" >
 						<h:outputText value=""/>
 					</f:facet>
@@ -52,7 +65,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:30px;#{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+				<p:column style="text-align:center; width:10%;#{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -70,7 +83,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
 				</p:column>
-				<p:column style="text-align:center; width:15px; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
+				<p:column style="text-align:center; width:5%; #{p.statusJogo eq 'FINALIZADO'?'background-color:#d0d0d0;':p.statusJogo eq 'EM_ANDAMENTO'?'background-color:#FFFFCC;':''}">
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
@@ -92,7 +105,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 			
 		
 		<h:panelGroup columns="1" id="painelCartelas" style="border:dotted 0px #ffffff;" >
-	 	<p:panelGrid columns="1"  style="width:480;" rendered="#{not empty bBLoteca.grupoCartela}" >
+	 	<p:panelGrid columns="1"  style="width:100%;" rendered="#{not empty bBLoteca.grupoCartela}" >
 	 		<f:facet name="header">
 	 			<h:outputText value="Grupo de Cartelas"></h:outputText>
 	 		</f:facet>
@@ -108,7 +121,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 	 		
 			 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
 			 	<h:panelGrid columns="1">
-			 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:425px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+			 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:100%; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 			 		<f:facet name="header">
 			 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 			 		</f:facet>
