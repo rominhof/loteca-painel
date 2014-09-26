@@ -120,7 +120,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
         </h:panelGrid>
  		
 		 <ui:repeat var="c" value="#{bBLoteca.cartelas}">
-		 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:425px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
+		 	<p:dataTable id="cartela_id" var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:425px; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
 		 		<f:facet name="header">
 		 			<div style="float:left; position:absolute; margin-top:0px;">
 		 				<p:selectBooleanCheckbox value="#{c.selecionado}" />
@@ -153,7 +153,9 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 					<f:facet name="header">
 						<h:outputText value=""/>
 					</f:facet>
-					<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not c.concluida}"/>
+					<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not c.concluida}" >
+						<p:ajax event="change" update="@parent"/>
+					</p:selectBooleanCheckbox>
 					<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c1}" style="width:18px;"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
@@ -185,6 +187,17 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 						<h:outputText value="Coluna 2"/>
 					</f:facet>
 					<h:outputText value="#{pt.partida.time2.nome}"/>
+					<f:facet name="footer">
+		       			<h:outputText value="" style="font-weight:bold;"/>
+		       		</f:facet>
+				</p:column>
+				<p:column style="width:97px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}" id="qtd_jogo">
+					<f:facet name="header">
+						<h:outputText value=""/>
+					</f:facet>
+					<h:outputText value="1x" rendered="#{pt.c1 and !(pt.cx or pt.c2) or pt.cx and !(pt.c1 or pt.c2) or pt.c2 and !(pt.c1 or pt.cx)}"/>
+					<h:outputText value="2x" rendered="#{(pt.c1 and pt.cx and !pt.c2) or (pt.c1 and pt.c2 and !pt.cx) or (pt.cx and pt.c2 and !pt.c1)}"/>
+					<h:outputText value="3x" rendered="#{(pt.c1 and pt.cx and pt.c2)}"/>
 					<f:facet name="footer">
 		       			<h:outputText value="" style="font-weight:bold;"/>
 		       		</f:facet>
