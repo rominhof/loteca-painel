@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +118,9 @@ public class PalpiteJob implements Job {
 			// ultima versão baixada
 			System.out.println(SYSTEM_PREFIX + "Atualizando arquivos Json");
 			if (atualizarJson()) {
+				// Remover Confrontos que não estão na loteca
+				//removerConfrontosForaDaLoteca(confrontos, lotecaAtual);
+
 				// Popular a loteca de acordo com os resultados de momento
 				System.out.println(SYSTEM_PREFIX
 						+ "Populando loteria com resultado dos jogos");
@@ -140,6 +144,39 @@ public class PalpiteJob implements Job {
 		System.out.println(SYSTEM_PREFIX
 				+ "Fim da execução do Job PalpiteJob::"
 				+ System.currentTimeMillis());
+	}
+
+	private void removerConfrontosForaDaLoteca(
+			Map<CampeonatoEnum, ConfrontoNovo> confrontos, Loteca lotecaAtual) {
+		for (CampeonatoEnum campeonato : confrontos.keySet()) {
+			ConfrontoNovo confronto = confrontos.get(campeonato);
+			List<Tabela> jogos = new ArrayList<Tabela>();
+			for (int i = confronto.getTabela().length - 1; i >= 0; i--) {
+				if (temConfrontoNaCartela(confronto.getTabela()[i], lotecaAtual)) {
+					jogos.add(confronto.getTabela()[i]);
+				}
+			}
+			confronto.setTabela(jogos.toArray(new Tabela[jogos.size()]));
+		}
+
+	}
+
+	private boolean temConfrontoNaCartela(Tabela tabela, Loteca lotecaAtual) {
+		boolean toReturn = false;
+		Time timeMandante = timeService.consultaTimePorNome(tabela
+				.getMandante().replace('-', '/'));
+		Time timeVisitante = timeService.consultaTimePorNome(tabela
+				.getVisitante().replace('-', '/'));
+
+		for (Partida partida : lotecaAtual.getPartidas()) {
+			if (partida.getTime1().getNome().equals(timeMandante.getNome())
+					&& partida.getTime2().getNome()
+							.equals(timeVisitante.getNome())) {
+				toReturn = true;
+				break;
+			}
+		}
+		return toReturn;
 	}
 
 	private LotecaUtil getLotecaUtil() {
@@ -319,9 +356,11 @@ public class PalpiteJob implements Job {
 
 				if (particaGabarito != null
 						&& (particaGabarito.getStatusJogo() == StatusJogo.EM_ANDAMENTO
-								|| particaGabarito.getStatusJogo() == StatusJogo.FINALIZADO || particaGabarito
-								.getStatusJogo() == StatusJogo.INTERVALO)) {
+								|| particaGabarito.getStatusJogo() == StatusJogo.INTERVALO || (particaGabarito
+								.getStatusJogo() == StatusJogo.FINALIZADO && !palpite
+								.isJogoFinalizado()))) {
 					boolean acerto = false;
+					boolean jogoFinalizado = false;
 					if (particaGabarito.getResultado() == Resultado.COLUNA_1
 							&& palpite.getC1()) {
 						acerto = true;
@@ -332,6 +371,13 @@ public class PalpiteJob implements Job {
 							&& palpite.getCx()) {
 						acerto = true;
 					}
+
+					// Checar se o jogo foi finalizado
+					if (particaGabarito.getStatusJogo() == StatusJogo.FINALIZADO) {
+						jogoFinalizado = true;
+					}
+
+					palpite.setJogoFinalizado(jogoFinalizado);
 					palpite.setAcerto(acerto);
 					palpite.setResultado(particaGabarito.getResultado());
 
