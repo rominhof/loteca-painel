@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -28,6 +29,11 @@ public class Partida implements Serializable, Comparable<Partida> {
 	private Time time2;
 	private Integer golTime1;
 	private Integer golTime2;
+
+	@ManyToOne
+	@JoinColumn(name = "NUMCONCURSO")
+	private Loteca loteca;
+
 	// ENUM
 	private Resultado resultado;
 	// ENUM
@@ -95,6 +101,14 @@ public class Partida implements Serializable, Comparable<Partida> {
 
 	public void setStatusJogo(StatusJogo statusJogo) {
 		this.statusJogo = statusJogo;
+	}
+
+	public Loteca getLoteca() {
+		return loteca;
+	}
+
+	public void setLoteca(Loteca loteca) {
+		this.loteca = loteca;
 	}
 
 	@Override
