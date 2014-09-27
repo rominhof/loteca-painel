@@ -9,6 +9,22 @@
 
 <ui:define name="body">
 
+<style>
+	.chance_14 .ui-widget-header{
+	background: none repeat scroll 0 0 #98FB98;
+	}
+	
+
+	
+	.chance_13 .ui-widget-header{
+	background: none repeat scroll 0 0 #FFD700;
+	}
+	
+	.sem_chance .ui-widget-header{
+	background: none repeat scroll 0 0 #FA8072;
+	}
+</style>
+
 <h:form id="formMain"> 
 <p:poll interval="10" update="tabelaLoteca" 
 listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
@@ -105,91 +121,15 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		        <p:tooltip value="Cadastrar Novo Grupo de Cartelas" for="novoGC"/>
 	        </h:panelGrid>
 	 		
-	 		<p:dataGrid var="c" value="#{bBLoteca.cartelas}" columns="1" layout="grid"
-        rows="1" paginator="true" id="cartelas"  
-        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-			 	<h:panelGrid columns="1">
-			 	<p:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" style="width:100%; float:left; padding-right:5px; padding-bottom:5px;"  rendered="#{not empty c.palpites}" >
-			 		<f:facet name="header">
-			 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
-			 		</f:facet>
-			 		
-			 		<p:column style="text-align:center; width:5px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value=""/>
-						</f:facet>
-						<h:outputText value="#{pt.partida.sequencialJogo}"/>
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       			
-			       		</f:facet>
-					</p:column>
-					<p:column style="text-align:right;width:97px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value="Coluna 1"/>
-						</f:facet>
-						<h:outputText value="#{pt.partida.time1.nome}" />
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       			
-			       		</f:facet>
-					</p:column>
-					<p:column style="text-align:right;width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value=""/>
-						</f:facet>
-						<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not c.concluida}"/>
-						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c1}" style="width:18px;"/>
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       			
-			       		</f:facet>
-					</p:column>
-					<p:column style="text-align:center; width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value=" X "/>
-						</f:facet>
-						<p:selectBooleanCheckbox value="#{pt.cx}" rendered="#{not c.concluida}"/>
-						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.cx}" style="width:18px;"/>
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       		</f:facet>
-					</p:column>
-					<p:column  style="width:12px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value=""/>
-						</f:facet>
-						<p:selectBooleanCheckbox value="#{pt.c2}" rendered="#{not c.concluida}"/>
-						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c2}" style="width:18px;"/>
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       		</f:facet>
-					</p:column>
-					<p:column  style="width:97px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value="Coluna 2"/>
-						</f:facet>
-						<h:outputText value="#{pt.partida.time2.nome}"/>
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       		</f:facet>
-					</p:column>
-					<p:column  style="text-align:center; width:42px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
-						<f:facet name="header">
-							<h:outputText value=""/>
-						</f:facet>
-						<h:graphicImage value="/img/erro.gif" rendered="#{not empty pt.acerto and not pt.acerto}" style="width:20px;"/>
-						<h:graphicImage value="/img/sucess.png" rendered="#{pt.acerto}" style="width:18px;"/>
-						<h:graphicImage value="/img/bola_rolando.gif" rendered="#{pt.partida.statusJogo eq 'EM_ANDAMENTO'}" style="width:20px;"/>
-						<h:graphicImage value="/img/relogio.png" rendered="#{pt.partida.statusJogo eq 'AGENDADO'}" style="width:18px;"/>
-						<h:graphicImage value="/img/apito.png" rendered="#{pt.partida.statusJogo eq 'FINALIZADO'}" style="width:20px;"/>
-						<f:facet name="footer">
-			       			<h:outputText value="" style="font-weight:bold;"/>
-			       		</f:facet>
-					</p:column>
-			 		
-			 	</p:dataTable>
-			 	</h:panelGrid>
+	 		<p:dataGrid var="c" value="#{bBLoteca.cartelas}" columns="3" layout="grid"
+        		id="cartelas" >
+        	 
+        		<p:panel header="Cartela #{c.seqCartela}" styleClass="#{c.chance eq 'CHANCES_14'?'chance_14':c.chance eq 'CHANCES_13'?'chance_13':c.chance eq 'SEM_CHANCES'?'sem_chance':''}">
+        				<h:outputText value="Acertos #{c.qtdAcertos}"/>
+        			
+        		</p:panel>
+       
+			 	
 			 </p:dataGrid>
 			 
 		
