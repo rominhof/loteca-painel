@@ -59,6 +59,7 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	private Integer qtdAcertos;
 	
 	
+	
 	public Long getId() {
 		return id;
 	}
