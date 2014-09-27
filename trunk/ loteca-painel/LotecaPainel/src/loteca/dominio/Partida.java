@@ -1,19 +1,13 @@
 package loteca.dominio;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Partida implements Serializable, Comparable<Partida> {
@@ -38,14 +32,6 @@ public class Partida implements Serializable, Comparable<Partida> {
 	private Resultado resultado;
 	// ENUM
 	private StatusJogo statusJogo;
-
-	@ManyToOne
-	@JoinColumn(name = "NUMCONCURSO")
-	private Loteca loteca;
-
-	@OneToMany(mappedBy = "partida")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Palpite> palpites;
 
 	public Long getId() {
 		return id;
@@ -109,22 +95,6 @@ public class Partida implements Serializable, Comparable<Partida> {
 
 	public void setStatusJogo(StatusJogo statusJogo) {
 		this.statusJogo = statusJogo;
-	}
-
-	public List<Palpite> getPalpites() {
-		return palpites;
-	}
-
-	public void setPalpites(List<Palpite> palpites) {
-		this.palpites = palpites;
-	}
-
-	public Loteca getLoteca() {
-		return loteca;
-	}
-
-	public void setLoteca(Loteca loteca) {
-		this.loteca = loteca;
 	}
 
 	@Override
