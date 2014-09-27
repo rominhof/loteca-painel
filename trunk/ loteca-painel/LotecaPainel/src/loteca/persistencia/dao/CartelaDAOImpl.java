@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import loteca.dominio.Cartela;
+import loteca.dominio.Loteca;
 import loteca.persistencia.JpaHelper;
 import loteca.persistencia.Transactional;
 import loteca.persistencia.api.CartelaDAO;
@@ -37,6 +38,11 @@ public class CartelaDAOImpl implements CartelaDAO {
 				cartela.getId());
 
 		return cartelaExiste;
+	}
+	
+	@Transactional
+	public Cartela atualizarCartela(Cartela cartela) {
+		return jpaHelper.getEntityManager().merge(cartela);
 	}
 	
 	public List<Cartela> findByLotecaGrupoCartela(Integer numConcurso, Long idgc){

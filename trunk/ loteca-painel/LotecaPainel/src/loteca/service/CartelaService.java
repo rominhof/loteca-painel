@@ -46,6 +46,10 @@ public class CartelaService {
 	public void salvar(Cartela cartela) {
 		getCartelaDAO().insertOrUpdate(cartela);
 	}
+	
+	public void atualizarCartela(Cartela cartela) {
+		getCartelaDAO().atualizarCartela(cartela);
+	}
 
 	public void atualizaPalpite(Palpite palpite) {
 		getPalpiteDAO().insertOrUpdate(palpite);
