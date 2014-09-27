@@ -12,6 +12,7 @@ import java.util.Map;
 import loteca.dominio.Campeonato;
 import loteca.dominio.CampeonatoEnum;
 import loteca.dominio.Cartela;
+import loteca.dominio.ChanceCartelaEnum;
 import loteca.dominio.ConfrontoNovo;
 import loteca.dominio.Loteca;
 import loteca.dominio.Palpite;
@@ -119,7 +120,7 @@ public class PalpiteJob implements Job {
 			System.out.println(SYSTEM_PREFIX + "Atualizando arquivos Json");
 			if (atualizarJson()) {
 				// Remover Confrontos que não estão na loteca
-				//removerConfrontosForaDaLoteca(confrontos, lotecaAtual);
+				removerConfrontosForaDaLoteca(confrontos, lotecaAtual);
 
 				// Popular a loteca de acordo com os resultados de momento
 				System.out.println(SYSTEM_PREFIX
@@ -349,6 +350,8 @@ public class PalpiteJob implements Job {
 				lotecaAtual.getNumConcurso());
 
 		for (Cartela cartela : cartelas) {
+			int erros = 0;
+			int acertos = 0;
 			for (Palpite palpite : cartela.getPalpites()) {
 				Partida particaPalpite = palpite.getPartida();
 				Partida particaGabarito = getPartidaLoteca(lotecaAtual,
@@ -372,6 +375,13 @@ public class PalpiteJob implements Job {
 						acerto = true;
 					}
 
+					// Atualizar o contador de acertos e erros
+					if (acerto) {
+						acertos++;
+					} else {
+						erros++;
+					}
+
 					// Checar se o jogo foi finalizado
 					if (particaGabarito.getStatusJogo() == StatusJogo.FINALIZADO) {
 						jogoFinalizado = true;
@@ -385,6 +395,11 @@ public class PalpiteJob implements Job {
 					getCartelaService().atualizarPalpite(palpite);
 				}
 			}
+			cartela.setQtdAcertos(acertos);
+			cartela.setChance(erros == 0 ? ChanceCartelaEnum.CHANCES_14
+					: (erros == 1 ? ChanceCartelaEnum.CHANCES_13
+							: ChanceCartelaEnum.SEM_CHANCES));
+			getCartelaService().atualizarCartela(cartela);
 		}
 	}
 

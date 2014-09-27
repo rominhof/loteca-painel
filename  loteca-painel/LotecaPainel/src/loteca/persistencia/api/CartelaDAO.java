@@ -9,6 +9,8 @@ public interface CartelaDAO {
 	void refresh(Cartela cartela);
 
 	Cartela insertOrUpdate(Cartela cartela);
+	
+	Cartela atualizarCartela(Cartela cartela);
 
 	List<Cartela> findByLotecaGrupoCartela(Integer numConcurso, Long idgc);
 
