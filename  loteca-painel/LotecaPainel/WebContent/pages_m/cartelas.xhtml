@@ -44,7 +44,9 @@
 			        </p:selectOneMenu>
 		       </pm:field>
 		        <ui:repeat var="c" value="#{bBLoteca.cartelas}">
-				 	<h:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" width="100%"  rendered="#{not empty c.palpites}" >
+		        
+				 	<h:dataTable var="pt" value="#{c.palpites}" rowIndexVar="index" paginator="false" width="100%" 
+				 	style="border:1px solid #f0f0f0; font-size:0.7em;" rendered="#{not empty c.palpites}" >
 				 		<f:facet name="header">
 				 			<h:outputText value="Cartela #{c.seqCartela}"></h:outputText>
 				 		</f:facet>
@@ -59,7 +61,7 @@
 				       			
 				       		</f:facet>
 						</p:column>
-						<p:column style="text-align:right; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<h:column style="text-align:center; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 							<f:facet name="header">
 								<h:outputText value="Coluna 1"/>
 							</f:facet>
@@ -68,8 +70,8 @@
 				       			<h:outputText value="" style="font-weight:bold;"/>
 				       			
 				       		</f:facet>
-						</p:column>
-						<p:column style="text-align:right; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						</h:column>
+						<p:column style="text-align:center; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 							<f:facet name="header">
 								<h:outputText value=""/>
 							</f:facet>
@@ -90,7 +92,7 @@
 				       			<h:outputText value="" style="font-weight:bold;"/>
 				       		</f:facet>
 						</p:column>
-						<p:column  style=" #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<p:column  style="text-align:center; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 							<f:facet name="header">
 								<h:outputText value=""/>
 							</f:facet>
@@ -100,7 +102,7 @@
 				       			<h:outputText value="" style="font-weight:bold;"/>
 				       		</f:facet>
 						</p:column>
-						<p:column  style="#{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<p:column  style="text-align:center; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 							<f:facet name="header">
 								<h:outputText value="Coluna 2"/>
 							</f:facet>

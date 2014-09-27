@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+	<title>Loteca Painel</title>
+	<link type="text/css" rel="stylesheet" href="/LotecaPainel/css/default.css"/>
+	<style type="text/css">
+		#loading{
+			float:right;
+			font-size: 14px;
+			margin-right: 14px;
+			display:none;
+		}
+		body {
+		    color: #616161;
+		    font-size: 24px;
+		    margin: 0;
+		    padding: 0;
+		    text-align: left;
+		}
+          .ui-widget-content{
+             
+              font-size: 1.0em;
+          }
+          .conteiner-body{
+          	width:100%;
+          	size: 100%;
+          }
+           .conteiner-login{
+          	width:100%;
+          	size: 100%;
+          }
+          .ui-panelgrid .ui-panelgrid-cell {
+          	border: 0px;
+          }
+          .botao{
+          	width: 100%;
+          }
+          .input_text{
+       		  width: 100%;
+          }
+
+ 
+</style>
+
+<script type="text/javascript">
+<!--
+
+
+
+-->
+</script>
+
+	
+</h:head>
+<h:body>
+
+
+
+<p:layout fullPage="true">
+
+	<p:layoutUnit position="center" scrollable="true" >
+	
+		<div id="conteudo">
+			
+			<p:ajaxStatus
+			onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+			
+			<p:dialog  widgetVar="statusDialog"
+						resizable="false" width="300" height="20">
+						<f:facet name="header">
+							<h:outputText value="Processando requisição..." style="font-size:12px;"/>
+						</f:facet>
+				<h:graphicImage value="/img/loading_bar.gif" />
+			</p:dialog>
+
+			<ui:insert name="body"></ui:insert>
+		</div>
+		
+		
+	</p:layoutUnit>
+	
+</p:layout>				
+
+</h:body></html>
+
+

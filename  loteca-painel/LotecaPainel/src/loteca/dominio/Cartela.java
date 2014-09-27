@@ -54,6 +54,11 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	@Transient
 	private Boolean selecionado;
 	
+	private ChanceCartelaEnum chance;
+	
+	private Integer qtdAcertos;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -97,12 +102,27 @@ public class Cartela implements Serializable, Comparable<Cartela>{
 	
 	
 	
+	public Integer getQtdAcertos() {
+		return qtdAcertos;
+	}
+	public void setQtdAcertos(Integer qtdAcertos) {
+		this.qtdAcertos = qtdAcertos;
+	}
 	public Boolean getSelecionado() {
 		return selecionado;
 	}
 	public void setSelecionado(Boolean selecionado) {
 		this.selecionado = selecionado;
 	}
+	
+	
+	public ChanceCartelaEnum getChance() {
+		return chance;
+	}
+	public void setChance(ChanceCartelaEnum chance) {
+		this.chance = chance;
+	}
+	
 	@Override
 	public int compareTo(Cartela o) {
 		Cartela c =(Cartela)o; 
