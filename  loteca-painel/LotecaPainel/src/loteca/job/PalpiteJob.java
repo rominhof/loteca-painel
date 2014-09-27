@@ -219,7 +219,11 @@ public class PalpiteJob implements Job {
 
 	private void popularLoteria(Loteca loteca) throws Exception {
 		// Percorrer cada jogo da loteca em busca dos resultados
+		int sequencia = 0;
 		for (Partida partida : loteca.getPartidas()) {
+			sequencia++;
+			System.out.println(SYSTEM_PREFIX + "Populando jogo loteca = "
+					+ sequencia);
 			// Atualizar apenas os jogos em andamento
 			if (partida.getStatusJogo() != StatusJogo.FINALIZADO) {
 				// Recuperar o jogo no objeto Json de acordo com o confronto da
@@ -349,10 +353,21 @@ public class PalpiteJob implements Job {
 		List<Cartela> cartelas = getCartelaService().carregaCartelasDeConcurso(
 				lotecaAtual.getNumConcurso());
 
+		int sequencia = 0;
+		System.out.println(SYSTEM_PREFIX + "Total de " + cartelas.size()
+				+ " cartelas a serem comparadas");
+
 		for (Cartela cartela : cartelas) {
+			sequencia++;
+			System.out.println(SYSTEM_PREFIX + "Comparando cartela = "
+					+ sequencia);
 			int erros = 0;
 			int acertos = 0;
+			int sequenciaPalpite = 0;
 			for (Palpite palpite : cartela.getPalpites()) {
+				sequenciaPalpite++;
+				System.out.println(SYSTEM_PREFIX + "Comparando palpite = "
+						+ sequenciaPalpite + " da cartela = " + sequencia);
 				Partida particaPalpite = palpite.getPartida();
 				Partida particaGabarito = getPartidaLoteca(lotecaAtual,
 						particaPalpite.getTime1(), particaPalpite.getTime2());
@@ -384,6 +399,8 @@ public class PalpiteJob implements Job {
 
 					// Checar se o jogo foi finalizado
 					if (particaGabarito.getStatusJogo() == StatusJogo.FINALIZADO) {
+						System.out.println(SYSTEM_PREFIX
+								+ "Palpite finalizado!");
 						jogoFinalizado = true;
 					}
 
@@ -393,6 +410,12 @@ public class PalpiteJob implements Job {
 
 					// Atuaizar dados do palpite
 					getCartelaService().atualizarPalpite(palpite);
+				} else if (palpite.isJogoFinalizado()) {
+					if (palpite.getAcerto()) {
+						acertos++;
+					} else {
+						erros++;
+					}
 				}
 			}
 			cartela.setQtdAcertos(acertos);
