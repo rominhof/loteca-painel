@@ -14,8 +14,6 @@
 	background: none repeat scroll 0 0 #98FB98;
 	}
 	
-
-	
 	.chance_13 .ui-widget-header{
 	background: none repeat scroll 0 0 #FFD700;
 	}
@@ -125,8 +123,11 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
         		id="cartelas" >
         	 
         		<p:panel header="Cartela #{c.seqCartela}" styleClass="#{c.chance eq 'CHANCES_14'?'chance_14':c.chance eq 'CHANCES_13'?'chance_13':c.chance eq 'SEM_CHANCES'?'sem_chance':''}">
-        				<h:outputText value="Acertos #{c.qtdAcertos}"/>
-        			
+        				<p:commandLink oncomplete="PF('detalhesCartela').show();"
+        					update=":detCartelaForm:cartelaSelecionada">
+        					<f:setPropertyActionListener target="#{bBLoteca.cartelaSelecionada}" value="#{c}"></f:setPropertyActionListener>
+        					<h:outputText value="Acertos #{c.qtdAcertos}"/>
+        				</p:commandLink>
         		</p:panel>
        
 			 	
@@ -148,7 +149,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 	</h:panelGrid>
 </h:form>
 
-<p:dialog header="Grupo de Cartelas" widgetVar="cadGrupoCartelaDialog" minHeight="40">
+<p:dialog header="Grupo de Cartelas" widgetVar="cadGrupoCartelaDialog">
     <h:form id="cadGrupoCartelas">
     <h:panelGrid columns="2">
    	 	<h:outputText value="Nome:" />
@@ -157,6 +158,98 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
     </h:panelGrid>
     </h:form>
     
+</p:dialog>
+
+<p:dialog widgetVar="detalhesCartela">
+
+	<f:facet name="header">
+		<h:outputText value="Detalhes da Cartela"/>
+	</f:facet>
+	<h:form id="detCartelaForm">
+	
+	<p:dataTable var="pt" value="#{bBLoteca.cartelaSelecionada.palpites}" 
+	rowIndexVar="index" paginator="false" id="cartelaSelecionada"
+	style="width:100%; float:left; padding-right:5px; padding-bottom:5px;"  >
+			 		<f:facet name="header">
+			 			<h:outputText value="Cartela #{bBLoteca.cartelaSelecionada.seqCartela}"></h:outputText>
+			 		</f:facet>
+			 		
+			 		<p:column style="text-align:center; width:5px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:outputText value="#{pt.partida.sequencialJogo}"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:right;width:97px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value="Coluna 1"/>
+						</f:facet>
+						<h:outputText value="#{pt.partida.time1.nome}" />
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:right;width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not c.concluida}"/>
+						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c1}" style="width:18px;"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:center; width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value=" X "/>
+						</f:facet>
+						<p:selectBooleanCheckbox value="#{pt.cx}" rendered="#{not c.concluida}"/>
+						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.cx}" style="width:18px;"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="width:12px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<p:selectBooleanCheckbox value="#{pt.c2}" rendered="#{not c.concluida}"/>
+						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c2}" style="width:18px;"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="width:97px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value="Coluna 2"/>
+						</f:facet>
+						<h:outputText value="#{pt.partida.time2.nome}"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="text-align:center; width:42px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:graphicImage value="/img/erro.gif" rendered="#{not empty pt.acerto and not pt.acerto}" style="width:20px;"/>
+						<h:graphicImage value="/img/sucess.png" rendered="#{pt.acerto}" style="width:18px;"/>
+						<h:graphicImage value="/img/bola_rolando.gif" rendered="#{pt.partida.statusJogo eq 'EM_ANDAMENTO'}" style="width:20px;"/>
+						<h:graphicImage value="/img/relogio.png" rendered="#{pt.partida.statusJogo eq 'AGENDADO'}" style="width:18px;"/>
+						<h:graphicImage value="/img/apito.png" rendered="#{pt.partida.statusJogo eq 'FINALIZADO'}" style="width:20px;"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+			 		
+			 	</p:dataTable>
+    </h:form>
 </p:dialog>
 
 </ui:define>

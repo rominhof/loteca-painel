@@ -34,6 +34,7 @@ public class BBLoteca extends BBDefault {
 	private List<Cartela> cartelas;
 	private List<Loteca> lotecas;
 	private Boolean atualizacaoAutomatica = Boolean.TRUE;
+	private Cartela cartelaSelecionada;
 
 	public BBLoteca() {
 		usuarioService = new UsuarioService();
@@ -264,6 +265,14 @@ public class BBLoteca extends BBDefault {
 
 	public void setAtualizacaoAutomatica(Boolean atualizacaoAutomatica) {
 		this.atualizacaoAutomatica = atualizacaoAutomatica;
+	}
+
+	public Cartela getCartelaSelecionada() {
+		return cartelaSelecionada;
+	}
+
+	public void setCartelaSelecionada(Cartela cartelaSelecionada) {
+		this.cartelaSelecionada = cartelaSelecionada;
 	}
 
 	
