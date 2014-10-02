@@ -19,6 +19,7 @@ public class Palpite implements Serializable, Comparable<Palpite> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_PARTIDA")
 	private Partida partida;

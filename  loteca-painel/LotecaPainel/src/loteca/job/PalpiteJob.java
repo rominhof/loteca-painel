@@ -61,6 +61,8 @@ public class PalpiteJob implements Job {
 			.getInstance().getValue("url.json.serie.c");
 	private static final String JSON_URL_BASILEIRO_SERIE_D = MessageUtil
 			.getInstance().getValue("url.json.serie.d");
+	private static final String JSON_URL_BASILEIRO_SERIE_A_FEMININO = MessageUtil
+			.getInstance().getValue("url.json.serie.a.feminino");
 
 	private static final String PATH_PASTA_JSON = MessageUtil.getInstance()
 			.getValue("pasta.json");
@@ -73,6 +75,8 @@ public class PalpiteJob implements Job {
 			.getInstance().getValue("arquivo.serie.c");
 	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_D = MessageUtil
 			.getInstance().getValue("arquivo.serie.d");
+	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_A_FEMININO = MessageUtil
+			.getInstance().getValue("arquivo.serie.a.feminino");
 
 	private LotecaService lotecaService = null;
 	private CartelaService cartelaService = null;
@@ -87,6 +91,8 @@ public class PalpiteJob implements Job {
 				JSON_URL_BASILEIRO_SERIE_C);
 		dadosJogos.put(CampeonatoEnum.BRASILEIRO_SERIE_D,
 				JSON_URL_BASILEIRO_SERIE_D);
+		dadosJogos.put(CampeonatoEnum.BRASILEIRO_SERIE_A_FEMININO,
+				JSON_URL_BASILEIRO_SERIE_A_FEMININO);
 
 		arquivosJson.put(CampeonatoEnum.BRASILEIRO_SERIE_A,
 				JSON_ARQUIVO_BASILEIRO_SERIE_A);
@@ -96,6 +102,8 @@ public class PalpiteJob implements Job {
 				JSON_ARQUIVO_BASILEIRO_SERIE_C);
 		arquivosJson.put(CampeonatoEnum.BRASILEIRO_SERIE_D,
 				JSON_ARQUIVO_BASILEIRO_SERIE_D);
+		arquivosJson.put(CampeonatoEnum.BRASILEIRO_SERIE_A_FEMININO,
+				JSON_ARQUIVO_BASILEIRO_SERIE_A_FEMININO);
 	}
 
 	@Override
@@ -107,6 +115,7 @@ public class PalpiteJob implements Job {
 
 		System.out.println(SYSTEM_PREFIX + "Recuperando a Loteca atual");
 		Loteca lotecaAtual = getLotecaService().carregaLotecaAtual();
+
 		if (lotecaAtual == null) {
 			System.out
 					.println("Loteria finalizada, aguardando próximo concurso");
