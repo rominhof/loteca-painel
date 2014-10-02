@@ -306,53 +306,59 @@ public class PalpiteJob implements Job {
 	private Jogo getJogoFromConfronto(Time time1, Time time2,
 			ConfrontoNovo confronto) throws Exception {
 		Jogo retorno = null;
-		for (Tabela tabela : confronto.getTabela()) {
-			Time timeMandante = timeService.consultaTimePorNome(tabela
-					.getMandante().replace('-', '/'));
-			Time timeVisitante = timeService.consultaTimePorNome(tabela
-					.getVisitante().replace('-', '/'));
+		if (confronto != null) {
+			for (Tabela tabela : confronto.getTabela()) {
+				Time timeMandante = timeService.consultaTimePorNome(tabela
+						.getMandante().replace('-', '/'));
+				Time timeVisitante = timeService.consultaTimePorNome(tabela
+						.getVisitante().replace('-', '/'));
 
-			if (timeMandante == null) {
-				throw new Exception(
-						"Não foi localizado na base o time mandante: "
-								+ tabela.getMandante());
-			}
-
-			if (timeVisitante == null) {
-				throw new Exception(
-						"Não foi localizado na base o time visitante: "
-								+ tabela.getVisitante());
-			}
-
-			if (timeMandante.getNome().equals(time1.getNome())
-					&& timeVisitante.getNome().equals(time2.getNome())) {
-				retorno = new Jogo();
-				retorno.setTime1(time1);
-				retorno.setTime2(time2);
-				retorno.setGolsTime1(Integer.parseInt(tabela.getPtn_mandante()));
-				retorno.setGolsTime2(Integer.parseInt(tabela.getPtn_visitante()));
-
-				if (tabela.getStatus() != null
-						&& tabela.getStatus().equals(STATUS_JOGO_FINALIZADO)) {
-					retorno.setStatusJogo(StatusJogo.FINALIZADO);
-				} else if (tabela.getStatus() != null
-						&& tabela.getStatus().equals(STATUS_JOGO_AGENDADO)) {
-					retorno.setStatusJogo(StatusJogo.AGENDADO);
-				} else if (tabela.getStatus() != null
-						&& (tabela.getStatus().equals(STATUS_JOGO_ANDAMENTO)
-								|| tabela.getStatus().equals(
-										STATUS_JOGO_ANDAMENTO_1_TEMPO) || tabela
-								.getStatus().equals(
-										STATUS_JOGO_ANDAMENTO_2_TEMPO))) {
-					retorno.setStatusJogo(StatusJogo.EM_ANDAMENTO);
-				} else if (tabela.getStatus() != null
-						&& tabela.getStatus().equals(STATUS_JOGO_INTERVALO)) {
-					retorno.setStatusJogo(StatusJogo.INTERVALO);
-				} else {
-					retorno.setStatusJogo(StatusJogo.OUTRO);
+				if (timeMandante == null) {
+					throw new Exception(
+							"Não foi localizado na base o time mandante: "
+									+ tabela.getMandante());
 				}
 
-				break;
+				if (timeVisitante == null) {
+					throw new Exception(
+							"Não foi localizado na base o time visitante: "
+									+ tabela.getVisitante());
+				}
+
+				if (timeMandante.getNome().equals(time1.getNome())
+						&& timeVisitante.getNome().equals(time2.getNome())) {
+					retorno = new Jogo();
+					retorno.setTime1(time1);
+					retorno.setTime2(time2);
+					retorno.setGolsTime1(Integer.parseInt(tabela
+							.getPtn_mandante()));
+					retorno.setGolsTime2(Integer.parseInt(tabela
+							.getPtn_visitante()));
+
+					if (tabela.getStatus() != null
+							&& tabela.getStatus()
+									.equals(STATUS_JOGO_FINALIZADO)) {
+						retorno.setStatusJogo(StatusJogo.FINALIZADO);
+					} else if (tabela.getStatus() != null
+							&& tabela.getStatus().equals(STATUS_JOGO_AGENDADO)) {
+						retorno.setStatusJogo(StatusJogo.AGENDADO);
+					} else if (tabela.getStatus() != null
+							&& (tabela.getStatus()
+									.equals(STATUS_JOGO_ANDAMENTO)
+									|| tabela.getStatus().equals(
+											STATUS_JOGO_ANDAMENTO_1_TEMPO) || tabela
+									.getStatus().equals(
+											STATUS_JOGO_ANDAMENTO_2_TEMPO))) {
+						retorno.setStatusJogo(StatusJogo.EM_ANDAMENTO);
+					} else if (tabela.getStatus() != null
+							&& tabela.getStatus().equals(STATUS_JOGO_INTERVALO)) {
+						retorno.setStatusJogo(StatusJogo.INTERVALO);
+					} else {
+						retorno.setStatusJogo(StatusJogo.OUTRO);
+					}
+
+					break;
+				}
 			}
 		}
 		return retorno;
