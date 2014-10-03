@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="20"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="seqCartela" class="java.lang.Integer"/>
+	<field name="palpites" class="java.util.List"/>
+	<field name="loteca" class="loteca.dominio.Loteca"/>
+	<field name="grupoCartela" class="loteca.dominio.GrupoCartela"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="399" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="64" width="8" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="12" y="65" width="11" height="3" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="29" y="65" width="11" height="3" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="66" y="66" width="11" height="3" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="66" width="11" height="3" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="120" y="66" width="11" height="3" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="138" y="66" width="11" height="3" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="101" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="101" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(0)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="101" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(0)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="101" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(0)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="101" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(0)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="114" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(1)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="114" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(1)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="114" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(1)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="114" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(1)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="129" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(2)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="129" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(2)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="129" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(2)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="129" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(2)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="143" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(3)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="143" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(3)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="143" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(3)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="143" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(3)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="156" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(4)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="156" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(4)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="156" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(4)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="156" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(4)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="170" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(5)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="170" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(5)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="170" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(5)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="170" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(5)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="184" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(6)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="184" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(6)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="184" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(6)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="184" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(6)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="197" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(7)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="197" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(7)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="197" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(7)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="197" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(7)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="210" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(8)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="210" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(8)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="210" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(8)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="210" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(8)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="224" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(9)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="224" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(9)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="224" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(9)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="224" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(9)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="238" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(10)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="238" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(10)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="238" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(10)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="238" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(10)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="252" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(11)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="252" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(11)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="252" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(11)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="252" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(11)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="264" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(12)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="264" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(12)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="264" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(12)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="264" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(12)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="193" y="276" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(13)).isDuplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="175" y="276" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(13)).getC2()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="102" y="276" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(13)).getCx()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="30" y="276" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(13)).getC1()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="115" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="129" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="143" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="156" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="169" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="183" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="196" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="210" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="224" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="237" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="251" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="264" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="275" width="7" height="5" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="101" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(0)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="114" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(1)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="143" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(3)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="129" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(2)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="170" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(5)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="156" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(4)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="252" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(11)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="224" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(9)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="197" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(7)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="210" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(8)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="238" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(10)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="184" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(6)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="276" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(13)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="211" y="264" width="10" height="6" backcolor="#000000">
+					<printWhenExpression><![CDATA[((loteca.dominio.Palpite)$F{palpites}.get(12)).isTriplo()]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="276" height="399"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="30" width="65" height="10"/>
+				<textElement markup="none">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cartela Nº"+$F{seqCartela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="5" width="275" height="15"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupoCartela}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="20" width="130" height="10"/>
+				<textElement markup="none">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Concurso Nº"+$F{loteca}.getNumConcurso()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

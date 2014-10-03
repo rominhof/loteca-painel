@@ -15,6 +15,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "Estatistica.findByLotecaEGrupoUsuario", query = "select e from loteca.dominio.Estatistica e where e.loteca.numConcurso = :numConcurso and e.grupoCartela.id = :idGrupo") })
 public class Estatistica implements Serializable {
@@ -37,7 +40,7 @@ public class Estatistica implements Serializable {
 	private GrupoCartela grupoCartela;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	// @LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<EstatisticaPalpites> estatisticaPalpites;
 
 	public Long getId() {

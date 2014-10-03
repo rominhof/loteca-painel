@@ -214,11 +214,14 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 		 	<h:panelGrid columns="4">
 		 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova"
 						 styleClass="botao" update=":formMain:painelCartelas"/>
-
+				<p:commandButton actionListener="#{bBLoteca.consultarEstatisticas}" value="Consultar Estatistica"
+						 styleClass="botao" oncomplete="PF('estatisticaDialog').show();" update=":estatisticaForm:estatisticaTable"/>
 				<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar"
 						 styleClass="botao" update=":formMain:msgs"/>
 				<p:commandButton actionListener="#{bBLoteca.concluirCartelas}" value="Concluir"
 						 styleClass="botao" update=":formMain:msgs, :formMain:painelCartelas" />
+				<p:commandButton action="#{bBLoteca.imprimirCartelas}" value="Imprimir" ajax="false"
+							 styleClass="botao" />
 			</h:panelGrid>
 		 
 	</p:panelGrid>
@@ -238,6 +241,92 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
     </h:panelGrid>
     </h:form>
     
+</p:dialog>
+
+<p:dialog widgetVar="estatisticaDialog" width="60%">
+
+	<f:facet name="header">
+		<h:outputText value="Estatisticas do Grupo Cartela"/>
+	</f:facet>
+	<h:form id="estatisticaForm">
+	
+	<p:dataTable var="ep" value="#{bBLoteca.estatistica.estatisticaPalpites}"
+	rowIndexVar="index" paginator="false" id="estatisticaTable"
+	style="width:100%; float:left; padding-right:5px; padding-bottom:5px;"  >
+			 		<f:facet name="header">
+			 			<h:outputText value="Estatisticas do #{bBLoteca.grupoCartela.nome} concurso #{bBLoteca.loteca.numConcurso}"/>
+			 		</f:facet>
+			 		
+			 		<p:column style="text-align:center; width:5px;">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:outputText value="#{ep.partida.sequencialJogo}"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:right;width:97px;">
+						<f:facet name="header">
+							<h:outputText value="Coluna 1"/>
+						</f:facet>
+						<h:outputText value="#{ep.partida.time1.nome}" />
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:center; width:12px;">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+							<h:outputText value="#{ep.porcentagemC1}%">
+								<f:convertNumber pattern="#,##0.00"/>
+							</h:outputText>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:center; width:12px;">
+						<f:facet name="header">
+							<h:outputText value=" X "/>
+						</f:facet>
+						<h:outputText value="#{ep.porcentagemCX}%">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="width:12px; text-align:center;">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:outputText value="#{ep.porcentagemC2}%">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="width:97px;">
+						<f:facet name="header">
+							<h:outputText value="Coluna 2"/>
+						</f:facet>
+						<h:outputText value="#{ep.partida.time2.nome}"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<f:facet name="footer">
+						<p:commandButton actionListener="#{bBLoteca.gerarEstatisticas}" value="Atualizar Estatisticas"
+						 styleClass="botao" update=":estatisticaForm:estatisticaTable"/>
+					</f:facet>
+			 		
+			 	</p:dataTable>
+			 	
+    </h:form>
 </p:dialog>
 
 </ui:define>
