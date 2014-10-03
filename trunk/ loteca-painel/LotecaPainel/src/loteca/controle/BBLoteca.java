@@ -2,19 +2,24 @@ package loteca.controle;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import loteca.dominio.Cartela;
+import loteca.dominio.Estatistica;
+import loteca.dominio.EstatisticaPalpites;
 import loteca.dominio.GrupoCartela;
 import loteca.dominio.Loteca;
 import loteca.dominio.Palpite;
 import loteca.dominio.Partida;
 import loteca.dominio.Usuario;
 import loteca.service.CartelaService;
+import loteca.service.EstatisticaService;
 import loteca.service.GrupoCartelaService;
 import loteca.service.LotecaService;
 import loteca.service.UsuarioService;
@@ -31,10 +36,13 @@ public class BBLoteca extends BBDefault {
 	private UsuarioService usuarioService;
 	private GrupoCartelaService grupoCartelaService;
 	private CartelaService cartelaService;
+	private EstatisticaService estatisticaService;
 	private List<Cartela> cartelas;
 	private List<Loteca> lotecas;
 	private Boolean atualizacaoAutomatica = Boolean.TRUE;
 	private Cartela cartelaSelecionada;
+	private Estatistica estatistica;
+	
 
 	public BBLoteca() {
 		usuarioService = new UsuarioService();
@@ -42,6 +50,7 @@ public class BBLoteca extends BBDefault {
 		grupoCartelaService = new GrupoCartelaService();
 		cartelaService = new CartelaService();
 		novoGrupoCartela = new GrupoCartela();
+		estatisticaService = new EstatisticaService();
 		carregaLotecaAtual();
 		carregaListaDeLotecas();
 	}
@@ -71,6 +80,17 @@ public class BBLoteca extends BBDefault {
 		 */
 		selecionaGrupoCartela();
 		System.out.println("atualizando tela");
+	}
+	
+	public void consultarEstatisticas(){
+		System.out.println("Consultando estatisticas");
+		estatistica = estatisticaService.consultarEstatisticaPorConcursoEGrupoUsuario(loteca, grupoCartela);
+	}
+	
+	public void gerarEstatisticas(){
+		System.out.println("Atualizando estatisticas");
+		estatisticaService.atualizarEstatistica(loteca, grupoCartela);
+		estatistica = estatisticaService.consultarEstatisticaPorConcursoEGrupoUsuario(loteca, grupoCartela);
 	}
 
 	public void salvarCartelas() {
@@ -119,6 +139,11 @@ public class BBLoteca extends BBDefault {
 
 	}
 	
+	public void selecionaLoteca(){
+			carregaGrupoCartelasEPalpites();
+
+	}
+	
 	private void carregaGrupoCartelasEPalpites(){
 		if(loteca!=null && getUsuarioLogado()!=null){
 			gruposCartelas = grupoCartelaService.consultarGruposCartelasPorUsuario(getUsuarioLogado());
@@ -151,6 +176,14 @@ public class BBLoteca extends BBDefault {
 		System.out.println("selecionou: "+grupoCartela);
 		carregaGrupoCartelasEPalpites();
 		ordenaCartelaEpalpites();
+	}
+	
+	public void imprimirCartelas(){
+		
+		//PARAMETROS		
+		Map<String, Comparable> map = new HashMap();
+
+		super.gerarPDFFromObjetosDataSource(map, "cartoes", cartelas);
 	}
 	
 	public void novaCartela(){
@@ -275,6 +308,15 @@ public class BBLoteca extends BBDefault {
 		this.cartelaSelecionada = cartelaSelecionada;
 	}
 
+	public Estatistica getEstatistica() {
+		return estatistica;
+	}
+
+	public void setEstatistica(Estatistica estatistica) {
+		this.estatistica = estatistica;
+	}
+
+	
 	
 	
 	

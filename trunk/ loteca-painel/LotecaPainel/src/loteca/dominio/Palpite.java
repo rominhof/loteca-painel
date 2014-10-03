@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Palpite implements Serializable, Comparable<Palpite> {
@@ -34,6 +35,11 @@ public class Palpite implements Serializable, Comparable<Palpite> {
 	private boolean jogoFinalizado;
 	private Resultado resultado;
 	private Boolean acerto;
+	
+	@Transient
+	private boolean duplo;
+	@Transient
+	private boolean triplo;
 
 	public Long getId() {
 		return id;
@@ -105,6 +111,26 @@ public class Palpite implements Serializable, Comparable<Palpite> {
 
 	public void setJogoFinalizado(boolean jogoFinalizado) {
 		this.jogoFinalizado = jogoFinalizado;
+	}
+	
+	
+
+	public boolean isDuplo() {
+		duplo = (c1&&cx&&!c2)||(c1&&c2&&!cx)||(c2&&cx&&!c1);
+		return duplo;
+	}
+
+	public void setDuplo(boolean duplo) {
+		this.duplo = duplo;
+	}
+
+	public boolean isTriplo() {
+		triplo = c1&&cx&&c2;
+		return triplo;
+	}
+
+	public void setTriplo(boolean triplo) {
+		this.triplo = triplo;
 	}
 
 	@Override

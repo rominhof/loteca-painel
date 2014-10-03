@@ -24,7 +24,7 @@
 </style>
 
 <h:form id="formMain"> 
-<p:poll interval="10" update="tabelaLoteca" 
+<p:poll interval="10" update="tabelaLoteca, cartelas" 
 listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 
  <p:messages id="msgs"  showDetail="true" autoUpdate="true"/>
@@ -105,7 +105,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 			
 		
 		<h:panelGroup columns="1" id="painelCartelas" style="border:dotted 0px #ffffff;" >
-	 	<p:panelGrid columns="1"  style="width:100%;" rendered="#{not empty bBLoteca.grupoCartela}" >
+	 	<p:panelGrid columns="1"  style="width:100%;" >
 	 		<f:facet name="header">
 	 			<h:outputText value="Grupo de Cartelas"></h:outputText>
 	 		</f:facet>
@@ -134,13 +134,18 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 			 </p:dataGrid>
 			 
 		
-			 	<h:panelGrid columns="3">
+			 	<h:panelGrid columns="4">
 			 		<p:commandButton actionListener="#{bBLoteca.novaCartela}" value="Nova"
 							 styleClass="botao" update=":formMain:painelCartelas"/>
 					<p:commandButton actionListener="#{bBLoteca.salvarCartelas}" value="Salvar"
 							 styleClass="botao" update=":formMain:msgs"/>
+					<p:commandButton actionListener="#{bBLoteca.consultarEstatisticas}" value="Consultar Estatistica"
+						 styleClass="botao" oncomplete="PF('estatisticaDialog').show();" update=":estatisticaForm:estatisticaTable"/>
 					<p:commandButton actionListener="#{bBLoteca.concluirCartelas}" value="Concluir"
 							 styleClass="botao" update=":formMain:msgs, :formMain:painelCartelas" />
+					<p:commandButton actionListener="#{bBLoteca.imprimirCartelas}" value="Imprimir"
+							 styleClass="botao" />
+							 
 				</h:panelGrid>
 			 
 			</p:panelGrid>
@@ -167,7 +172,7 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 	</f:facet>
 	<h:form id="detCartelaForm">
 	
-	<p:dataTable var="pt" value="#{bBLoteca.cartelaSelecionada.palpites}" 
+	<p:dataTable var="pt" value="#{bBLoteca.cartelaSelecionada.palpites}"
 	rowIndexVar="index" paginator="false" id="cartelaSelecionada"
 	style="width:100%; float:left; padding-right:5px; padding-bottom:5px; font-size:32px;"  >
 			 		<f:facet name="header">
@@ -194,12 +199,12 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 			       			
 			       		</f:facet>
 					</p:column>
-					<p:column style="text-align:right;width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+					<p:column style="text-align:center; width:12px;  #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 						<f:facet name="header">
 							<h:outputText value=""/>
 						</f:facet>
-						<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not c.concluida}"/>
-						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c1}" style="width:18px;"/>
+						<p:selectBooleanCheckbox value="#{pt.c1}" rendered="#{not bBLoteca.cartelaSelecionada.concluida}"/>
+						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{bBLoteca.cartelaSelecionada.concluida and pt.c1}" style="width:18px;"/>
 						<f:facet name="footer">
 			       			<h:outputText value="" style="font-weight:bold;"/>
 			       			
@@ -209,18 +214,18 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 						<f:facet name="header">
 							<h:outputText value=" X "/>
 						</f:facet>
-						<p:selectBooleanCheckbox value="#{pt.cx}" rendered="#{not c.concluida}"/>
-						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.cx}" style="width:18px;"/>
+						<p:selectBooleanCheckbox value="#{pt.cx}" rendered="#{not bBLoteca.cartelaSelecionada.concluida}"/>
+						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{bBLoteca.cartelaSelecionada.concluida and pt.cx}" style="width:18px;"/>
 						<f:facet name="footer">
 			       			<h:outputText value="" style="font-weight:bold;"/>
 			       		</f:facet>
 					</p:column>
-					<p:column  style="width:12px; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
+					<p:column  style="width:12px; text-align:center; #{not empty pt.acerto and not pt.acerto?'background-color:#FBEFEF;':pt.acerto?'background-color:#D8F6CE;':''}">
 						<f:facet name="header">
 							<h:outputText value=""/>
 						</f:facet>
-						<p:selectBooleanCheckbox value="#{pt.c2}" rendered="#{not c.concluida}"/>
-						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{c.concluida and pt.c2}" style="width:18px;"/>
+						<p:selectBooleanCheckbox value="#{pt.c2}" rendered="#{not bBLoteca.cartelaSelecionada.concluida}"/>
+						<h:graphicImage value="/img/check_cinza_2.png" rendered="#{bBLoteca.cartelaSelecionada.concluida and pt.c2}" style="width:18px;"/>
 						<f:facet name="footer">
 			       			<h:outputText value="" style="font-weight:bold;"/>
 			       		</f:facet>
@@ -249,6 +254,94 @@ listener="#{bBLoteca.atualizaEntidadesBanco}" global="false"/>
 					</p:column>
 			 		
 			 	</p:dataTable>
+    </h:form>
+</p:dialog>
+
+<p:dialog resizable="true" widgetVar="estatisticaDialog" width="100%" height="100%" draggable="true" maximizable="true">
+
+	<f:facet name="header">
+		<h:outputText value="Estatisticas do Grupo Cartela"/>
+	</f:facet>
+	<h:form id="estatisticaForm">
+	
+	<p:dataTable var="ep" value="#{bBLoteca.estatistica.estatisticaPalpites}"
+	rowIndexVar="index" paginator="false" id="estatisticaTable"
+	style="width:100%; float:left; padding-right:5px; padding-bottom:5px; font-size:30px;"  >
+			 		<f:facet name="header">
+			 			<h:outputText value="Estatisticas do #{bBLoteca.grupoCartela.nome} concurso #{bBLoteca.loteca.numConcurso}"/>
+			 		</f:facet>
+			 		
+			 		<p:column style="text-align:center; width:5px;">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:outputText value="#{ep.partida.sequencialJogo}"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:right;width:97px;">
+						<f:facet name="header">
+							<h:outputText value="Coluna 1"/>
+						</f:facet>
+						<h:outputText value="#{ep.partida.time1.nome}" />
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:center; width:12px;">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+							<h:outputText value="#{ep.porcentagemC1}%">
+								<f:convertNumber pattern="#,##0.00"/>
+							</h:outputText>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       				
+			       			
+			       		</f:facet>
+					</p:column>
+					<p:column style="text-align:center; width:12px;">
+						<f:facet name="header">
+							<h:outputText value=" X "/>
+						</f:facet>
+						<h:outputText value="#{ep.porcentagemCX}%">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="width:12px; text-align:center;">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:outputText value="#{ep.porcentagemC2}%">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<p:column  style="width:97px;">
+						<f:facet name="header">
+							<h:outputText value="Coluna 2"/>
+						</f:facet>
+						<h:outputText value="#{ep.partida.time2.nome}"/>
+						<f:facet name="footer">
+			       			<h:outputText value="" style="font-weight:bold;"/>
+			       		</f:facet>
+					</p:column>
+					<f:facet name="footer">
+						<p:commandButton actionListener="#{bBLoteca.gerarEstatisticas}" value="Atualizar Estatisticas"
+						 styleClass="botao" update=":estatisticaForm:estatisticaTable"/>
+					</f:facet>
+			 		
+			 	</p:dataTable>
+			 	
     </h:form>
 </p:dialog>
 
