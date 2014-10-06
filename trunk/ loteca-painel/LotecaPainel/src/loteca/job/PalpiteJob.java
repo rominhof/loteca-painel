@@ -61,8 +61,6 @@ public class PalpiteJob implements Job {
 			.getInstance().getValue("url.json.serie.c");
 	private static final String JSON_URL_BASILEIRO_SERIE_D = MessageUtil
 			.getInstance().getValue("url.json.serie.d");
-	private static final String JSON_URL_BASILEIRO_SERIE_A_FEMININO = MessageUtil
-			.getInstance().getValue("url.json.serie.a.feminino");
 
 	private static final String PATH_PASTA_JSON = MessageUtil.getInstance()
 			.getValue("pasta.json");
@@ -75,8 +73,6 @@ public class PalpiteJob implements Job {
 			.getInstance().getValue("arquivo.serie.c");
 	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_D = MessageUtil
 			.getInstance().getValue("arquivo.serie.d");
-	private static final String JSON_ARQUIVO_BASILEIRO_SERIE_A_FEMININO = MessageUtil
-			.getInstance().getValue("arquivo.serie.a.feminino");
 
 	private LotecaService lotecaService = null;
 	private CartelaService cartelaService = null;
@@ -91,8 +87,6 @@ public class PalpiteJob implements Job {
 				JSON_URL_BASILEIRO_SERIE_C);
 		dadosJogos.put(CampeonatoEnum.BRASILEIRO_SERIE_D,
 				JSON_URL_BASILEIRO_SERIE_D);
-		dadosJogos.put(CampeonatoEnum.BRASILEIRO_SERIE_A_FEMININO,
-				JSON_URL_BASILEIRO_SERIE_A_FEMININO);
 
 		arquivosJson.put(CampeonatoEnum.BRASILEIRO_SERIE_A,
 				JSON_ARQUIVO_BASILEIRO_SERIE_A);
@@ -102,8 +96,6 @@ public class PalpiteJob implements Job {
 				JSON_ARQUIVO_BASILEIRO_SERIE_C);
 		arquivosJson.put(CampeonatoEnum.BRASILEIRO_SERIE_D,
 				JSON_ARQUIVO_BASILEIRO_SERIE_D);
-		arquivosJson.put(CampeonatoEnum.BRASILEIRO_SERIE_A_FEMININO,
-				JSON_ARQUIVO_BASILEIRO_SERIE_A_FEMININO);
 	}
 
 	@Override
@@ -173,17 +165,30 @@ public class PalpiteJob implements Job {
 
 	private boolean temConfrontoNaCartela(Tabela tabela, Loteca lotecaAtual) {
 		boolean toReturn = false;
+		boolean erro = false;
 		Time timeMandante = timeService.consultaTimePorNome(tabela
 				.getMandante().replace('-', '/'));
 		Time timeVisitante = timeService.consultaTimePorNome(tabela
 				.getVisitante().replace('-', '/'));
 
-		for (Partida partida : lotecaAtual.getPartidas()) {
-			if (partida.getTime1().getNome().equals(timeMandante.getNome())
-					&& partida.getTime2().getNome()
-							.equals(timeVisitante.getNome())) {
-				toReturn = true;
-				break;
+		if (timeMandante == null) {
+			System.out.println("Time não localizado:" + tabela.getMandante());
+			erro = true;
+		}
+
+		if (timeVisitante == null) {
+			System.out.println("Time não localizado:" + tabela.getVisitante());
+			erro = true;
+		}
+
+		if (!erro) {
+			for (Partida partida : lotecaAtual.getPartidas()) {
+				if (partida.getTime1().getNome().equals(timeMandante.getNome())
+						&& partida.getTime2().getNome()
+								.equals(timeVisitante.getNome())) {
+					toReturn = true;
+					break;
+				}
 			}
 		}
 		return toReturn;
@@ -473,13 +478,15 @@ public class PalpiteJob implements Job {
 					.get(campeonato));
 
 			if (conteudoLocal == null || conteudoLocal.isEmpty()) {
-				System.out.println(SYSTEM_PREFIX
-						+ "Não existe arquivo local, baixando");
-				// Copiar o conteudo do Json para pasta local
-				getLotecaUtil().salvarJsonParaPastaLocal(conteudoSite,
-						pathArquivo);
-				atualizarConfronto(campeonato, conteudoSite);
-				retorno = true;
+				if (conteudoSite != null && !conteudoSite.isEmpty()) {
+					System.out.println(SYSTEM_PREFIX
+							+ "Não existe arquivo local, baixando");
+					// Copiar o conteudo do Json para pasta local
+					getLotecaUtil().salvarJsonParaPastaLocal(conteudoSite,
+							pathArquivo);
+					atualizarConfronto(campeonato, conteudoSite);
+					retorno = true;
+				}
 			} else {
 				System.out.println(SYSTEM_PREFIX + "Arquivo local localizado");
 				String hashConteudoSite = getLotecaUtil().getHashFromString(
