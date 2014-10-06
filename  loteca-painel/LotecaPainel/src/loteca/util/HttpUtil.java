@@ -36,16 +36,16 @@ public class HttpUtil {
 
 	public static String conteudoPagina(String... params) {
 		String urlString = params[0];
-		// HttpHost proxy = new HttpHost("10.70.124.16", 8080);
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpGet httpget = new HttpGet(urlString);
-		//Adicionando parametro de timeout para requisicao , 30 segundos.
-		httpclient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, 30000);
-		// httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
-
 		try {
-			HttpResponse response = httpclient.execute(httpget);
+			// HttpHost proxy = new HttpHost("10.70.124.16", 8080);
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httpget = new HttpGet(urlString);
+			// Adicionando parametro de timeout para requisicao , 30 segundos.
+			httpclient.getParams().setParameter(
+					HttpConnectionParams.CONNECTION_TIMEOUT, 30000);
+			// httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
+			HttpResponse response = httpclient.execute(httpget);
 
 			HttpEntity entity = response.getEntity();
 
