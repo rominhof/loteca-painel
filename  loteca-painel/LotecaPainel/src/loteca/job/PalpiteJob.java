@@ -11,11 +11,8 @@ import java.util.Map;
 
 import loteca.dominio.Campeonato;
 import loteca.dominio.CampeonatoEnum;
-import loteca.dominio.Cartela;
-import loteca.dominio.ChanceCartelaEnum;
 import loteca.dominio.ConfrontoNovo;
 import loteca.dominio.Loteca;
-import loteca.dominio.Palpite;
 import loteca.dominio.Partida;
 import loteca.dominio.Resultado;
 import loteca.dominio.StatusJogo;
@@ -37,7 +34,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class PalpiteJob implements Job {
-	private static final String SYSTEM_PREFIX = "LOTECA::";
+	public static final String SYSTEM_PREFIX = "LOTECA::";
 
 	private static final String STATUS_JOGO_FINALIZADO = "Finalizado";
 	private static final String STATUS_JOGO_AGENDADO = "Agendado";
@@ -131,7 +128,7 @@ public class PalpiteJob implements Job {
 				// Comparar a loteca atualizada com as cartelas jogadas
 				System.out
 						.println("Atualizando as cartelas de jogos de acordo com o resultado de momento");
-				compararCartelas(lotecaAtual);
+				getCartelaService().compararCartelas(lotecaAtual);
 
 				// Verificar se loteria foi encerrada
 				System.out.println(SYSTEM_PREFIX
@@ -367,95 +364,6 @@ public class PalpiteJob implements Job {
 			}
 		}
 		return retorno;
-	}
-
-	private void compararCartelas(Loteca lotecaAtual) {
-		List<Cartela> cartelas = getCartelaService().carregaCartelasDeConcurso(
-				lotecaAtual.getNumConcurso());
-
-		int sequencia = 0;
-		System.out.println(SYSTEM_PREFIX + "Total de " + cartelas.size()
-				+ " cartelas a serem comparadas");
-
-		for (Cartela cartela : cartelas) {
-			sequencia++;
-			System.out.println(SYSTEM_PREFIX + "Comparando cartela = "
-					+ sequencia);
-			int erros = 0;
-			int acertos = 0;
-			int sequenciaPalpite = 0;
-			for (Palpite palpite : cartela.getPalpites()) {
-				sequenciaPalpite++;
-				System.out.println(SYSTEM_PREFIX + "Comparando palpite = "
-						+ sequenciaPalpite + " da cartela = " + sequencia);
-				Partida particaPalpite = palpite.getPartida();
-				Partida particaGabarito = getPartidaLoteca(lotecaAtual,
-						particaPalpite.getTime1(), particaPalpite.getTime2());
-
-				if (particaGabarito != null
-						&& (particaGabarito.getStatusJogo() == StatusJogo.EM_ANDAMENTO
-								|| particaGabarito.getStatusJogo() == StatusJogo.INTERVALO || (particaGabarito
-								.getStatusJogo() == StatusJogo.FINALIZADO && !palpite
-								.isJogoFinalizado()))) {
-					boolean acerto = false;
-					boolean jogoFinalizado = false;
-					if (particaGabarito.getResultado() == Resultado.COLUNA_1
-							&& palpite.getC1()) {
-						acerto = true;
-					} else if (particaGabarito.getResultado() == Resultado.COLUNA_2
-							&& palpite.getC2()) {
-						acerto = true;
-					} else if (particaGabarito.getResultado() == Resultado.COLUNA_X
-							&& palpite.getCx()) {
-						acerto = true;
-					}
-
-					// Atualizar o contador de acertos e erros
-					if (acerto) {
-						acertos++;
-					} else {
-						erros++;
-					}
-
-					// Checar se o jogo foi finalizado
-					if (particaGabarito.getStatusJogo() == StatusJogo.FINALIZADO) {
-						System.out.println(SYSTEM_PREFIX
-								+ "Palpite finalizado!");
-						jogoFinalizado = true;
-					}
-
-					palpite.setJogoFinalizado(jogoFinalizado);
-					palpite.setAcerto(acerto);
-					palpite.setResultado(particaGabarito.getResultado());
-
-					// Atuaizar dados do palpite
-					getCartelaService().atualizarPalpite(palpite);
-				} else if (palpite.isJogoFinalizado()) {
-					if (palpite.getAcerto()) {
-						acertos++;
-					} else {
-						erros++;
-					}
-				}
-			}
-			cartela.setQtdAcertos(acertos);
-			cartela.setChance(erros == 0 ? ChanceCartelaEnum.CHANCES_14
-					: (erros == 1 ? ChanceCartelaEnum.CHANCES_13
-							: ChanceCartelaEnum.SEM_CHANCES));
-			getCartelaService().atualizarCartela(cartela);
-		}
-	}
-
-	private Partida getPartidaLoteca(Loteca lotecaAtual, Time time1, Time time2) {
-		Partida partidaLoteca = null;
-		for (Partida partida : lotecaAtual.getPartidas()) {
-			if (partida.getTime1().getNome().equals(time1.getNome())
-					&& partida.getTime2().getNome().equals(time2.getNome())) {
-				partidaLoteca = partida;
-				break;
-			}
-		}
-		return partidaLoteca;
 	}
 
 	private boolean atualizarJson() throws Exception {
