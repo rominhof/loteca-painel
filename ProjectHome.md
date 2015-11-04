@@ -1,0 +1,1 @@
+Gerenciamento dos resultados da loteca em tempo real
